@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --base-bg-color: #F8F9FF;
+}
+.font-base {
+  font-family: var(--font-baseEN), var(--font-baseZN);
+  font-size: 18px;
+  color: #4c4f69;
+}

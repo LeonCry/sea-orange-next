@@ -25,5 +25,7 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "prettier.semi": true,
+  "prettier.printWidth": 128 // 或者其他适合你的长度值，这个数值表示每行最大字符数
 }
