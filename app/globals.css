@@ -4,9 +4,14 @@
 
 :root {
   --base-bg-color: #F8F9FF;
+  --base-text-color: #4c4f69;
+  --light-text-color:#585b70;
+  --dark-text-color:#181926;
+  --base-light-color:#eff1f5;
+
 }
 .font-base {
   font-family: var(--font-baseEN), var(--font-baseZN);
   font-size: 18px;
-  color: #4c4f69;
+  color: var(--base-text-color);
 }

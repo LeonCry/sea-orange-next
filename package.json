@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-use": "^17.5.0",
     "sass": "^1.71.1",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "valtio": "^1.13.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",

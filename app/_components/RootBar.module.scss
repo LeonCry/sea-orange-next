@@ -1,6 +1,6 @@
 .rootBar {
-  @apply px-2 py-1 mx-1 cursor-pointer;
-  color: #585b70;
+  @apply px-2 py-1 mx-1;
+  color: var(--light-text-color);
   transition: all 0.2s;
   &:hover {
     @apply bg-indigo-50 pb-3;
