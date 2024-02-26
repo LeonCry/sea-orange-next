@@ -6,7 +6,7 @@ const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   //hover后内出现的小球
   const innerCircleRef = useRef<HTMLDivElement | null>(null);
-  const [innerShow, innerShowSet] = useState(true);
+  const [innerShow, innerShowSet] = useState(false);
   //最近一次的触发盒子元素
   let lastTriggerElement: HTMLElement | null = null;
   useEffect(() => {
@@ -42,19 +42,24 @@ const Cursor = () => {
     cursorRef.current!.style.left = `${targetOrigin.x}px`;
     cursorRef.current!.style.top = `${targetOrigin.y}px`;
     //更改target样式
-    let [deltaX, deltaY] = [point.x - targetOrigin.x, point.y - targetOrigin.y];
-    if (Math.abs(deltaX) > 2.5) deltaX = deltaX > 0 ? 2.5 : -2.5;
-    if (Math.abs(deltaY) > 2.5) deltaY = deltaY > 0 ? 2.5 : -2.5;
+    //最大鼠标移动时target移动距离
+    const maxMoveDistance = 3;
+    const maxMoveDistanceX = width / 2;
+    const maxMoveDistanceY = height / 2;
+    let [deltaX, deltaY] = [
+      ((point.x - targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
+      ((point.y - targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
+    ];
+    // if (Math.abs(deltaX) > 2.5) deltaX = deltaX > 0 ? 2.5 : -2.5;
+    // if (Math.abs(deltaY) > 2.5) deltaY = deltaY > 0 ? 2.5 : -2.5;
     target.style.transition = 'transform 150ms ease-in-out';
     target.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     lastTriggerElement = target;
     //更改inner小球的样式
     innerShowSet(true);
     if (innerCircleRef.current && innerShow) {
-      innerCircleRef.current.style.left = `${point.x - targetOrigin.x}px`;
-      innerCircleRef.current.style.top = `${point.y - targetOrigin.y}px`;
-      console.log(point);
-      console.dir(innerCircleRef.current);
+      innerCircleRef.current.style.left = `${point.x - targetOrigin.x + width / 2}px`;
+      innerCircleRef.current.style.top = `${point.y - targetOrigin.y + height / 2}px`;
     }
   };
   // 重置cursor与target的样式
