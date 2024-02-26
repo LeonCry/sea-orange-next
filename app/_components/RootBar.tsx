@@ -12,10 +12,15 @@ const RootBar = () => {
   const iconStyle = 'p-2 mx-1 rounded-full transition-all hover:bg-pink-100';
   const [isLike, isLikeSet] = useState(false);
   return (
-    <ol className={`w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
+    <ol className={`w-full h-16 flex items-center justify-end sticky top-0 ${chakraEN.className}`}>
       <li className={`${style.rootBar} ${pathName === '/blog' ? liActiveStyle : null}`}>
         <Link className="cursor-none" href={'/blog'}>
           BLOG
+        </Link>
+      </li>
+      <li className={`${style.rootBar} ${pathName === '/camera' ? liActiveStyle : null}`}>
+        <Link className="cursor-none" href={'/camera'}>
+          CAMERA
         </Link>
       </li>
       <li className={`${style.rootBar} ${pathName === '/gossip' ? liActiveStyle : null}`}>

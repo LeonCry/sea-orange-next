@@ -50,8 +50,6 @@ const Cursor = () => {
       ((point.x - targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
       ((point.y - targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
     ];
-    // if (Math.abs(deltaX) > 2.5) deltaX = deltaX > 0 ? 2.5 : -2.5;
-    // if (Math.abs(deltaY) > 2.5) deltaY = deltaY > 0 ? 2.5 : -2.5;
     target.style.transition = 'transform 150ms ease-in-out';
     target.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     lastTriggerElement = target;

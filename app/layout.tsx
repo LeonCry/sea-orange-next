@@ -3,6 +3,7 @@ import './globals.css';
 import { baseEN, baseZN } from '@/style/defineFont';
 import RootBar from './_components/RootBar';
 import Cursor from '@/components/cursor/Cursor';
+import BackView from './_background/BackView';
 export const metadata: Metadata = {
   title: 'Sea Orange',
   description:
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Cursor />
         <RootBar />
         {children}
+        <BackView />
       </body>
     </html>
   );
