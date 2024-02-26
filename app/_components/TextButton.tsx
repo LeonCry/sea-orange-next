@@ -5,7 +5,7 @@ const TextButton = () => {
   return (
     <button
       onClick={() => console.log('click')}
-      className="w-32 ml-96 h-10 bg-red-500 cursor-none hover:bg-green-500 box-trigger rounded"
+      className="w-32 ml-96 h-10 bg-red-500 cursor-none hover:bg-green-500 box-trigger rounded-full"
     >
       Click me
     </button>
