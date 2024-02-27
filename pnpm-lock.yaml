@@ -11,6 +11,12 @@ dependencies:
   antd:
     specifier: ^5.14.1
     version: 5.14.1(react-dom@18.2.0)(react@18.2.0)
+  matter-js:
+    specifier: ^0.19.0
+    version: 0.19.0
+  matter-wrap:
+    specifier: ^0.2.0
+    version: 0.2.0
   next:
     specifier: 14.1.0
     version: 14.1.0(react-dom@18.2.0)(react@18.2.0)(sass@1.71.1)
@@ -34,6 +40,9 @@ dependencies:
     version: 1.13.1(@types/react@18.2.57)(react@18.2.0)
 
 devDependencies:
+  '@types/matter-js':
+    specifier: ^0.19.6
+    version: 0.19.6
   '@types/node':
     specifier: ^20.11.19
     version: 20.11.19
@@ -496,6 +505,10 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/matter-js@0.19.6:
+    resolution: {integrity: sha512-ffk6tqJM5scla+ThXmnox+mdfCo3qYk6yMjQsNcrbo6eQ5DqorVdtnaL+1agCoYzxUjmHeiNB7poBMAmhuLY7w==}
     dev: true
 
   /@types/node@20.11.19:
@@ -2321,6 +2334,14 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /matter-js@0.19.0:
+    resolution: {integrity: sha512-v2huwvQGOHTGOkMqtHd2hercCG3f6QAObTisPPHg8TZqq2lz7eIY/5i/5YUV8Ibf3mEioFEmwibcPUF2/fnKKQ==}
+    dev: false
+
+  /matter-wrap@0.2.0:
+    resolution: {integrity: sha512-Gp3tETlN6uZftc1Jnv1sogQd8uB2Xh4c5bQ18qKR6KOMfUlsS8vztrC1vDrZS8eg4MuwE1AgZEcwxI41BSW6oQ==}
+    dev: false
 
   /mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
