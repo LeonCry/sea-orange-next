@@ -3,6 +3,14 @@
   color: var(--light-text-color);
   transition: all 0.2s;
   &:hover {
-    @apply bg-indigo-50 pb-3;
+    padding-bottom: 12px;
+    background: linear-gradient(to bottom, #fff6ef, #FFFFFF);
+  }
+}
+.icon {
+  @apply p-2 mx-1 rounded-full;
+  transition: all 150ms;
+  &:hover {
+    transform: rotateZ(-24deg) translateY(-2px);
   }
 }
