@@ -3,7 +3,9 @@ import './globals.css';
 import { baseEN, baseZN } from '@/style/defineFont';
 import RootBar from './_components/RootBar';
 import Cursor from '@/components/cursor/Cursor';
-import BackView from './_background/BackView';
+import dynamic from 'next/dynamic';
+//懒加载,pixi.js在服务端渲染会报错:worker is not defined
+const BackView = dynamic(() => import('./_background/BackView'), { ssr: false });
 export const metadata: Metadata = {
   title: 'Sea Orange',
   description:
