@@ -38,6 +38,7 @@ const BackView = () => {
       Events.off(engine, 'afterUpdate', () => afterUpdateHandler(rains, engine.world));
       window.removeEventListener('mousemove', (e) => mouseListener(e, engine.world));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const rainInit = (render: Render) => {
     const maxRainCount = 1000;

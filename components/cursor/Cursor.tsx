@@ -14,6 +14,7 @@ const Cursor = () => {
     return () => {
       window.removeEventListener('mousemove', (e) => handleMove(e));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [innerShow]);
   const handleMove = (e: MouseEvent) => {
     if (!cursorRef.current) return;
@@ -37,20 +38,20 @@ const Cursor = () => {
     const targetOrigin = { x: left + width / 2, y: top + height / 2 };
     //更改cursor样式
     cursorRef.current!.style.borderRadius = targetStyle.borderTopLeftRadius;
-    cursorRef.current!.style.width = `${width + 10}px`;
-    cursorRef.current!.style.height = `${height + 10}px`;
+    cursorRef.current!.style.width = `${width + 14}px`;
+    cursorRef.current!.style.height = `${height + 14}px`;
     cursorRef.current!.style.left = `${targetOrigin.x}px`;
     cursorRef.current!.style.top = `${targetOrigin.y}px`;
     //更改target样式
     //最大鼠标移动时target移动距离
-    const maxMoveDistance = 3;
+    const maxMoveDistance = 4;
     const maxMoveDistanceX = width / 2;
     const maxMoveDistanceY = height / 2;
     let [deltaX, deltaY] = [
       ((point.x - targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
       ((point.y - targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
     ];
-    target.style.transition = 'transform 150ms ease-in-out';
+    target.style.transition = 'transform 50ms ease-in-out';
     target.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     lastTriggerElement = target;
     //更改inner小球的样式
