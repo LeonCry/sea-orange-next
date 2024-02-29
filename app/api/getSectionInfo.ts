@@ -1,5 +1,9 @@
 const getSectionInfo = () => {
   return {
+    "/": {
+      title: "home",
+      description: "seaorange.me"
+    },
     "/blog": {
       title: "bLoG",
       description: "Learning notes and reflections.",
