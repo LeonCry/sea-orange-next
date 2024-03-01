@@ -1,6 +1,7 @@
 import { useTick, Graphics } from '@pixi/react';
 import type { Graphics as GraphicsType, Ticker } from 'pixi.js';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, memo } from 'react';
+const GraphicsMemo = memo(Graphics);
 class Branch {
   originPoint: [number, number];
   endPoint: [number, number];
@@ -140,13 +141,12 @@ const TreeGrow = () => {
   );
   useTick(handleTick);
   useEffect(() => {
-    const current = graphicsRef.current;
-    if (!current) return;
-    current.lineStyle(0.3, 0x000000, 0.3);
+    if (!graphicsRef.current) return;
+    graphicsRef.current.lineStyle(0.3, 0x000000, 0.3);
   });
   return (
     <>
-      <Graphics ref={graphicsRef}></Graphics>
+      <GraphicsMemo ref={graphicsRef}></GraphicsMemo>
     </>
   );
 };
