@@ -1,6 +1,6 @@
 import { useTick, Graphics } from '@pixi/react';
 import type { Graphics as GraphicsType, Ticker } from 'pixi.js';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 class Branch {
   originPoint: [number, number];
   endPoint: [number, number];
@@ -116,7 +116,7 @@ const TreeGrow = () => {
     const nextPoint = [lastEndPoint[0] + rotatedUnitX * curLen, lastEndPoint[1] + rotatedUnitY * curLen];
     return nextPoint as [number, number];
   };
-  let remainPoints = branchGenerated();
+  const remainPoints: Branch[] = useMemo(() => branchGenerated(), []);
   const graphicsRef = useRef<GraphicsType | null>(null);
   const handleTick = useCallback(
     (delta: number, ticker: Ticker) => {
@@ -138,15 +138,11 @@ const TreeGrow = () => {
     },
     [remainPoints]
   );
-  const [isTick, setIsTick] = useState(true);
-  useTick(handleTick, isTick);
+  useTick(handleTick);
   useEffect(() => {
     const current = graphicsRef.current;
     if (!current) return;
     current.lineStyle(0.3, 0x000000, 0.3);
-    return () => {
-      setIsTick(false);
-    };
   });
   return (
     <>
@@ -154,5 +150,4 @@ const TreeGrow = () => {
     </>
   );
 };
-
 export default TreeGrow;
