@@ -1,6 +1,6 @@
 import { useTick, Graphics } from '@pixi/react';
 import type { Graphics as GraphicsType, Ticker } from 'pixi.js';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 class Branch {
   originPoint: [number, number];
   endPoint: [number, number];
@@ -10,7 +10,7 @@ class Branch {
   nextBranch: Branch[];
   constructor(originPoint: [number, number], endPoint: [number, number], len: number) {
     //每走一步的时间
-    this.stepTime = Math.floor(Math.random() * 30 + 60);
+    this.stepTime = Math.floor(Math.random() * 60 + 60);
     this.originPoint = originPoint;
     this.endPoint = endPoint;
     this.len = len;
@@ -28,33 +28,50 @@ const TreeGrow = () => {
   const width = document.documentElement.clientWidth;
   const height = document.documentElement.clientHeight;
   //plum单步最大长度
-  const maxLen = 15;
-  const minLen = 15;
+  const maxLen = 20;
+  const minLen = 20;
   //初始分支数量
-  const initBranchNum = 3;
+  const initBranchNum = 2;
   //初始分支生成概率
-  const initBranchRate = 0.8;
+  const initBranchRate = 1;
   //单个plum最大分支数
   const maxBranch = 2;
   //每个分支生成概率
-  const branchRate = 0.5;
+  const branchRate = 0.55;
   //所有plum最大分支树
-  const limitBranch = 1000;
+  const limitBranch = 1400;
   const branchGenerated = () => {
+    let hasSelected: number = -1;
     const originPointArr = Array.from({ length: initBranchNum }, () => {
-      if (Math.random() > initBranchRate) return;
-      const side = Math.floor(Math.random() * 4);
-      const xRandom = Math.random() * width;
-      const yRandom = Math.random() * height;
+      //随机模式
+      // if (Math.random() > initBranchRate) return;
+      // const side = Math.floor(Math.random() * 4);
+      // const xRandom = Math.random() * width;
+      // const yRandom = Math.random() * height;
+      // switch (side % 4) {
+      //   case 0:
+      //     return new Branch([xRandom, 0], [xRandom, 1], 1);
+      //   case 1:
+      //     return new Branch([width, yRandom], [width - 1, yRandom], 1);
+      //   case 2:
+      //     return new Branch([xRandom, height], [xRandom, height - 1], 1);
+      //   case 3:
+      //     return new Branch([0, yRandom], [1, yRandom], 1);
+      //对角线模式
+      let side = Math.floor(Math.random() * 3.9);
+      if (hasSelected === side) side = side === 0 ? side + 1 : side - 1;
+      hasSelected = side;
       switch (side % 4) {
         case 0:
-          return new Branch([xRandom, 0], [xRandom, 1], 1);
+          return new Branch([0, 0], [1, 1], 1);
         case 1:
-          return new Branch([width, yRandom], [width - 1, yRandom], 1);
+          return new Branch([width, 0], [width - 1, 1], 1);
         case 2:
-          return new Branch([xRandom, height], [xRandom, height - 1], 1);
+          return new Branch([width, height], [width - 1, height - 1], 1);
         case 3:
-          return new Branch([0, yRandom], [1, yRandom], 1);
+          return new Branch([0, height], [1, height - 1], 1);
+        default:
+          return new Branch([0, height], [1, height - 1], 1);
       }
     }).filter(Boolean) as Branch[];
     originPointArr.forEach((item) => {
@@ -112,6 +129,8 @@ const TreeGrow = () => {
         item.stepTime--;
         graphicsRef.current!.lineTo(...item.originPoint);
         if (item.stepTime <= 0) {
+          graphicsRef.current!.arc(item.originPoint[0], item.originPoint[1], 1, 0, Math.PI * 2);
+          // graphicsRef.current!.drawStar(...item.originPoint, 5, 15, 5, 0);
           remainPoints.splice(i, 1);
           remainPoints.push(...item.nextBranch);
         }
@@ -119,10 +138,15 @@ const TreeGrow = () => {
     },
     [remainPoints]
   );
-  useTick(handleTick);
+  const [isTick, setIsTick] = useState(true);
+  useTick(handleTick, isTick);
   useEffect(() => {
-    if (!graphicsRef.current) return;
-    graphicsRef.current.lineStyle(0.3, 0x000000, 0.3);
+    const current = graphicsRef.current;
+    if (!current) return;
+    current.lineStyle(0.3, 0x000000, 0.3);
+    return () => {
+      setIsTick(false);
+    };
   });
   return (
     <>

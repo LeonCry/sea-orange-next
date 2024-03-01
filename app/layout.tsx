@@ -6,6 +6,7 @@ import Cursor from '@/components/cursor/Cursor';
 import dynamic from 'next/dynamic';
 import Header from './_components/Header';
 import getSectionInfo from './api/getSectionInfo';
+import Test from './_components/Test';
 //懒加载,pixi.js在服务端渲染会报错:worker is not defined
 const BackView = dynamic(() => import('./_background/BackView'), { ssr: false });
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
         <Header sectionInfo={sectionInfos} />
         {children}
         <BackView />
+        <Test />
       </body>
     </html>
   );

@@ -8,6 +8,9 @@ dependencies:
   '@icon-park/react':
     specifier: ^1.4.2
     version: 1.4.2(react-dom@18.2.0)(react@18.2.0)
+  '@pixi/graphics-extras':
+    specifier: ^7.4.0
+    version: 7.4.0(@pixi/core@7.4.0)(@pixi/graphics@7.4.0)
   '@pixi/react':
     specifier: ^7.1.1
     version: 7.1.1(@babel/runtime@7.23.9)(@pixi/app@7.4.0)(@pixi/constants@7.4.0)(@pixi/core@7.4.0)(@pixi/display@7.4.0)(@pixi/extensions@7.4.0)(@pixi/graphics@7.4.0)(@pixi/math@7.4.0)(@pixi/mesh-extras@7.4.0)(@pixi/mesh@7.4.0)(@pixi/particle-container@7.4.0)(@pixi/sprite-animated@7.4.0)(@pixi/sprite-tiling@7.4.0)(@pixi/sprite@7.4.0)(@pixi/text-bitmap@7.4.0)(@pixi/text@7.4.0)(@pixi/ticker@7.4.0)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
@@ -538,6 +541,16 @@ packages:
       '@pixi/core': 7.4.0
     dependencies:
       '@pixi/core': 7.4.0
+    dev: false
+
+  /@pixi/graphics-extras@7.4.0(@pixi/core@7.4.0)(@pixi/graphics@7.4.0):
+    resolution: {integrity: sha512-uSQx3TLTeIFrNARnIxnOaNZiDAll6bJU53yt+5dSgY1kydd9j/6Pg40F/deyvyu7Sqgz4wPgmrafjLwmD+vgYA==}
+    peerDependencies:
+      '@pixi/core': 7.4.0
+      '@pixi/graphics': 7.4.0
+    dependencies:
+      '@pixi/core': 7.4.0
+      '@pixi/graphics': 7.4.0(@pixi/core@7.4.0)(@pixi/display@7.4.0)(@pixi/sprite@7.4.0)
     dev: false
 
   /@pixi/graphics@7.4.0(@pixi/core@7.4.0)(@pixi/display@7.4.0)(@pixi/sprite@7.4.0):
