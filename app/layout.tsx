@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     'welcome to visit sea orange, a collection of several small features, some front-end demos and learning notes on a personal website! ',
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

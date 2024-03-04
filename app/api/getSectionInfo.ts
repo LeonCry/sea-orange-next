@@ -1,4 +1,4 @@
-const getSectionInfo = () => {
+const getSectionInfo = async () => {
   return {
     "/": {
       title: "home",

@@ -1,6 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
+  console.log(sectionInfo);
   const pathName = usePathname();
   return (
     <section>
