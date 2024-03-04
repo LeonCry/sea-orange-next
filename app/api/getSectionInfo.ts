@@ -1,11 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 const getSectionInfo = async () => {
-  const main = () => {
-    const section = prisma.sectionInfo.findMany();
-    return section;
-  };
-  return main()
+  return prisma.sectionInfo.findMany()
     .catch((e: any) => {
       console.error(e);
       process.exit(1);
