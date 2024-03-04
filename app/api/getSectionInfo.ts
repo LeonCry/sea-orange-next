@@ -1,33 +1,17 @@
+"use server";
+import prisma from "@/lib/prisma";
 const getSectionInfo = async () => {
-  return {
-    "/": {
-      title: "home",
-      description: "seaorange.me"
-    },
-    "/blog": {
-      title: "bLoG",
-      description: "Learning notes and reflections.",
-    },
-    "/project": {
-      title: "ProJecT",
-      description: "Completed and ongoing projects."
-    },
-    "/camera": {
-      title: "CamErA",
-      description: "Stunning photographs I've captured."
-    },
-    "/funny": {
-      title: "FuNnY",
-      description: "Interesting demos that I have implemented."
-    },
-    "/gossip": {
-      title: "GoSsiP",
-      description: "Speak out freely, all in the pursuit of supervised democracy!"
-    },
-    "/about": {
-      title: "AbOuT",
-      description: "seaorange with me."
-    },
+  const main = () => {
+    const section = prisma.sectionInfo.findMany();
+    return section;
   };
+  return main()
+    .catch((e: any) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
 };
 export default getSectionInfo;

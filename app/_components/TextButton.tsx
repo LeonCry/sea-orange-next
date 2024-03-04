@@ -1,7 +1,6 @@
 'use client';
-
-import { useRef } from 'react';
 const TextButton = () => {
+  console.log('running...');
   return (
     <button
       onClick={() => console.log('click')}

@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import { uploadVisit } from './_serverFn/server';
 import { useEffect } from 'react';
-import getUserAgentData from '@/utils/getUserAgentData';
+import getUserAgentData from '@/lib/getUserAgentData';
 const RootTemplate = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
   useEffect(() => {
