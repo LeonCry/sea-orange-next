@@ -27,6 +27,6 @@ const getUserAgentData = () => {
   } else {
     browserInfo = "Unknown Browser";
   }
-  return { os: osInfo, browser: browserInfo };
+  return { machine: osInfo, browser: browserInfo };
 };
 export default getUserAgentData;

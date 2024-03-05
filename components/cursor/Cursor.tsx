@@ -38,6 +38,7 @@ const Cursor = () => {
     const targetOrigin = { x: left + width / 2, y: top + height / 2 };
     //更改cursor样式
     cursorRef.current!.style.borderRadius = targetStyle.borderTopLeftRadius;
+    cursorRef.current!.style.borderColor = targetStyle.backgroundColor;
     cursorRef.current!.style.width = `${width + 14}px`;
     cursorRef.current!.style.height = `${height + 14}px`;
     cursorRef.current!.style.left = `${targetOrigin.x}px`;
@@ -66,6 +67,7 @@ const Cursor = () => {
     cursorRef.current!.style.width = '20px';
     cursorRef.current!.style.height = '20px';
     cursorRef.current!.style.borderRadius = '50%';
+    cursorRef.current!.style.borderColor = '#585b70';
     if (!lastTriggerElement) return;
     lastTriggerElement.style.transform = 'none';
     innerCircleRef.current = null;

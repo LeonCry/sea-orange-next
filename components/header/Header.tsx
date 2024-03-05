@@ -1,8 +1,8 @@
 'use client';
 import { usePathname } from 'next/navigation';
-const Header = ({ sectionInfo }: { sectionInfo: Record<string, any>[] }) => {
+const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
   const pathName = usePathname();
-  const curSection = sectionInfo.find((item) => item.path === pathName);
+  const curSection = sectionInfo[pathName];
   return (
     <section>
       <h1 className="text-center w-full text-3xl font-bold pb-2">{curSection?.title}</h1>
