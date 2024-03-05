@@ -16,23 +16,34 @@
   font-size: 18px;
   color: var(--base-text-color);
 }
+.page-dropDown {
+  width: 80%;
+  margin-left: 10%;
+  overflow: hidden;
+  animation: dropdownAnimation .66s linear;
+}
 
 /* Webkit内核的浏览器 */
 ::-webkit-scrollbar {
   width: 5px; /* 滚动条整体宽度 */
   height: 5px; /* 对于垂直滚动条的高度 */
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #b9bac482; /* 滚动滑块的颜色 */
   border-radius: 5px; /* 滚动滑块圆角 */
 }
-
 ::-webkit-scrollbar-track {
   background-color: transparent; /* 滚动轨道背景颜色 */
   border-radius: 5px; /* 轨道圆角 */
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background-color: #999aa378; /* 鼠标悬停在滚动滑块时的颜色 */
+}
+@keyframes dropdownAnimation {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 80%;
+  }
 }

@@ -14,7 +14,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
       const differenceInMilliseconds = Math.abs(time.getTime() - overTime.getTime());
       const spendTime = Math.floor(differenceInMilliseconds / 1000) + '';
       if (spendTime === '0') return;
-      const infos = { path, machine, browser, time: time.toLocaleDateString(), spendTime };
+      const infos = { path, machine, browser, time: time.toLocaleString(), spendTime };
       uploadVisit(infos);
     };
   }, [pathName]);

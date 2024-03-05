@@ -7,12 +7,11 @@ import style from './RootBar.module.scss';
 import { useState } from 'react';
 const RootBar = () => {
   const pathName = usePathname();
-  console.log('pathName:', pathName);
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);
   return (
-    <header className="mb-10">
-      <ol className={`w-full h-16 flex items-center justify-end sticky top-0 ${chakraEN.className}`}>
+    <header className="mb-10 sticky top-0 bg-white">
+      <ol className={`w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
         <li className={`${style.rootBar}  ${pathName === '/blog' ? liActiveStyle : null}`}>
           <Link className="cursor-none" href={'/blog'}>
             BLOG

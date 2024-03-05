@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//每个section信息
 model SectionInfo {
   id          Int    @id @default(autoincrement())
   path        String
@@ -16,6 +17,7 @@ model SectionInfo {
   @@map(name: "section_info")
 }
 
+//访问信息
 model VisitTime {
   id        Int    @id @default(autoincrement())
   browser   String
@@ -25,4 +27,19 @@ model VisitTime {
   spendTime String
 
   @@map(name: "visit_time")
+}
+
+//Funny page 的项目信息
+model FunnyPageItem {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  icon        String
+  path        String
+  sorted      Int
+  isShow      Boolean
+  category    String
+  sourceUrl   String
+
+  @@map(name: "funny_page_item")
 }

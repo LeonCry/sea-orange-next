@@ -1,0 +1,19 @@
+.itemBox {
+  position: relative;
+  width: 360px;
+  margin: 10px;
+  margin-left: 20px;margin-right: 20px;
+  background-color: #c5c5c511;
+  color: rgba(39, 39, 39, 0.5);
+  transition: all .15s;
+  border-radius: 10px;
+  cursor: none;
+  &:hover {
+    background-color: #8881;
+     color: #585b70;
+  }
+  &:hover > div > span {
+     color: #8c8d97;
+  }
+
+}

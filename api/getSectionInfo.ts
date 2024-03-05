@@ -8,6 +8,6 @@ const getSectionInfo = async () => {
 };
 //提交每个界面的访问信息
 const uploadVisit = async (info: Omit<VisitTime, 'id'>) => {
-  return executeWithDb(() => prisma.visitTime.create({ data: info }));
+  // return executeWithDb(() => prisma.visitTime.create({ data: info }));
 };
 export { getSectionInfo, uploadVisit };

@@ -1,12 +1,11 @@
 'use client';
 // 触发盒子class: box-trigger
 import style from './Cursor.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   //hover后内出现的小球
   const innerCircleRef = useRef<HTMLDivElement | null>(null);
-  const [innerShow, innerShowSet] = useState(false);
   //最近一次的触发盒子元素
   let lastTriggerElement: HTMLElement | null = null;
   useEffect(() => {
@@ -15,7 +14,7 @@ const Cursor = () => {
       window.removeEventListener('mousemove', (e) => handleMove(e));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerShow]);
+  }, []);
   const handleMove = (e: MouseEvent) => {
     if (!cursorRef.current) return;
     const point = { x: e.pageX, y: e.pageY };
@@ -39,6 +38,8 @@ const Cursor = () => {
     //更改cursor样式
     cursorRef.current!.style.borderRadius = targetStyle.borderTopLeftRadius;
     cursorRef.current!.style.borderColor = targetStyle.backgroundColor;
+    cursorRef.current!.style.animationDuration = '0.5s';
+    // cursorRef.current!.style.borderColor = 'transparent';
     cursorRef.current!.style.width = `${width + 14}px`;
     cursorRef.current!.style.height = `${height + 14}px`;
     cursorRef.current!.style.left = `${targetOrigin.x}px`;
@@ -52,12 +53,12 @@ const Cursor = () => {
       ((point.x - targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
       ((point.y - targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
     ];
-    target.style.transition = 'transform 50ms ease-in-out';
+    target.style.transition += ',transform 50ms ease-in-out';
     target.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     lastTriggerElement = target;
     //更改inner小球的样式
-    innerShowSet(true);
-    if (innerCircleRef.current && innerShow) {
+    if (innerCircleRef.current) {
+      innerCircleRef.current.style.opacity = '1';
       innerCircleRef.current.style.left = `${point.x - targetOrigin.x + width / 2}px`;
       innerCircleRef.current.style.top = `${point.y - targetOrigin.y + height / 2}px`;
     }
@@ -68,14 +69,14 @@ const Cursor = () => {
     cursorRef.current!.style.height = '20px';
     cursorRef.current!.style.borderRadius = '50%';
     cursorRef.current!.style.borderColor = '#585b70';
+    cursorRef.current!.style.animationDuration = '0s';
     if (!lastTriggerElement) return;
     lastTriggerElement.style.transform = 'none';
-    innerCircleRef.current = null;
-    innerShowSet(false);
+    innerCircleRef.current!.style.opacity = '0';
   };
   return (
     <div ref={cursorRef} className={style.default}>
-      {innerShow ? <div ref={innerCircleRef} className={style.innerCircle} /> : null}
+      <div ref={innerCircleRef} className={style.innerCircle} />
     </div>
   );
 };
