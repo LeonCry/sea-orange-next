@@ -2,9 +2,10 @@
 import Link from 'next/link';
 import style from './ItemBox.module.scss';
 import Icon from '@icon-park/react/es/all';
-const ItemBox = () => {
+import { forwardRef } from 'react';
+const ItemBox = forwardRef((props, ref: any) => {
   return (
-    <Link href={'/'} className={`${style.itemBox} flex box-trigger`}>
+    <Link ref={ref} href={'/'} className={`${style.itemBox} flex box-trigger`}>
       <Icon type="Camera" size={36} className="ml-4 self-center" />
       <div className="flex-1 ml-4 flex flex-col py-2">
         <h6>Camera</h6>
@@ -12,6 +13,6 @@ const ItemBox = () => {
       </div>
     </Link>
   );
-};
-
+});
+ItemBox.displayName = 'ItemBox';
 export default ItemBox;

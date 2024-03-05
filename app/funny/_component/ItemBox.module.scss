@@ -7,6 +7,8 @@
   color: rgba(39, 39, 39, 0.5);
   transition: all .15s;
   border-radius: 10px;
+  animation: show-move .8s ease-in-out alternate;
+  animation-play-state:paused;
   cursor: none;
   &:hover {
     background-color: #8881;
@@ -15,5 +17,18 @@
   &:hover > div > span {
      color: #8c8d97;
   }
-
+}
+@keyframes show-move {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
