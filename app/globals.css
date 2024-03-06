@@ -20,7 +20,7 @@
   width: 80%;
   margin-left: 10%;
   overflow: hidden;
-  animation: dropdownAnimation .66s linear;
+  animation: dropdownAnimation 1s linear;
 }
 
 /* Webkit内核的浏览器 */

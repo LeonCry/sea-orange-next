@@ -12,32 +12,32 @@ const RootBar = () => {
   return (
     <header className="mb-10 sticky top-0 bg-white">
       <ol className={`w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
-        <li className={`${style.rootBar}  ${pathName === '/blog' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar}  ${pathName === '/blog' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/blog'}>
             BLOG
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/project' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar} ${pathName === '/project' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/project'}>
             PROJECT
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/camera' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar} ${pathName === '/camera' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/camera'}>
             CAMERA
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/funny' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar} ${pathName === '/funny' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/funny'}>
             FUNNY
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/gossip' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar} ${pathName === '/gossip' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/gossip'}>
             GOSSIP
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/about' ? liActiveStyle : null}`}>
+        <li className={`${style.rootBar} ${pathName === '/about' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/about'}>
             ABOUT
           </Link>
