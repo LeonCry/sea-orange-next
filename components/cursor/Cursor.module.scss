@@ -1,6 +1,6 @@
 .default {
   position: absolute;
-  transition: width .25s ease, height .25s ease, border-radius .25s ease, transform 150ms ease-in-out, left .05s linear, top .05s linear;
+  transition: width .25s ease, height .25s ease, transform 150ms ease-in-out;
   width: 20px; height: 20px;
   border: 2px solid var(--light-text-color);
   border-radius: 50%;

@@ -1,3 +1,9 @@
+.main {
+    background-image: radial-gradient(transparent 2px, white 2px);
+    background-size: 4px 4px;
+    backdrop-filter: saturate(50%) blur(4px);
+    -webkit-backdrop-filter: saturate(50%) blur(4px);
+}
 .rootBar {
   @apply px-2 py-1 mx-1;
   color: var(--light-text-color);
