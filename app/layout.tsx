@@ -19,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cn" className={`${baseEN.variable} ${baseZN.variable}`}>
+    <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
       <body className="font-base bg-base-bg-color cursor-none h-svh">
         <Cursor />
         <RootBar />

@@ -10,10 +10,9 @@
     "start": "next start",
     "lint": "next lint",
     "cz": "git add . && cz",
-    "//": "数据库重新部署",
+    "//": "已有数据库同步",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate deploy",
     "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate deploy",
-    "//": "已有数据库同步",
     "migrateDiff:dev": "npx dotenv -e .env.dev  prisma migrate dev --name change",
     "migrateDiff:prod": "npx dotenv -e .env.prod  prisma migrate dev --name change"
   },
@@ -23,6 +22,7 @@
     "@pixi/react": "^7.1.1",
     "@prisma/client": "^5.10.2",
     "antd": "^5.15.0",
+    "lodash": "^4.17.21",
     "matter-js": "^0.19.0",
     "matter-wrap": "^0.2.0",
     "next": "14.1.0",
@@ -36,6 +36,7 @@
     "valtio": "^1.13.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/matter-js": "^0.19.6",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
