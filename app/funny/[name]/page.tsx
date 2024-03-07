@@ -11,14 +11,13 @@ export const generateStaticParams = async () => {
 };
 const FunnyItem = async ({ params }: { params: { name: string } }) => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
-  console.log(projectInfo, params.name);
   if (projectInfo.findIndex((item) => item.path === params.name) === -1) {
     return <section>404 NOT FOUND</section>;
   }
   const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
   return (
     <section>
-      <DynamicComponents />;
+      <DynamicComponents />
     </section>
   );
 };
