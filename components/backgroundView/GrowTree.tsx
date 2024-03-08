@@ -24,8 +24,6 @@ class Branch {
   }
 }
 const GrowTree = () => {
-  const width = document.documentElement.clientWidth;
-  const height = document.documentElement.clientHeight;
   //plum单步最大长度
   const maxLen = 15;
   const minLen = 10;
@@ -40,7 +38,7 @@ const GrowTree = () => {
   const branchRate = 0.5;
   //所有plum最大分支树
   const limitBranch = 3000;
-  const branchGenerated = useCallback(() => {
+  const branchGenerated = useCallback((width: number, height: number) => {
     let originPointArr;
     //对角线模式
     if (generateMode) {
@@ -135,19 +133,26 @@ const GrowTree = () => {
     }
     requestAnimationFrame(() => handleCb(ctx, remainPoints));
   }, []);
-  const remainPoints: Branch[] = useMemo(() => branchGenerated(), []);
   useEffect(() => {
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    const remainPoints: Branch[] = branchGenerated(width, height);
     const ctx = canvasRef.current?.getContext('2d');
+    canvasRef.current!.width = width;
+    canvasRef.current!.height = height;
     if (!ctx) return;
-    const location = [100, 100] as [number, number];
     ctx.lineWidth = 0.3;
     ctx.strokeStyle = 'rgba(0,0,0,0.3)';
     ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    requestAnimationFrame(() => handleCb(ctx, remainPoints));
-  }, [handleCb, remainPoints]);
+    const frameId = requestAnimationFrame(() => handleCb(ctx, remainPoints));
+    return () => {
+      ctx.clearRect(0, 0, width, height);
+      cancelAnimationFrame(frameId);
+    };
+  }, [handleCb, branchGenerated]);
   return (
     <section>
-      <canvas ref={canvasRef} width={width} height={height}></canvas>
+      <canvas ref={canvasRef}></canvas>
     </section>
   );
 };
