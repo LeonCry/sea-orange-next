@@ -3,11 +3,9 @@ import './globals.css';
 import { baseEN, baseZN } from '@/style/defineFont';
 import RootBar from '../components/rootBar/RootBar';
 import Cursor from '@/components/cursor/Cursor';
-import dynamic from 'next/dynamic';
 import Header from '../components/header/Header';
+import BackView from '../components/backgroundView/BackView';
 import getSectionDescription from '@/lib/getSectionDescription';
-//懒加载,pixi.js在服务端渲染会报错:worker is not defined
-const BackView = dynamic(() => import('../components/backgroundView/BackView'), { ssr: false });
 export const metadata: Metadata = {
   title: 'Sea Orange',
   description:
@@ -25,7 +23,7 @@ export default async function RootLayout({
         <RootBar />
         <Header sectionInfo={getSectionDescription} />
         {children}
-        {/* <BackView /> */}
+        <BackView />
       </body>
     </html>
   );

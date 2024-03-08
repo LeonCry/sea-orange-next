@@ -23,56 +23,54 @@ class Branch {
     this.nextBranch.push(nextBranch);
   }
 }
-const Demo = () => {
-  const width = 1620;
-  const height = 800;
+const GrowTree = () => {
+  const width = document.documentElement.clientWidth;
+  const height = document.documentElement.clientHeight;
   //plum单步最大长度
-  const maxLen = 20;
-  const minLen = 20;
+  const maxLen = 15;
+  const minLen = 10;
   //初始分支数量
   const initBranchNum = 2;
   //初始分支生成概率
   const initBranchRate = 1;
+  const generateMode = 1; //[随机模式,对角线模式]
   //单个plum最大分支数
   const maxBranch = 2;
   //每个分支生成概率
-  const branchRate = 0.55;
+  const branchRate = 0.5;
   //所有plum最大分支树
-  const limitBranch = 2000;
+  const limitBranch = 3000;
   const branchGenerated = useCallback(() => {
-    let hasSelected: number = -1;
-    const originPointArr = Array.from({ length: initBranchNum }, () => {
-      //随机模式
-      // if (Math.random() > initBranchRate) return;
-      // const side = Math.floor(Math.random() * 4);
-      // const xRandom = Math.random() * width;
-      // const yRandom = Math.random() * height;
-      // switch (side % 4) {
-      //   case 0:
-      //     return new Branch([xRandom, 0], [xRandom, 1], 1);
-      //   case 1:
-      //     return new Branch([width, yRandom], [width - 1, yRandom], 1);
-      //   case 2:
-      //     return new Branch([xRandom, height], [xRandom, height - 1], 1);
-      //   case 3:
-      //     return new Branch([0, yRandom], [1, yRandom], 1);
-      //对角线模式
-      let side = Math.floor(Math.random() * 3.9);
-      if (hasSelected === side) side = side === 0 ? side + 1 : side - 1;
-      hasSelected = side;
-      switch (side % 4) {
-        case 0:
-          return new Branch([0, 0], [1, 1], 1);
-        case 1:
-          return new Branch([width, 0], [width - 1, 1], 1);
-        case 2:
-          return new Branch([width, height], [width - 1, height - 1], 1);
-        case 3:
-          return new Branch([0, height], [1, height - 1], 1);
-        default:
-          return new Branch([0, height], [1, height - 1], 1);
-      }
-    }).filter(Boolean) as Branch[];
+    let originPointArr;
+    //对角线模式
+    if (generateMode) {
+      const diagonalBranch = [
+        [new Branch([0, 0], [1, 1], 1), new Branch([width, height], [width - 1, height - 1], 1)],
+        [new Branch([width, 0], [width - 1, 1], 1), new Branch([0, height], [1, height - 1], 1)],
+        [new Branch([0, height / 2], [1, height / 2], 1), new Branch([width, height / 2], [width - 1, height / 2], 1)],
+      ];
+      originPointArr = Math.random() > 0.5 ? diagonalBranch[0] : Math.random() > 0.5 ? diagonalBranch[1] : diagonalBranch[2];
+    }
+    //随机模式
+    else {
+      originPointArr = Array.from({ length: initBranchNum }, () => {
+        //随机模式
+        if (Math.random() > initBranchRate) return;
+        const side = Math.floor(Math.random() * 4);
+        const xRandom = Math.random() * width;
+        const yRandom = Math.random() * height;
+        switch (side % 4) {
+          case 0:
+            return new Branch([xRandom, 0], [xRandom, 1], 1);
+          case 1:
+            return new Branch([width, yRandom], [width - 1, yRandom], 1);
+          case 2:
+            return new Branch([xRandom, height], [xRandom, height - 1], 1);
+          case 3:
+            return new Branch([0, yRandom], [1, yRandom], 1);
+        }
+      }).filter(Boolean) as Branch[];
+    }
     originPointArr.forEach((item) => {
       const branchNum = 1;
       branchLoop([item], branchNum);
@@ -128,7 +126,7 @@ const Demo = () => {
       ctx.closePath();
       if (item.stepTime <= 0) {
         ctx.beginPath();
-        ctx.arc(item.originPoint[0], item.originPoint[1], 1, 0, Math.PI * 2, true);
+        ctx.arc(item.originPoint[0], item.originPoint[1], 0.5, 0, Math.PI * 2, true);
         ctx.stroke();
         ctx.closePath();
         remainPoints.splice(i, 1);
@@ -149,9 +147,9 @@ const Demo = () => {
   }, [handleCb, remainPoints]);
   return (
     <section>
-      <canvas ref={canvasRef} width={1620} height={800}></canvas>
+      <canvas ref={canvasRef} width={width} height={height}></canvas>
     </section>
   );
 };
 
-export default Demo;
+export default GrowTree;
