@@ -3,6 +3,7 @@
 import type { FunnyPageItem } from '@prisma/client';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import dynamic from 'next/dynamic';
+import Modal from '../_component/Modal';
 export const generateStaticParams = async () => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
   return projectInfo.map((item) => ({
@@ -16,9 +17,9 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
   }
   const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
   return (
-    <section>
+    <Modal>
       <DynamicComponents />
-    </section>
+    </Modal>
   );
 };
 

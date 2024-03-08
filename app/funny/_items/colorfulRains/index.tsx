@@ -143,19 +143,22 @@ const BackView = () => {
     });
   };
   return (
-    <main className=" absolute top-0 w-full h-full bg-base-bg-color">
-      <div className="h-16" />
-      <canvas className="w-full" ref={container}></canvas>
-      <Image
-        src={sleepingCat}
-        alt="sleepCat"
-        style={{ left: document.documentElement.clientWidth / 2 + 100 }}
-        width={65}
-        height={65}
-        className="absolute bottom-0"
-      />
-      <div></div>
-    </main>
+    <section className="h-full flex flex-col items-center gap-3">
+      <div className="w-[65%] h-[65%] border rounded-xl relative">
+        <canvas className="w-full h-full border rounded-xl" ref={container}></canvas>
+        <Image
+          src={sleepingCat}
+          alt="sleepCat"
+          style={{ left: document.documentElement.clientWidth / 2 + 100 }}
+          width={65}
+          height={65}
+          className="absolute bottom-0"
+        />
+      </div>
+      <div id="options" className="w-[90%] flex-1 py-6 px-32 border-t-4 border-dotted overflow-auto">
+        <h1>配置项</h1>
+      </div>
+    </section>
   );
 };
 

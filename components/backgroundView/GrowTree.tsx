@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 class Branch {
   originPoint: [number, number];
   endPoint: [number, number];

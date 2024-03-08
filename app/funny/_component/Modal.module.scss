@@ -1,0 +1,22 @@
+
+.puffOut {
+  animation: puff-out-center-ani 1s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+  animation-play-state: paused;
+}
+
+@keyframes puff-out-center-ani {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+    opacity: 0;
+  }
+}
