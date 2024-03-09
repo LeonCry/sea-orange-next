@@ -134,26 +134,23 @@ const GrowTree = () => {
     requestAnimationFrame(() => handleCb(ctx, remainPoints));
   }, []);
   useEffect(() => {
+    const ctx = canvasRef.current?.getContext('2d');
+    if (!ctx) return;
     const width = canvasRef.current!.width;
     const height = canvasRef.current!.height;
-    // const remainPoints: Branch[] = branchGenerated(width, height);
-    const ctx = canvasRef.current?.getContext('2d');
-    console.dir(canvasRef.current!.parentElement);
-    if (!ctx) return;
+    const remainPoints: Branch[] = branchGenerated(width, height);
     ctx.lineWidth = 0.5;
     ctx.strokeStyle = 'rgba(0,0,0,0.3)';
     ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    // const frameId = requestAnimationFrame(() => handleCb(ctx, remainPoints));
+    const frameId = requestAnimationFrame(() => handleCb(ctx, remainPoints));
     return () => {
       ctx.clearRect(0, 0, width, height);
-      // cancelAnimationFrame(frameId);
+      cancelAnimationFrame(frameId);
     };
   }, [handleCb, branchGenerated]);
   return (
     <section className="h-full flex flex-col items-center gap-3">
-      <div className="w-[65%] h-[65%] border rounded-xl bg-white relative">
-        <canvas className="w-full h-full" ref={canvasRef}></canvas>
-      </div>
+      <canvas className="border rounded-xl bg-white relative" width="1000px" height="550px" ref={canvasRef}></canvas>
       <div id="options" className="w-[90%] flex-1 py-6 px-32 border-t-4 border-dotted overflow-auto">
         <h1>配置项</h1>
       </div>
