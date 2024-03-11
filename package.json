@@ -10,9 +10,10 @@
     "start": "next start",
     "lint": "next lint",
     "cz": "git add . && cz",
-    "//": "已有数据库同步",
+    "///": "初始化数据库",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate deploy",
     "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate deploy",
+    "//": "已有数据库同步",
     "migrateDiff:dev": "npx dotenv -e .env.dev  prisma migrate dev --name change",
     "migrateDiff:prod": "npx dotenv -e .env.prod  prisma migrate dev --name change"
   },
@@ -34,6 +35,7 @@
     "react-use": "^17.5.0",
     "sass": "^1.71.1",
     "scss": "^0.2.4",
+    "use-immer": "^0.9.0",
     "valtio": "^1.13.2"
   },
   "devDependencies": {

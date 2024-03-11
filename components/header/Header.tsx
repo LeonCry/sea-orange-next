@@ -5,7 +5,11 @@ import { ReactTyped } from 'react-typed';
 import { AppProgressBar } from 'next-nprogress-bar';
 const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
   const pathName = usePathname();
-  const curSection = sectionInfo[pathName];
+  const secPath = '/' + pathName.split('/')[1];
+  let curSection = sectionInfo[secPath];
+  if (pathName.split('/').length > 2 && (curSection.title === 'FuNnY' || curSection.title === 'bLoG')) {
+    curSection = undefined;
+  }
   return (
     <section>
       <AppProgressBar height="2px" color="#4F46E5" options={{ showSpinner: false }} />

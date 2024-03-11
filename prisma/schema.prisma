@@ -58,3 +58,49 @@ model ProjectPageItem {
 
   @@map(name: "project_page_item")
 }
+
+//blog page 的项目信息
+model BlogPageItem {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  icon        String
+  path        String
+  sorted      Int
+  isShow      Boolean
+  category    String
+  file        String
+  content     Bytes
+
+  @@map(name: "blog_page_item")
+}
+
+//camera page 的项目信息
+model CameraPageItem {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  device      String
+  path        String
+  sorted      Int
+  isShow      Boolean
+  category    String
+  photoSrc    String
+
+  @@map(name: "camera_page_item")
+}
+
+//Gossip page 的项目信息
+model GossipPageItem {
+  id             Int      @id @default(autoincrement())
+  userName       String
+  commentContent String
+  device         String
+  brower         String
+  isShow         Boolean
+  date           DateTime @default(now())
+  stars          Int
+  headImg        String
+
+  @@map(name: "Gossip_page_item")
+}

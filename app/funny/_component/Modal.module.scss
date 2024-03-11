@@ -1,4 +1,8 @@
-
+.content {
+  width: 100%;
+  height: calc(100% - 64px);
+  position: absolute;
+}
 .puffOut {
   animation: puff-out-center-ani 1s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
   animation-play-state: paused;

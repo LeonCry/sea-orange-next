@@ -9,7 +9,12 @@ const ItemBox = ({ projectInfo }: { projectInfo: FunnyPageItem }) => {
   const element = useRef<any>(null);
   const isIntoView = useIntersectionObserver(element);
   return (
-    <Link ref={element} href={`/funny/${projectInfo.path}`} className={`${style.itemBox} box-trigger`}>
+    <Link
+      ref={element}
+      href={`/funny/${projectInfo.path}`}
+      style={{ opacity: isIntoView ? 1 : 0 }}
+      className={`${style.itemBox} box-trigger`}
+    >
       {isIntoView && (
         <div className="flex">
           <Icon type={projectInfo.icon} size={36} className="ml-4 self-center" />

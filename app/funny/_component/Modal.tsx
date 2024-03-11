@@ -14,14 +14,16 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
     router.back();
   };
   return (
-    <section
-      ref={modalRef}
-      className={`${style.puffOut} w-[90%] h-[85%] left-[5%] absolute z-10 top-20 backdrop-blur-sm rounded-3xl p-4 border shadow-2xl shadow-indigo-100`}
-    >
-      <div className="absolute right-0 top-0 p-4 transition duration-300 hover:rotate-180">
-        <AppletClosed theme="outline" size="20" fill="#000000" strokeWidth={2} onClick={handleClose} />
+    <section className={`absolute backdrop-blur-sm z-10 top-[64px] ${style.content}`}>
+      <div
+        ref={modalRef}
+        className={`${style.puffOut} w-[90%] h-[90%] ml-[5%] mt-6 backdrop-blur-sm rounded-3xl p-4 border shadow-2xl shadow-indigo-100`}
+      >
+        <div className="absolute right-0 top-0 p-4 transition duration-300 hover:rotate-180">
+          <AppletClosed theme="outline" size="20" fill="#000000" strokeWidth={2} onClick={handleClose} />
+        </div>
+        {children}
       </div>
-      {children}
     </section>
   );
 };
