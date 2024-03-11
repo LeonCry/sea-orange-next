@@ -43,3 +43,18 @@ model FunnyPageItem {
 
   @@map(name: "funny_page_item")
 }
+
+//Project page 的项目信息
+model ProjectPageItem {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  icon        String
+  path        String
+  sorted      Int
+  isShow      Boolean
+  category    String
+  sourceUrl   String
+
+  @@map(name: "project_page_item")
+}
