@@ -58,7 +58,6 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
         type: 'warning',
         content: "It's on the first page.",
       });
-    console.log(allComments);
     if (nextPage > Math.ceil(allComments / 30))
       return messageApi.open({
         type: 'warning',

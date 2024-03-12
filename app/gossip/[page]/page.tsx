@@ -1,8 +1,8 @@
-import { getCommentInGossip, getCommentNum } from '@/api/gossipPageApi';
-import { GossipPageItem } from '@prisma/client';
-import CommentItem from './_component/CommentItem';
+import { getCommentNum } from '@/api/gossipPageApi';
 import WriteBox from './_component/WriteBox';
-import style from './page.module.scss';
+import { Suspense } from 'react';
+import Main from './_component/MainBox';
+import Loading from '@/components/loading/Loading';
 export const generateStaticParams = async () => {
   const commentCount: number = await getCommentNum();
   const pages = Math.ceil(commentCount / 30);
@@ -11,17 +11,12 @@ export const generateStaticParams = async () => {
   }));
 };
 const page = async ({ params }: { params: { page: string } }) => {
-  const comments: GossipPageItem[] = await getCommentInGossip(params.page);
-  const allComments: number = await getCommentNum();
   return (
-    <section className={`${style.main}`}>
-      <div className="flex-1 w-full overflow-auto flex flex-wrap justify-evenly gap-10 relative">
-        {comments.map((c, i) => (
-          <CommentItem key={i} comment={c} />
-        ))}
-      </div>
-      <WriteBox curPage={params.page} allComments={allComments} />
-    </section>
+    <Suspense fallback={<Loading />}>
+      <Main page={params.page}>
+        <WriteBox curPage={params.page} allComments={0} />
+      </Main>
+    </Suspense>
   );
 };
 
