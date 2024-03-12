@@ -16,4 +16,11 @@ const getAllBlogInfo = async () => {
     },
   }));
 };
-export { getAllBlogInfo };
+const getBlogInfoById = async (id: number) => {
+  return executeWithDb(() => prisma.blogPageItem.findUnique({
+    where: {
+      id
+    }
+  }));
+};
+export { getAllBlogInfo, getBlogInfoById };
