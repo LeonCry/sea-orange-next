@@ -1,0 +1,44 @@
+.itemBox {
+  position: relative;
+  width: 360px;
+  height: 90px;
+  overflow: hidden;
+  margin: 10px;
+  margin-left: 20px;margin-right: 20px;
+  padding-right: 16px;
+  background-color: #c5c5c511;
+  color: rgba(39, 39, 39, 0.5);
+  transition: all .25s;
+  border-radius: 10px;
+  cursor: none;
+  &:hover {
+    background-color: #8881;
+    color: #585b70;
+    font-weight: bold;
+    height: 400px;
+  }
+  &:hover > div > div > h6 {
+    width: calc(100% - 82px);
+    left: 82px;
+    top: 32px;
+  }
+  &:hover > div > div > span {
+    font-weight: 400;
+    color: #8c8d97;
+    overflow: hidden;
+    text-overflow: inherit;
+    white-space: wrap;
+    display: inline-block;
+    top: 70px;
+    width: 100%;
+    left: 10px;
+    // padding: 10px;
+    padding: 0 10px;
+    height: 320px;
+    line-height: 28px;
+    background-image: repeating-linear-gradient(to bottom, lightgray, lightgray 1px,transparent 1px,transparent 28px);
+    background-size: 1px 100%;
+    background-clip:content-box;
+    background-repeat: repeat-x;
+  }
+}

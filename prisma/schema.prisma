@@ -48,7 +48,7 @@ model FunnyPageItem {
 model ProjectPageItem {
   id          Int     @id @default(autoincrement())
   name        String
-  description String
+  description String  @db.VarChar(1000)
   icon        String
   path        String
   sorted      Int
@@ -63,7 +63,7 @@ model ProjectPageItem {
 model BlogPageItem {
   id          Int     @id @default(autoincrement())
   name        String
-  description String
+  description String  @db.VarChar(1000)
   icon        String
   path        String
   sorted      Int
@@ -79,7 +79,7 @@ model BlogPageItem {
 model CameraPageItem {
   id          Int     @id @default(autoincrement())
   name        String
-  description String
+  description String  @db.VarChar(1000)
   device      String
   path        String
   sorted      Int

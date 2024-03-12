@@ -1,5 +1,5 @@
 'use client';
-import Lottie, { useLottie } from 'lottie-react';
+import { useLottie } from 'lottie-react';
 import loadingLottie from './LoadingSearch.json';
 const Loading = () => {
   const style = {

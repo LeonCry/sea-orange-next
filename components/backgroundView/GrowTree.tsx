@@ -9,7 +9,7 @@ class Branch {
   nextBranch: Branch[];
   constructor(originPoint: [number, number], endPoint: [number, number], len: number) {
     //每走一步的时间
-    this.stepTime = Math.floor(Math.random() * 60 + 60);
+    this.stepTime = Math.floor(Math.random() * 30 + 30);
     this.originPoint = originPoint;
     this.endPoint = endPoint;
     this.len = len;
