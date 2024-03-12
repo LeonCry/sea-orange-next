@@ -14,7 +14,10 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>) => {
     const io = new IntersectionObserver(callback, {
       threshold: 1,
     });
-    if (elements) io.observe(elements.current);
+    if (elements) {
+      elements.current.classList.add("show-move-animation");
+      io.observe(elements.current);
+    }
     return () => {
       io.disconnect();
     };

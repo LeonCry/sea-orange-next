@@ -7,37 +7,38 @@ import style from './RootBar.module.scss';
 import { useState } from 'react';
 const RootBar = () => {
   const pathName = usePathname();
+  const secPath = '/' + pathName.split('/')[1];
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);
   return (
     <header className="mb-10 sticky top-0">
       <ol className={`${style.main} w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
-        <li className={`${style.rootBar}  ${pathName === '/blog' && liActiveStyle}`}>
+        <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/blog'}>
             BLOG
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/project' && liActiveStyle}`}>
+        <li className={`${style.rootBar} ${secPath === '/project' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/project'}>
             PROJECT
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/camera' && liActiveStyle}`}>
+        <li className={`${style.rootBar} ${secPath === '/camera' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/camera'}>
             CAMERA
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/funny' && liActiveStyle}`}>
+        <li className={`${style.rootBar} ${secPath === '/funny' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/funny'}>
             FUNNY
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/gossip' && liActiveStyle}`}>
+        <li className={`${style.rootBar} ${secPath === '/gossip' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/gossip'}>
             GOSSIP
           </Link>
         </li>
-        <li className={`${style.rootBar} ${pathName === '/about' && liActiveStyle}`}>
+        <li className={`${style.rootBar} ${secPath === '/about' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/about'}>
             ABOUT
           </Link>

@@ -22,6 +22,14 @@
   overflow: hidden;
   animation: dropdownAnimation 1s linear;
 }
+.drop-animation {
+  overflow: hidden;
+  animation: dropdownAnimation 1s linear;
+}
+.show-move-animation {
+  animation: show-move .8s ease-in-out alternate;
+  animation-play-state:paused;
+}
 
 /* Webkit内核的浏览器 */
 ::-webkit-scrollbar {
@@ -45,5 +53,22 @@
   }
   100% {
     height: 80%;
+  }
+}
+@keyframes show-move {
+  0% {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 0.5;
+    filter: blur(1px);
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0px);
   }
 }

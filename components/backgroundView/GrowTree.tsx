@@ -94,8 +94,9 @@ const GrowTree = () => {
   const getEndPointByVertical = useCallback(
     (lastOriginPoint: [number, number], lastEndPoint: [number, number], curLen: number, i: number) => {
       const r = Math.random();
-      const ratio = Math.random() * 20 + 15;
-      const arc = r > 0.5 ? Math.random() * ratio + 270 : Math.random() * -ratio + 270;
+      // const ratio = Math.random() * 20 + 15;
+      // const arc = r > 0.5 ? Math.random() * ratio + 270 : Math.random() * -ratio + 270;
+      const arc = r > 0.5 ? 280 : 260;
       const vecX = lastEndPoint[0] - lastOriginPoint[0];
       const vecY = lastEndPoint[1] - lastOriginPoint[1];
       const vecLen = Math.hypot(vecX, vecY);

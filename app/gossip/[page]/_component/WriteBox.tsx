@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import style from './WriteBox.module.scss';
 import { Button, Rate, Select, message } from 'antd';
 import { useImmer } from 'use-immer';
@@ -7,12 +7,12 @@ import getUserAgentData from '@/lib/getUserAgentData';
 import { insertComment } from '@/api/gossipPageApi';
 import { LeftSquare, MessageUnread, RightSquare, ToBottomOne } from '@icon-park/react';
 import { useRouter } from 'next/navigation';
-const WriteBox = ({ curPage }: { curPage: string }) => {
+const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: number }) => {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [loadings, setLoadings] = useState<boolean>(false);
   const [showWriteBox, setShowWriteBox] = useState<boolean>(false);
-  const [sectionClass, setSectionClass] = useState(style['section-reverse']);
+  const [sectionClass, setSectionClass] = useState(style['section']);
   const [comment, setComment] = useImmer({
     rate: '',
     name: '',
@@ -38,26 +38,39 @@ const WriteBox = ({ curPage }: { curPage: string }) => {
     setLoadings(true);
     await insertComment(comment as any, machine, browser);
     setLoadings(false);
-    setComment((draft) => {
-      draft = {
-        rate: '',
-        name: '',
-        mood: '',
-        message: '',
-      };
-    });
     handleChangeShowWriteBox(true);
     router.refresh();
   };
   const handleChangeShowWriteBox = (isShow: boolean) => {
+    setComment((draft) => {
+      draft.rate = '';
+      draft.message = '';
+      draft.mood = '';
+      draft.name = '';
+    });
     setShowWriteBox(!isShow);
     setSectionClass(isShow ? style['section-reverse'] : style['section-start']);
+  };
+  const handlePageChange = (swiftPage: number) => {
+    const nextPage = parseInt(curPage) + swiftPage;
+    if (nextPage <= 0)
+      return messageApi.open({
+        type: 'warning',
+        content: "It's on the first page.",
+      });
+    console.log(allComments);
+    if (nextPage > Math.ceil(allComments / 30))
+      return messageApi.open({
+        type: 'warning',
+        content: "It's on the last page.",
+      });
+    router.push('/gossip/' + nextPage);
   };
   return (
     <>
       <div className="w-[500px] z-10 self-center mb-[-16px] flex justify-center gap-2">
         <Button type="text" className="cursor-none">
-          <LeftSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} />
+          <LeftSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} onClick={() => handlePageChange(-1)} />
         </Button>
         {showWriteBox ? (
           <Button type="text" className="cursor-none" onClick={() => handleChangeShowWriteBox(true)}>
@@ -69,7 +82,7 @@ const WriteBox = ({ curPage }: { curPage: string }) => {
           </Button>
         )}
         <Button type="text" className="cursor-none">
-          <RightSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} />
+          <RightSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} onClick={() => handlePageChange(1)} />
         </Button>
       </div>
       <section className={sectionClass} key={sectionClass}>
@@ -83,7 +96,7 @@ const WriteBox = ({ curPage }: { curPage: string }) => {
             onChange={(event) => handleInputChange('name', event?.target.value)}
             id="it_2"
             type="text"
-            maxLength={8}
+            maxLength={6}
             className={`${style.inputs} w-36`}
           />
           <label htmlFor="it_3" className=" !text-gray-300">

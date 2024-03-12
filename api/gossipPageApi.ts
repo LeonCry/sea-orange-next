@@ -9,8 +9,8 @@ const getCommentNum = async () => {
 const getCommentInGossip = async (page: string) => {
   const pageInt = parseInt(page);
   return executeWithDb(() => prisma.gossipPageItem.findMany({
-    skip: (pageInt - 1) * 50,
-    take: 50,
+    skip: (pageInt - 1) * 30,
+    take: 30,
   }));
 };
 //插入一条评论
