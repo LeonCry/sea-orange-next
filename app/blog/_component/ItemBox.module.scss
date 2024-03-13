@@ -1,7 +1,7 @@
 .itemBox {
   position: relative;
   width: 360px;
-  height: 90px;
+  height: 400px;
   overflow: hidden;
   margin: 10px;
   margin-left: 20px;margin-right: 20px;
@@ -12,17 +12,16 @@
   border-radius: 10px;
   cursor: none;
   &:hover {
-    background-color: #8881;
+    background-color: rgba(136, 136, 136, 0.114);
     color: #585b70;
     font-weight: bold;
-    height: 400px;
   }
-  &:hover > div > div > h6 {
+   > div > div > h6 {
     width: calc(100% - 82px);
     left: 82px;
     top: 32px;
   }
-  &:hover > div > div > span {
+   > div > div > span {
     font-weight: 400;
     color: #8c8d97;
     overflow: hidden;
@@ -40,5 +39,8 @@
     background-size: 1px 100%;
     background-clip:content-box;
     background-repeat: repeat-x;
+    &:hover {
+      color: #585b70;
+    }
   }
 }

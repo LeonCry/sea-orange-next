@@ -19,8 +19,8 @@ const ItemBox = ({ projectInfo }: { projectInfo: BlogPageItem }) => {
         <div className="flex relative">
           <Icon type={projectInfo.icon} size={36} className="p-4 py-7" />
           <div className="flex-1 ml-4 flex flex-col py-2">
-            <h6 className="transition-all duration-300 absolute left-20 top-2">{projectInfo.name}</h6>
-            <span className="transition-all duration-300 absolute left-20 top-8 leading-4 h-12 mt-1 text-sm text-gray-300 text-truncate line-clamp-3">
+            <h6 className="transition-all duration-500 absolute left-20 top-2">{projectInfo.name}</h6>
+            <span className="absolute transition-all duration-500 leading-4 mt-1 hyphens-auto text-sm">
               {projectInfo.description}
             </span>
           </div>
