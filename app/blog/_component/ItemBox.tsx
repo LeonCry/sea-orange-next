@@ -11,7 +11,7 @@ const ItemBox = ({ projectInfo }: { projectInfo: BlogPageItem }) => {
   return (
     <Link
       ref={element}
-      href={`/blog/${projectInfo.path}/${projectInfo.id}`}
+      href={`/blog/${projectInfo.id}`}
       style={{ opacity: isIntoView ? 1 : 0 }}
       className={`${style.itemBox} box-trigger`}
     >

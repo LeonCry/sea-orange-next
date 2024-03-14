@@ -61,16 +61,17 @@ model ProjectPageItem {
 
 //blog page 的项目信息
 model BlogPageItem {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
-  description String  @db.VarChar(1000)
+  description String   @db.VarChar(1000)
   icon        String
   path        String
   sorted      Int
   isShow      Boolean
+  updateTime  DateTime @default(now())
   category    String
   file        String
-  content     Bytes
+  content     String   @db.Text
 
   @@map(name: "blog_page_item")
 }

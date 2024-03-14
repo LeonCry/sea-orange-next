@@ -1,6 +1,7 @@
 "use server";
 import executeWithDb from "./executeWithDb";
 import prisma from "@/lib/prisma";
+import { BlogPageItem } from "@prisma/client";
 //获得Blog页面的所有项目信息
 const getAllBlogInfo = async () => {
   return executeWithDb(() => prisma.blogPageItem.findMany({
@@ -23,4 +24,10 @@ const getBlogInfoById = async (id: number) => {
     }
   }));
 };
-export { getAllBlogInfo, getBlogInfoById };
+//插入一条评论
+const insertMd = async (data: BlogPageItem) => {
+  return executeWithDb(() => prisma.blogPageItem.create({
+    data,
+  }));
+};
+export { getAllBlogInfo, getBlogInfoById, insertMd };

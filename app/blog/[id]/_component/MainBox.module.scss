@@ -1,7 +1,9 @@
 .main {
-  width: 100%;
+  width: 60%;
+  margin-left: 20%;
+  padding: 30px 50px;
   position: relative;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 210px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
