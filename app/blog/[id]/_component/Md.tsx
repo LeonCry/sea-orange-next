@@ -1,9 +1,10 @@
 'use client';
 import { BlogPageItem } from '@prisma/client';
-import 'github-markdown-css';
+import style from './MainBox.module.scss';
 import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
+import { CodeBlock } from './CodeBlock';
 import { insertMd } from '@/api/blogPageApi';
 const Md = ({ blogInfo }: { blogInfo: BlogPageItem }) => {
   const { name, category, content } = blogInfo;
@@ -29,10 +30,15 @@ const Md = ({ blogInfo }: { blogInfo: BlogPageItem }) => {
     reader.readAsText(file);
   };
   return (
-    <section>
+    <section className={style.md}>
       <input type="file" onChange={handleChange}></input>
-      <ReactMarkdown className="prose" rehypePlugins={[rehypeRaw]} remarkPlugins={[gfm]}>
-        {content}
+      <ReactMarkdown
+        className=" prose prose-pre:bg-white prose-pre:overflow-auto prose-pre:p-0 !max-w-full"
+        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[gfm]}
+        components={CodeBlock}
+      >
+        {content as any}
       </ReactMarkdown>
     </section>
   );
