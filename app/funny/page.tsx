@@ -6,7 +6,7 @@ import SectionBox from './_component/SectionBox';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import type { FunnyPageItem } from '@prisma/client';
 export const metadata: Metadata = {
-  title: 'Sea Orange | ' + getSectionDescription['/funny']?.title,
+  title: 'seaci.me | ' + getSectionDescription['/funny']?.title,
   description: getSectionDescription['/funny']?.description,
 };
 const Funny = async () => {

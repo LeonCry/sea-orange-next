@@ -1,7 +1,7 @@
 const getSectionDescription = {
   "/": {
     title: "home",
-    description: "seaorange.me"
+    description: "seaci.me"
   },
   "/blog": {
     title: "bLoG",
@@ -25,7 +25,7 @@ const getSectionDescription = {
   },
   "/about": {
     title: "AbOuT",
-    description: "seaorange with me."
+    description: "seaci with me."
   },
 };
 export default getSectionDescription;

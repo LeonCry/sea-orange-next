@@ -7,9 +7,9 @@ import Header from '../components/header/Header';
 import BackView from '../components/backgroundView/BackView';
 import getSectionDescription from '@/lib/getSectionDescription';
 export const metadata: Metadata = {
-  title: 'Sea Orange',
+  title: 'seaci.me',
   description:
-    'welcome to visit sea orange, a collection of several small features, some front-end demos and learning notes on a personal website! ',
+    'welcome to visit seaci.me, a collection of several small features, some front-end demos and learning notes on a personal website! ',
 };
 export default async function RootLayout({
   children,

@@ -6,7 +6,7 @@ import { getAllBlogInfo } from '@/api/blogPageApi';
 import { groupBy } from 'lodash';
 import SectionBox from './_component/SectionBox';
 export const metadata: Metadata = {
-  title: 'Sea Orange | ' + getSectionDescription['/blog']?.title,
+  title: 'seaci.me | ' + getSectionDescription['/blog']?.title,
   description: getSectionDescription['/blog']?.description,
 };
 const Blog = async () => {

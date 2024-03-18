@@ -3,7 +3,7 @@ import '../globals.css';
 import { Metadata } from 'next';
 import getSectionDescription from '@/lib/getSectionDescription';
 export const metadata: Metadata = {
-  title: 'Sea Orange | ' + getSectionDescription['/about']?.title,
+  title: 'seaci.me | ' + getSectionDescription['/about']?.title,
   description: getSectionDescription['/about']?.description,
 };
 const About = () => {
