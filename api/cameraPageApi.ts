@@ -27,4 +27,11 @@ const getPhotoByCategory = async (category: string, page: number) => {
     take: 20,
   }));
 };
-export { getPhotoByPage, getPossibleCategory, getPhotoByCategory };
+const getPhotoById = async (id: number) => {
+  return executeWithDb(() => prisma.cameraPageItem.findUnique({
+    where: {
+      id,
+    }
+  }));
+};
+export { getPhotoByPage, getPossibleCategory, getPhotoByCategory, getPhotoById };
