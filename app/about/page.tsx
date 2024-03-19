@@ -1,4 +1,3 @@
-import style from './page.module.scss';
 import '../globals.css';
 import { Metadata } from 'next';
 import getSectionDescription from '@/lib/getSectionDescription';

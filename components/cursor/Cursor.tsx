@@ -58,9 +58,9 @@ const Cursor = () => {
     lastTriggerElement = target;
     //更改inner小球的样式
     if (innerCircleRef.current) {
-      innerCircleRef.current.style.opacity = '1';
       innerCircleRef.current.style.left = `${point.x - targetOrigin.x + width / 2}px`;
       innerCircleRef.current.style.top = `${point.y - targetOrigin.y + height / 2}px`;
+      innerCircleRef.current!.style.opacity = '1';
     }
   };
   // 重置cursor与target的样式

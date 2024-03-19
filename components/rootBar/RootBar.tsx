@@ -11,7 +11,7 @@ const RootBar = () => {
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);
   return (
-    <header className="mb-10 sticky top-0">
+    <header className="mb-10 sticky top-0 z-[60]">
       <ol className={`${style.main} w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
         <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/blog'}>

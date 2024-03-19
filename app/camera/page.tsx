@@ -1,13 +1,6 @@
 import style from './page.module.scss';
-import '../globals.css';
-import { Metadata } from 'next';
-import getSectionDescription from '@/lib/getSectionDescription';
-export const metadata: Metadata = {
-  title: 'seaci.me | ' + getSectionDescription['/camera']?.title,
-  description: getSectionDescription['/camera']?.description,
-};
-const Camera = () => {
-  return <section className="page-dropDown"></section>;
+const page = () => {
+  return null;
 };
 
-export default Camera;
+export default page;

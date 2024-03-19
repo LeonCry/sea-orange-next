@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ['vip.helloimg.com'],
+  },
 };
 
 export default nextConfig;

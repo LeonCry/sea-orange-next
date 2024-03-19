@@ -10,7 +10,7 @@
   transition: all 0.2s;
   &:hover {
     padding-bottom: 12px;
-    background: linear-gradient(to bottom, #fff6ef, #FFFFFF);
+    background: linear-gradient(to bottom, #fff6ef 0%,transparent 25%,transparent 100%);
   }
 }
 .icon {
