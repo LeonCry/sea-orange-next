@@ -1,10 +1,12 @@
 'use client';
-import { getAllBlogInfo, getBlogCategory, insertMd } from '@/api/blogPageApi';
+import { deleteMdById, getAllBlogInfo, getBlogCategory, insertMd } from '@/api/blogPageApi';
 import { BlogPageItem } from '@prisma/client';
-import { Alert, Button, Divider, Drawer, Input, InputRef, Popconfirm, Select, Space, Spin, Table, Tag } from 'antd';
+import { Button, Divider, Drawer, Input, InputRef, Popconfirm, Select, Space, Spin, Table, Tag } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useImmer } from 'use-immer';
+import InsertPart from './tiny/insertPart';
 const BlogEditor = () => {
+  const [refreshFlag, setRefreshFlag] = useState(false);
   const [category, setCategory] = useImmer<string[]>([]);
   const [blogs, setBlogs] = useImmer<Record<string, any>[]>([]);
   const [blogInsertedInfo, setBlogInsertedInfo] = useImmer({
@@ -32,6 +34,7 @@ const BlogEditor = () => {
       };
       setLoading(true);
       const res = await insertMd(data as BlogPageItem);
+      setRefreshFlag(!refreshFlag);
       setLoading(false);
       if (res.id) return alert('成功!');
     };
@@ -81,13 +84,13 @@ const BlogEditor = () => {
       {
         title: 'Action',
         key: 'action',
-        render: () => (
-          <Space size="middle">
+        render: (_: any, record: Record<string, any>) => (
+          <Space>
             <a onClick={() => setOpen(true)}>更新</a>
             <Popconfirm
               title="Delete the blog?"
               description="Are you sure to delete this blog?"
-              onConfirm={handleDelete}
+              onConfirm={() => handleDelete(record.id)}
               okText="Yes"
               cancelText="No"
             >
@@ -99,11 +102,16 @@ const BlogEditor = () => {
     ]);
     setBlogs(() => res.map((t: any) => ({ ...t, key: t.id })));
   };
-  const handleDelete = () => {};
+  const handleDelete = async (id: string) => {
+    setLoading(false);
+    await deleteMdById(id);
+    setLoading(true);
+    setRefreshFlag(!refreshFlag);
+  };
   useEffect(() => {
     getAllCategory();
     getAllBlogs();
-  }, []);
+  }, [refreshFlag]);
   return (
     <section className="p-4 border">
       {loading && <Spin />}
@@ -149,12 +157,15 @@ const BlogEditor = () => {
         </div>
       </div>
       <Drawer
+        width={550}
         zIndex={1040}
         className="!cursor-default"
         title="Basic Drawer"
         onClose={() => setOpen(false)}
         open={open}
-      ></Drawer>
+      >
+        <InsertPart />
+      </Drawer>
     </section>
   );
 };

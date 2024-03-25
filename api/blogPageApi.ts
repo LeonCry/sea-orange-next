@@ -17,10 +17,10 @@ const getAllBlogInfo = async () => {
     },
   }));
 };
-const getBlogInfoById = async (id: number) => {
+const getBlogInfoById = async (id: string) => {
   return executeWithDb(() => prisma.blogPageItem.findUnique({
     where: {
-      id: id + ''
+      id,
     }
   }));
 };
@@ -39,4 +39,19 @@ const insertMd = async (data: BlogPageItem) => {
     data,
   }));
 };
-export { getAllBlogInfo, getBlogInfoById, insertMd, getBlogCategory };
+const updateBlogById = (id: string, newData: Record<string, any>) => {
+  return executeWithDb(() => prisma.blogPageItem.update({
+    where: {
+      id,
+    },
+    data: newData
+  }));
+};
+const deleteMdById = async (id: string) => {
+  return executeWithDb(() => prisma.blogPageItem.delete({
+    where: {
+      id,
+    }
+  }));
+};
+export { getAllBlogInfo, getBlogInfoById, insertMd, getBlogCategory, deleteMdById, updateBlogById };
