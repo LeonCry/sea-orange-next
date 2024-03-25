@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `blog_page_item` ADD COLUMN `updateTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

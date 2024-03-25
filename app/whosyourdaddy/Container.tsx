@@ -15,7 +15,7 @@ const tabs = [
 ];
 const Container = () => {
   return (
-    <section className="w-full h-full absolute top-0 z-[70] bg-white p-5">
+    <section className="w-full h-full absolute top-0 z-[1040] bg-white p-5 !text-base !cursor-auto">
       <Tabs defaultActiveKey="1" type="card" size="large" items={tabs} />
     </section>
   );

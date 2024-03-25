@@ -20,14 +20,23 @@ const getAllBlogInfo = async () => {
 const getBlogInfoById = async (id: number) => {
   return executeWithDb(() => prisma.blogPageItem.findUnique({
     where: {
-      id
+      id: id + ''
     }
   }));
 };
-//插入一条评论
+//获取分类
+const getBlogCategory = async () => {
+  return executeWithDb(() => prisma.blogPageItem.findMany({
+    distinct: ['category'],
+    select: {
+      category: true,
+    },
+  }));
+};
+//插入一条blog
 const insertMd = async (data: BlogPageItem) => {
   return executeWithDb(() => prisma.blogPageItem.create({
     data,
   }));
 };
-export { getAllBlogInfo, getBlogInfoById, insertMd };
+export { getAllBlogInfo, getBlogInfoById, insertMd, getBlogCategory };

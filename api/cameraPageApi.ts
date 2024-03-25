@@ -30,7 +30,7 @@ const getPhotoByCategory = async (category: string, page: number) => {
 const getPhotoById = async (id: number) => {
   return executeWithDb(() => prisma.cameraPageItem.findUnique({
     where: {
-      id,
+      id: id + ''
     }
   }));
 };
