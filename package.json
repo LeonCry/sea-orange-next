@@ -15,6 +15,7 @@
     "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate deploy",
     "////": "mongodb数据库更新",
     "mongodb:dev": "dotenv -e .env.dev -- npx prisma db push",
+    "mongodb:dev": "dotenv -e .env.prod -- npx prisma db push",
     "//": "已有数据库同步",
     "migrateDiff:dev": "npx dotenv -e .env.dev  prisma migrate dev --name change",
     "migrateDiff:prod": "npx dotenv -e .env.prod  prisma migrate dev --name change"

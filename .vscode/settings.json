@@ -22,7 +22,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.semi": true,
-  "prettier.printWidth": 128,
+  "prettier.printWidth": 100,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   } // 或者其他适合你的长度值，这个数值表示每行最大字符数
