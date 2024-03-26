@@ -1,9 +1,9 @@
 'use client';
-import { deleteMdById, getAllBlogInfo, getBlogCategory } from '@/api/blogPageApi';
+import { deleteMdById, getAllBlogInfo } from '@/api/blogPageApi';
 import { Button, Drawer, Popconfirm, Space, Spin, Table, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
-import InsertPart from './tiny/InsertPart';
+import InsertBlog from './tiny/InsertBlog';
 const BlogEditor = () => {
   const [refreshFlag, setRefreshFlag] = useState(false);
   const [blogs, setBlogs] = useImmer<Record<string, any>[]>([]);
@@ -28,7 +28,9 @@ const BlogEditor = () => {
         key: 'action',
         render: (_: any, record: Record<string, any>) => (
           <Space>
-            <a onClick={() => handleUpdate(record)}>更新</a>
+            <a onClick={() => handleUpdate(record)}>
+              <Button type="link">update</Button>
+            </a>
             <Popconfirm
               title="Delete the blog?"
               description="Are you sure to delete this blog?"
@@ -70,7 +72,9 @@ const BlogEditor = () => {
       <Tag bordered={false} color="volcano" className="p-2 m-2">
         [ 操作:添加一条BLOG记录 ]
       </Tag>
-      <InsertPart type={'create'} refreshTable={handleRefresh} />
+      <div className="border p-10 flex justify-center">
+        <InsertBlog type={'create'} refreshTable={handleRefresh} />
+      </div>
       <Drawer
         width={550}
         zIndex={1040}
@@ -79,7 +83,7 @@ const BlogEditor = () => {
         onClose={() => setOpen(false)}
         open={open}
       >
-        <InsertPart defaultValue={editContent} type={'update'} refreshTable={handleRefresh} />
+        <InsertBlog defaultValue={editContent} type={'update'} refreshTable={handleRefresh} />
       </Drawer>
     </section>
   );

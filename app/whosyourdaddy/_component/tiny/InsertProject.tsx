@@ -1,38 +1,38 @@
 'use client';
-import { getBlogCategory, insertMd, updateBlogById } from '@/api/blogPageApi';
-import { BlogPageItem } from '@prisma/client';
+import { getProjectCategory, insertProject, updateProjectById } from '@/api/projectPageApi';
+import { ProjectPageItem } from '@prisma/client';
 import { Button, Divider, Input, InputRef, Select, Space, Spin } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { useImmer } from 'use-immer';
-const InsertPart = (props: {
+const InsertProject = (props: {
   defaultValue?: Record<string, any>;
   type: 'update' | 'create';
   refreshTable: () => void;
 }) => {
   const inputRef = useRef<InputRef>(null);
   const [loading, setLoading] = useState(false);
-  const [file, setFile] = useState<string | ArrayBuffer | null>(null);
   const [name, setName] = useState('');
-  const [blogInsertedInfo, setBlogInsertedInfo] = useImmer({
+  const [projectInsertedInfo, setProjectInsertedInfo] = useImmer({
     name: '',
     description: '',
     icon: '',
     category: '',
+    sourceUrl: '',
   });
   const [category, setCategory] = useImmer<string[]>([]);
   const handleChange = (e: any) => {
-    let key: keyof typeof blogInsertedInfo = e.target.dataset.title;
-    setBlogInsertedInfo((draft) => {
+    let key: keyof typeof projectInsertedInfo = e.target.dataset.title;
+    setProjectInsertedInfo((draft) => {
       draft[key] = e.target.value;
     });
   };
   const categoryChange = (val: string) => {
-    setBlogInsertedInfo((draft) => {
+    setProjectInsertedInfo((draft) => {
       draft.category = val;
     });
   };
   const getAllCategory = async () => {
-    const res = await getBlogCategory();
+    const res = await getProjectCategory();
     setCategory(() => res.map((v: any) => v.category));
   };
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,53 +47,43 @@ const InsertPart = (props: {
     await new Promise((resolve) => setTimeout(resolve, 0));
     inputRef.current?.focus();
   };
-  const uploadFile = (e: any) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-    reader.onload = async (e) => {
-      setFile(e.target!.result);
-    };
-    reader.readAsText(file);
-  };
   const submit = async () => {
     const data = {
-      ...blogInsertedInfo,
+      ...projectInsertedInfo,
       path: 'null',
       sorted: 1,
       isShow: true,
-      file: 'null',
-      content: file || undefined,
     };
-    for (const key in blogInsertedInfo) {
-      const k = key as keyof typeof blogInsertedInfo;
-      if (!blogInsertedInfo[k].length) return alert('请填写完整信息');
+    for (const key in projectInsertedInfo) {
+      const k = key as keyof typeof projectInsertedInfo;
+      if (!projectInsertedInfo[k].length) return alert('请填写完整信息');
     }
-    if (!file && props.type === 'create') return alert('请上传文件');
     setLoading(true);
     let res;
-    if (props.type === 'create') res = await insertMd(data as BlogPageItem);
-    else res = await updateBlogById(props.defaultValue?.id, data as BlogPageItem);
+    if (props.type === 'create') res = await insertProject(data as ProjectPageItem);
+    else res = await updateProjectById(props.defaultValue?.id, data as ProjectPageItem);
     setLoading(false);
     props.refreshTable();
     if (res.id) {
-      setBlogInsertedInfo(() => ({
+      alert('success!');
+      setProjectInsertedInfo({
         name: '',
         description: '',
         icon: '',
         category: '',
-      }));
-      setFile(null);
-      return alert('success!');
+        sourceUrl: '',
+      });
     }
   };
   useEffect(() => {
     getAllCategory();
     if (props.defaultValue) {
-      setBlogInsertedInfo(() => ({
+      setProjectInsertedInfo(() => ({
         name: props.defaultValue?.name,
         description: props.defaultValue?.description,
         icon: props.defaultValue?.icon,
         category: props.defaultValue?.category,
+        sourceUrl: props.defaultValue?.sourceUrl,
       }));
     }
   }, [props]);
@@ -113,9 +103,15 @@ const InsertPart = (props: {
         onChange={handleChange}
       />
       <Input
-        addonBefore="图标:"
+        addonBefore="图片地址:"
         defaultValue={props.defaultValue?.icon}
         data-title="icon"
+        onChange={handleChange}
+      />
+      <Input
+        addonBefore="网址:"
+        defaultValue={props.defaultValue?.sourceUrl}
+        data-title="sourceUrl"
         onChange={handleChange}
       />
       <Select
@@ -144,10 +140,6 @@ const InsertPart = (props: {
         )}
         options={category.map((item) => ({ label: item, value: item }))}
       />
-      <div className="relative">
-        <Button>上传文件</Button>
-        <input type="file" onChange={uploadFile} className="absolute left-0 w-full opacity-0" />
-      </div>
       <Button type="dashed" onClick={submit}>
         提交
       </Button>
@@ -155,4 +147,4 @@ const InsertPart = (props: {
   );
 };
 
-export default InsertPart;
+export default InsertProject;
