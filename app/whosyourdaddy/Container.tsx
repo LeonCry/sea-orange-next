@@ -1,10 +1,12 @@
-import { Tabs } from 'antd';
+'use client';
+import { Input, Tabs } from 'antd';
 import BlogEditor from './_component/BlogEditor';
 import ProjectEditor from './_component/ProjectEditor';
 import CameraEditor from './_component/CameraEditor';
 import FunnyEditor from './_component/FunnyEditor';
 import GossipEditor from './_component/GossipEditor';
 import VisitEditor from './_component/VisitEditor';
+import { useState } from 'react';
 const tabs = [
   { label: 'Blog', key: '1', children: <BlogEditor /> },
   { label: 'Project', key: '2', children: <ProjectEditor /> },
@@ -14,9 +16,20 @@ const tabs = [
   { label: 'Visit', key: '6', children: <VisitEditor /> },
 ];
 const Container = () => {
+  const [password, setPassword] = useState('');
+  const correct = process.env.NEXT_PUBLIC_PASSWORD;
+  const handlePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
   return (
     <section className="w-full h-full absolute top-0 z-[1040] bg-white p-5 !text-base !cursor-auto">
-      <Tabs defaultActiveKey="1" type="card" size="large" items={tabs} />
+      {password === correct ? (
+        <Tabs defaultActiveKey="1" type="card" size="large" items={tabs} />
+      ) : (
+        <div className="w-full h-full flex justify-center items-center">
+          <Input className="w-96" placeholder="password" onChange={handlePassword} />
+        </div>
+      )}
     </section>
   );
 };
