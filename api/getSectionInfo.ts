@@ -2,12 +2,19 @@
 import type { VisitTime } from "@prisma/client";
 import executeWithDb from "./executeWithDb";
 import prisma from "@/lib/prisma";
-//获得每个section的header信息
-const getSectionInfo = async () => {
-  return executeWithDb(() => prisma.sectionInfo.findMany());
-};
 //提交每个界面的访问信息
 const uploadVisit = async (info: Omit<VisitTime, 'id'>) => {
-  // return executeWithDb(() => prisma.visitTime.create({ data: info }));
+  return executeWithDb(() => prisma.visitTime.create({ data: info }));
 };
-export { getSectionInfo, uploadVisit };
+//查询访问信息
+const getVisitByPage = async (page: number | undefined) => {
+  if (page === undefined) page = 1;
+  return executeWithDb(() => prisma.visitTime.findMany({
+    skip: (page! - 1) * 30,
+    take: 30,
+  }));
+};
+const getCount = async () => {
+  return executeWithDb(() => prisma.visitTime.count());
+};
+export { getCount, uploadVisit, getVisitByPage };

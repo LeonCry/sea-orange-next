@@ -6,10 +6,11 @@ const getCommentNum = async () => {
   return executeWithDb(() => prisma.gossipPageItem.count());
 };
 //获得gossip页面的评论 按页数
-const getCommentInGossip = async (page: string) => {
-  const pageInt = parseInt(page);
+const getCommentInGossip = async (page: string | undefined | number) => {
+  if (page === undefined) page = 1;
+  if (typeof page === 'string') page = parseInt(page);
   return executeWithDb(() => prisma.gossipPageItem.findMany({
-    skip: (pageInt - 1) * 30,
+    skip: (page as number - 1) * 30,
     take: 30,
   }));
 };

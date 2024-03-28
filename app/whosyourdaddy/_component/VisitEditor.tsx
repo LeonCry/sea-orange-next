@@ -1,20 +1,20 @@
 'use client';
 import CommonEditor from './common/CommonEditor';
-import { getCommentInGossip, getCommentNum } from '@/api/gossipPageApi';
-const GossipEditor = () => {
-  const property = [{ causal: 'gossip', label: 'gossip' }];
+import { getVisitByPage, getCount } from '@/api/getSectionInfo';
+const VisitEditor = () => {
+  const property = [{ causal: 'visit', label: 'visit' }];
   const spare = { isShow: true };
   return (
     <section>
       <CommonEditor
-        title="Gossip"
+        title="Visit"
         property={property}
-        getAllReq={getCommentInGossip}
+        getAllReq={getVisitByPage}
         updateReq={() => Promise.resolve()}
         deleteReq={() => Promise.resolve()}
         insertReq={() => Promise.resolve()}
         getCategoryReq={() => Promise.resolve()}
-        getCount={getCommentNum}
+        getCount={getCount}
         spare={spare}
         readonly={true}
         hasPage={true}
@@ -23,4 +23,4 @@ const GossipEditor = () => {
   );
 };
 
-export default GossipEditor;
+export default VisitEditor;

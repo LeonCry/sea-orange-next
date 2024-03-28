@@ -9,6 +9,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     const time = new Date();
     const path = pathName;
     return () => {
+      if (process.env.NEXT_PUBLIC_APP_ENV === 'development') return;
       const { machine, browser } = getUserAgentData();
       const overTime = new Date();
       const differenceInMilliseconds = Math.abs(time.getTime() - overTime.getTime());
