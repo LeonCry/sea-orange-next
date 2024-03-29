@@ -3,6 +3,8 @@ import WriteBox from './_component/WriteBox';
 import { Suspense } from 'react';
 import Main from './_component/MainBox';
 import Loading from '@/components/loading/Loading';
+export const dynamic = 'force-dynamic';
+import { revalidatePath } from 'next/cache';
 export const generateStaticParams = async () => {
   const commentCount: number = await getCommentNum();
   const pages = Math.ceil(commentCount / 30);
@@ -11,6 +13,7 @@ export const generateStaticParams = async () => {
   }));
 };
 const page = async ({ params }: { params: { page: string } }) => {
+  revalidatePath('/gossip/[page]');
   return (
     <Suspense fallback={<Loading />}>
       <Main page={params.page}>
