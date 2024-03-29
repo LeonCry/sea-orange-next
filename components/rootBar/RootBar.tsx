@@ -4,15 +4,44 @@ import { chakraEN } from '@/style/defineFont';
 import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
 import style from './RootBar.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+const alert =
+  '01010011010100110100001001001101010101000011000101011010010001100100100101000110011011000101000001010110010100010011110100111101';
+const tvUrl =
+  'https://search.bilibili.com/upuser?keyword=%E5%90%A7%E5%94%A7%E5%90%A7%E5%94%A7%E4%B8%8D%E5%93%A9%E4%B8%8D%E5%93%A9&from_source=webtop_search&spm_id_from=333.1007&search_source=5';
+const gitUrl = 'https://github.com/LeonCry';
 const RootBar = () => {
   const pathName = usePathname();
   const secPath = '/' + pathName.split('/')[1];
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);
+  const [isDark, isDarkSet] = useState(false);
+  const handleLike = () => {
+    isLikeSet(!isLike);
+    localStorage.setItem('isLike', String(!isLike));
+  };
+  const handleDark = () => {
+    isDarkSet(!isDark);
+    sessionStorage.setItem('isDark', String(!isLike));
+    if (!isDark) return document.body.classList.add('blend-dark');
+    return document.body.classList.remove('blend-dark');
+  };
+  useEffect(() => {
+    const isLike = localStorage.getItem('isLike');
+    const isDark = sessionStorage.getItem('isDark');
+    if (isLike === 'true') {
+      isLikeSet(true);
+    }
+    if (isDark === 'true') {
+      isDarkSet(true);
+      document.body.classList.add('blend-dark');
+    }
+  }, []);
   return (
     <header className="mb-10 sticky top-0 z-[60]">
-      <ol className={`${style.main} w-full h-16 flex items-center justify-end ${chakraEN.className}`}>
+      <ol
+        className={`${style.main} w-full h-16 flex items-center justify-end ${chakraEN.className}`}
+      >
         <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/blog'}>
             BLOG
@@ -44,31 +73,35 @@ const RootBar = () => {
           </Link>
         </li>
         <li className="w-16 text-center select-none"> || </li>
-        <li onClick={() => isLikeSet(!isLike)} className={style.icon}>
+        <li onClick={handleLike} className={style.icon}>
           {isLike ? (
             <Like theme="two-tone" size="20" fill={['#f64649', '#ff9999']} strokeLinejoin="bevel" />
           ) : (
             <Like theme="outline" size="20" fill="#181926" />
           )}
         </li>
-        <li className={style.icon}>
+        <li className={style.icon} onClick={() => window.alert(alert)}>
           <MessageEmoji theme="outline" size="20" fill="#181926" />
         </li>
         <li className={style.icon}>
-          <a className="cursor-none" href="https://www.baidu.com" target="_blank">
+          <a className="cursor-none" href={tvUrl} target="_blank">
             <Tv theme="outline" size="20" fill="#181926" />
           </a>
         </li>
         <li className={style.icon}>
-          <a className="cursor-none" href="https://www.baidu.com" target="_blank">
+          <a className="cursor-none" href={gitUrl} target="_blank">
             <GithubOne theme="outline" size="20" fill="#181926" />
           </a>
         </li>
         <li className={style.icon}>
           <CastScreen theme="outline" size="20" fill="#181926" />
         </li>
-        <li className={`${style.icon} mr-10`}>
-          <DarkMode theme="outline" size="20" fill="#181926" />
+        <li className={`${style.icon} mr-10`} onClick={handleDark}>
+          {isDark ? (
+            <DarkMode theme="filled" size="20" fill="#333" />
+          ) : (
+            <DarkMode theme="outline" size="20" fill="#181926" />
+          )}
         </li>
       </ol>
     </header>

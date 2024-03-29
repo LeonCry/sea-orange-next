@@ -7,6 +7,11 @@ const nextConfig = {
         destination: '/gossip/1',
         permanent: true,
       },
+      {
+        source: '/',
+        destination: '/about',
+        permanent: true,
+      },
     ];
   },
   images: {

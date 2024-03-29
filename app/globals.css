@@ -22,6 +22,9 @@
   overflow: hidden;
   animation: dropdownAnimation 1s ease-in-out;
 }
+.fix-h {
+  height: calc(100% - 233px);
+}
 .drop-animation {
   overflow: hidden;
   animation: dropdownAnimation 1s ease-in-out;
@@ -29,6 +32,9 @@
 .show-move-animation {
   animation: show-move .8s ease-in-out alternate;
   animation-play-state:paused;
+}
+.blend-dark {
+  mix-blend-mode: difference;
 }
 
 /* Webkit内核的浏览器 */
