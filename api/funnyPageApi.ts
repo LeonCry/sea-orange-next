@@ -11,7 +11,7 @@ const insertFunny = async (data: FunnyPageItem) => {
     data,
   }));
 };
-const deleteFunnyById = async (id: string) => {
+const deleteFunnyById = async (id: number) => {
   return executeWithDb(() => prisma.funnyPageItem.delete({
     where: {
       id,
@@ -26,7 +26,7 @@ const getFunnyCategory = async () => {
     },
   }));
 };
-const updateFunnyById = (id: string, newData: Record<string, any>) => {
+const updateFunnyById = (id: number, newData: Record<string, any>) => {
   return executeWithDb(() => prisma.funnyPageItem.update({
     where: {
       id,

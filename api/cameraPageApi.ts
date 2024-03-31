@@ -32,11 +32,11 @@ const getPhotoByCategory = async (category: string, page: number) => {
 const getPhotoById = async (id: number) => {
   return executeWithDb(() => prisma.cameraPageItem.findUnique({
     where: {
-      id: id + ''
+      id,
     }
   }));
 };
-const deleteCameraById = async (id: string) => {
+const deleteCameraById = async (id: number) => {
   return executeWithDb(() => prisma.cameraPageItem.delete({
     where: {
       id,
@@ -48,7 +48,7 @@ const insertCamera = async (data: CameraPageItem) => {
     data,
   }));
 };
-const updateCameraById = (id: string, newData: Record<string, any>) => {
+const updateCameraById = (id: number, newData: Record<string, any>) => {
   return executeWithDb(() => prisma.cameraPageItem.update({
     where: {
       id,

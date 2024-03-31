@@ -10,8 +10,8 @@ export interface CommonEditorService {
   readonly?: boolean;
   hasPage?: boolean;
   getAllReq: (page?: number) => Promise<any>;
-  updateReq: (id: string, data: Record<string, any>) => Promise<any>;
-  deleteReq: (id: string) => Promise<any>;
+  updateReq: (id: number, data: Record<string, any>) => Promise<any>;
+  deleteReq: (id: number) => Promise<any>;
   insertReq: (data: any) => Promise<any>;
   getCategoryReq?: () => Promise<any>;
   getCount?: () => Promise<any>;
@@ -67,7 +67,7 @@ const CommonEditor = (props: CommonEditorService) => {
     const res = await props.getCount();
     setTotal(res);
   };
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     setLoading(false);
     await props.deleteReq(id);
     setLoading(true);

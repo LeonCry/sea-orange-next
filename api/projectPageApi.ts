@@ -11,7 +11,7 @@ const insertProject = async (data: ProjectPageItem) => {
     data,
   }));
 };
-const deleteProjectById = async (id: string) => {
+const deleteProjectById = async (id: number) => {
   return executeWithDb(() => prisma.projectPageItem.delete({
     where: {
       id,
@@ -26,7 +26,7 @@ const getProjectCategory = async () => {
     },
   }));
 };
-const updateProjectById = (id: string, newData: Record<string, any>) => {
+const updateProjectById = (id: number, newData: Record<string, any>) => {
   return executeWithDb(() => prisma.projectPageItem.update({
     where: {
       id,

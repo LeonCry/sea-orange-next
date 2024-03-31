@@ -10,7 +10,7 @@ const InsertPart = (props: {
   refreshTable: () => void;
   getCategoryReq?: () => Promise<any>;
   insertReq: (data: Record<string, any>) => Promise<any>;
-  updateReq: (id: string, data: Record<string, any>) => Promise<any>;
+  updateReq: (id: number, data: Record<string, any>) => Promise<any>;
   spare?: Record<string, any>;
 }) => {
   const inputRef = useRef<InputRef>(null);

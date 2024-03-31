@@ -9,7 +9,7 @@ export const generateStaticParams = async () => {
     id: item.id + '',
   }));
 };
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: { id: number } }) => {
   return (
     <Suspense fallback={<Loading />}>
       <MainBox mdId={params.id} />

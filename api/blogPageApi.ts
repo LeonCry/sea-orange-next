@@ -17,7 +17,7 @@ const getAllBlogInfo = async () => {
     },
   }));
 };
-const getBlogInfoById = async (id: string) => {
+const getBlogInfoById = async (id: number) => {
   return executeWithDb(() => prisma.blogPageItem.findUnique({
     where: {
       id,
@@ -39,7 +39,7 @@ const insertMd = async (data: BlogPageItem) => {
     data,
   }));
 };
-const updateBlogById = (id: string, newData: Record<string, any>) => {
+const updateBlogById = (id: number, newData: Record<string, any>) => {
   return executeWithDb(() => prisma.blogPageItem.update({
     where: {
       id,
@@ -47,7 +47,7 @@ const updateBlogById = (id: string, newData: Record<string, any>) => {
     data: newData
   }));
 };
-const deleteMdById = async (id: string) => {
+const deleteMdById = async (id: number) => {
   return executeWithDb(() => prisma.blogPageItem.delete({
     where: {
       id,
