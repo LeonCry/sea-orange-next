@@ -3,13 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 //每个section信息
 model SectionInfo {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int    @id @default(autoincrement())
   path        String
   title       String
   description String
@@ -19,7 +19,7 @@ model SectionInfo {
 
 //访问信息
 model VisitTime {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int    @id @default(autoincrement())
   browser   String
   machine   String
   time      String
@@ -31,7 +31,7 @@ model VisitTime {
 
 //Funny page 的项目信息
 model FunnyPageItem {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int     @id @default(autoincrement())
   name        String
   description String
   icon        String
@@ -46,7 +46,7 @@ model FunnyPageItem {
 
 //Project page 的项目信息
 model ProjectPageItem {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int     @id @default(autoincrement())
   name        String
   description String
   icon        String
@@ -61,7 +61,7 @@ model ProjectPageItem {
 
 //blog page 的项目信息
 model BlogPageItem {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int      @id @default(autoincrement())
   name        String
   description String
   icon        String
@@ -78,7 +78,7 @@ model BlogPageItem {
 
 //camera page 的项目信息
 model CameraPageItem {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int     @id @default(autoincrement())
   name        String
   description String
   device      String
@@ -93,7 +93,7 @@ model CameraPageItem {
 
 //Gossip page 的项目信息
 model GossipPageItem {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  id             Int      @id @default(autoincrement())
   userName       String
   commentContent String
   device         String

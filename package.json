@@ -25,7 +25,7 @@
     "@icon-park/react": "^1.4.2",
     "@pixi/graphics-extras": "^7.4.0",
     "@pixi/react": "^7.1.1",
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.11.0",
     "ahooks": "^3.7.10",
     "antd": "^5.15.0",
     "gray-matter": "^4.0.3",

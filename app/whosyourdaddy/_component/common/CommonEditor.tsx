@@ -30,7 +30,6 @@ const CommonEditor = (props: CommonEditorService) => {
     setLoading(true);
     const res = await props.getAllReq(page);
     setLoading(false);
-    console.log(res);
     if (!res.length) return;
     const col = Object.keys(res[0]).map((t) => ({
       title: t,
