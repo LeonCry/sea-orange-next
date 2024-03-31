@@ -8,7 +8,7 @@ import { revalidatePath } from 'next/cache';
 export const generateStaticParams = async () => {
   const commentCount: number = await getCommentNum();
   const pages = Math.ceil(commentCount / 30);
-  return Array.from({ length: pages }).map((t, i) => ({
+  return Array.from({ length: pages }).map((_, i) => ({
     page: String(i + 1),
   }));
 };

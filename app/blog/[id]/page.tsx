@@ -6,7 +6,7 @@ import { getAllBlogInfo } from '@/api/blogPageApi';
 export const generateStaticParams = async () => {
   const blogInfo: BlogPageItem[] = await getAllBlogInfo();
   return blogInfo.map((item) => ({
-    id: item.id + '',
+    id: item.id,
   }));
 };
 const page = async ({ params }: { params: { id: number } }) => {
