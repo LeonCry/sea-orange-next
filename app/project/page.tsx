@@ -5,6 +5,7 @@ import { ProjectPageItem } from '@prisma/client';
 import { groupBy } from 'lodash';
 import SectionBox from './_component/SectionBox';
 import { getAllProjects } from '@/api/projectPageApi';
+import { revalidatePath } from 'next/cache';
 export const metadata: Metadata = {
   title: 'seaci.me | ' + getSectionDescription['/blog']?.title,
   description: getSectionDescription['/blog']?.description,
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 const Project = async () => {
   const projectInfo: ProjectPageItem[] = await getAllProjects();
   const category = groupBy(projectInfo, 'category');
+  revalidatePath('/project');
   return (
     <section className="page-dropDown">
       {Object.keys(category).map((cty, i) => (
