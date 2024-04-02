@@ -15,7 +15,15 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ['vip.helloimg.com'],
+    minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'vip.helloimg.com',
+        port: '',
+      },
+    ],
+    formats: ['image/webp'],
   },
 };
 

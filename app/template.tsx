@@ -10,6 +10,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     const path = pathName;
     return () => {
       if (process.env.NEXT_PUBLIC_APP_ENV === 'development') return;
+      if (localStorage.getItem('ignore-visit') === 'true') return;
       const { machine, browser } = getUserAgentData();
       const overTime = new Date();
       const differenceInMilliseconds = Math.abs(time.getTime() - overTime.getTime());

@@ -1,6 +1,6 @@
 'use client';
 import CommonEditor from './common/CommonEditor';
-import { getVisitByPage, getCount } from '@/api/getSectionInfo';
+import { getVisitByPage, getCount, deleteVisitById } from '@/api/getSectionInfo';
 const VisitEditor = () => {
   const property = [{ causal: 'visit', label: 'visit' }];
   const spare = { isShow: true };
@@ -11,7 +11,7 @@ const VisitEditor = () => {
         property={property}
         getAllReq={getVisitByPage}
         updateReq={() => Promise.resolve()}
-        deleteReq={() => Promise.resolve()}
+        deleteReq={deleteVisitById}
         insertReq={() => Promise.resolve()}
         getCategoryReq={() => Promise.resolve()}
         getCount={getCount}

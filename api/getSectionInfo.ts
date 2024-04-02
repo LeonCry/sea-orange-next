@@ -14,7 +14,15 @@ const getVisitByPage = async (page: number | undefined) => {
     take: 30,
   }));
 };
+//删除访问信息
+const deleteVisitById = async (id: number) => {
+  return executeWithDb(() => prisma.visitTime.delete({
+    where: {
+      id,
+    }
+  }));
+};
 const getCount = async () => {
   return executeWithDb(() => prisma.visitTime.count());
 };
-export { getCount, uploadVisit, getVisitByPage };
+export { getCount, uploadVisit, getVisitByPage, deleteVisitById };

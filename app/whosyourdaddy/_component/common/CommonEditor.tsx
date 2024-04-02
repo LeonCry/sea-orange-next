@@ -41,23 +41,22 @@ const CommonEditor = (props: CommonEditorService) => {
       {
         title: 'Action',
         key: 'action',
-        render: (_: any, record: Record<string, any>) =>
-          !props.readonly && (
-            <Space>
-              <a onClick={() => handleUpdate(record)}>
-                <Button type="link">update</Button>
-              </a>
-              <Popconfirm
-                title="Delete?"
-                description="Are you sure to delete it?"
-                onConfirm={() => handleDelete(record.id)}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Button danger>Delete</Button>
-              </Popconfirm>
-            </Space>
-          ),
+        render: (_: any, record: Record<string, any>) => (
+          <Space>
+            <a onClick={() => handleUpdate(record)}>
+              <Button type="link">update</Button>
+            </a>
+            <Popconfirm
+              title="Delete?"
+              description="Are you sure to delete it?"
+              onConfirm={() => handleDelete(record.id)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button danger>Delete</Button>
+            </Popconfirm>
+          </Space>
+        ),
       },
     ]);
     setTableData(() => res.map((t: any) => ({ ...t, key: t.id })));

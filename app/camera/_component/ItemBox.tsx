@@ -10,9 +10,11 @@ const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
     <Link
       ref={itemRef}
       href={`/camera/${photo.id}`}
-      className={`w-[300px] h-[200px] relative rounded-xl cursor-none shadow-violet-200 shadow-xl box-trigger`}
+      className={`w-[600px] h-[400px] relative rounded-xl cursor-none shadow-violet-200 shadow-xl box-trigger`}
     >
-      {isIntoView && <Image alt="pic" src={photo.photoSrc} fill sizes="100" className="rounded-xl" priority />}
+      {isIntoView && (
+        <Image alt="pic" src={photo.photoSrc} fill sizes="100" className="rounded-xl" priority />
+      )}
     </Link>
   );
 };
