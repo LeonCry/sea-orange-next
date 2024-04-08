@@ -5,11 +5,8 @@ import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
 import style from './RootBar.module.scss';
 import { useEffect, useState } from 'react';
-const alert =
-  '01010011010100110100001001001101010101000011000101011010010001100100100101000110011011000101000001010110010100010011110100111101';
-const tvUrl =
-  'https://search.bilibili.com/upuser?keyword=%E5%90%A7%E5%94%A7%E5%90%A7%E5%94%A7%E4%B8%8D%E5%93%A9%E4%B8%8D%E5%93%A9&from_source=webtop_search&spm_id_from=333.1007&search_source=5';
-const gitUrl = 'https://github.com/LeonCry';
+import { alertInfo, tvUrl, gitUrl } from './Info';
+import { darkStore } from '@/store/darkStore';
 const RootBar = () => {
   const pathName = usePathname();
   const secPath = '/' + pathName.split('/')[1];
@@ -22,6 +19,7 @@ const RootBar = () => {
   };
   const handleDark = () => {
     isDarkSet(!isDark);
+    darkStore.isDark = !isDark;
     sessionStorage.setItem('isDark', String(!isLike));
     if (!isDark) return document.body.classList.add('blend-dark');
     return document.body.classList.remove('blend-dark');
@@ -75,12 +73,26 @@ const RootBar = () => {
         <li className="w-16 text-center select-none"> || </li>
         <li onClick={handleLike} className={style.icon}>
           {isLike ? (
-            <Like theme="two-tone" size="20" fill={['#f64649', '#ff9999']} strokeLinejoin="bevel" />
+            isDark ? (
+              <Like
+                theme="two-tone"
+                size="20"
+                fill={['#00ADB1', '#006364']}
+                strokeLinejoin="bevel"
+              />
+            ) : (
+              <Like
+                theme="two-tone"
+                size="20"
+                fill={['#f64649', '#ff9999']}
+                strokeLinejoin="bevel"
+              />
+            )
           ) : (
             <Like theme="outline" size="20" fill="#181926" />
           )}
         </li>
-        <li className={style.icon} onClick={() => window.alert(alert)}>
+        <li className={style.icon} onClick={() => window.alert(alertInfo)}>
           <MessageEmoji theme="outline" size="20" fill="#181926" />
         </li>
         <li className={style.icon}>

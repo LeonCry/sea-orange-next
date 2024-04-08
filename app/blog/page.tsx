@@ -4,7 +4,8 @@ import getSectionDescription from '@/lib/getSectionDescription';
 import { BlogPageItem } from '@prisma/client';
 import { getAllBlogInfo } from '@/api/blogPageApi';
 import { groupBy } from 'lodash';
-import SectionBox from './_component/SectionBox';
+import SectionBox from '@/components/sectionBox/SectionBox';
+import ItemBox from './_component/ItemBox';
 import { revalidatePath } from 'next/cache';
 export const metadata: Metadata = {
   title: 'seaci.me | ' + getSectionDescription['/blog']?.title,
@@ -17,7 +18,11 @@ const Blog = async () => {
   return (
     <section className="page-dropDown">
       {Object.keys(category).map((cty, i) => (
-        <SectionBox key={i} projects={category[cty]} title={cty} />
+        <SectionBox key={i} title={cty}>
+          {category[cty].map((p, i) => (
+            <ItemBox key={i} projectInfo={p} />
+          ))}
+        </SectionBox>
       ))}
       <div className="my-20" />
     </section>

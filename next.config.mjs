@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: 'vip.helloimg.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'gitee.com',
+        port: '',
+      },
     ],
     formats: ['image/webp'],
   },

@@ -61,7 +61,8 @@ const Camera = ({
     });
   };
   const handleScrollToBottom = () => {
-    var scrollTop = (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    var scrollTop = (document.documentElement || document.body.parentNode || document.body)
+      .scrollTop;
     var clientHeight = document.documentElement.clientHeight;
     var scrollHeight = Math.max(
       document.body.scrollHeight,

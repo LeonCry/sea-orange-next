@@ -36,6 +36,9 @@
 .blend-dark {
   mix-blend-mode: difference;
 }
+.blend-light {
+  mix-blend-mode:normal,
+}
 
 /* Webkit内核的浏览器 */
 ::-webkit-scrollbar {

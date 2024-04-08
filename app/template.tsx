@@ -10,7 +10,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
     const path = pathName;
     return () => {
       if (process.env.NEXT_PUBLIC_APP_ENV === 'development') return;
-      if (localStorage.getItem('ignore-visit') === 'true') return;
+      if (localStorage.getItem('ignore-visit') === process.env.NEXT_PUBLIC_IGNORE) return;
       const { machine, browser } = getUserAgentData();
       const overTime = new Date();
       const differenceInMilliseconds = Math.abs(time.getTime() - overTime.getTime());
@@ -20,7 +20,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
       uploadVisit(infos);
     };
   }, [pathName]);
-  return <>{children}</>;
+  return <> {children} </>;
 };
 
 export default RootTemplate;
