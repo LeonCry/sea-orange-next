@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import Loading from '@/components/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/components/loading/smallLoading';
+import {AllApplication, ClearFormat} from "@icon-park/react";
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -61,10 +62,10 @@ const Camera = ({
     });
   };
   const handleScrollToBottom = () => {
-    var scrollTop = (document.documentElement || document.body.parentNode || document.body)
+    const scrollTop = (document.documentElement || document.body.parentNode || document.body)
       .scrollTop;
-    var clientHeight = document.documentElement.clientHeight;
-    var scrollHeight = Math.max(
+    const clientHeight = document.documentElement.clientHeight;
+    const scrollHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
       document.body.offsetHeight,
@@ -92,18 +93,17 @@ const Camera = ({
       {!!photos.length && !!category.length ? (
         <section className="page-dropDown">
           {contextHolder}
-          <header className="pb-4 pt-1 w-full">
-            <label htmlFor="sel">Select category: </label>
+          <header className="flex items-center">
+            <AllApplication theme="outline" size="24" fill="#333" className="inline-block pr-2"/>
             <Select
-              id="sel"
               className="cursor-none"
               style={{ width: 160 }}
               onChange={handleSearch}
               options={category.map((item) => ({ value: item, label: item }))}
             />
             <div className="w-5 inline-block"></div>
-            <Button className="cursor-none" onClick={refresh}>
-              clear search
+            <Button className="cursor-none px-5" onClick={refresh}>
+              <ClearFormat theme="outline" size="18" fill="#333"/>
             </Button>
             <div className="w-5 inline-block"></div>
             {isFetching && (
@@ -126,5 +126,4 @@ const Camera = ({
     </>
   );
 };
-
 export default Camera;

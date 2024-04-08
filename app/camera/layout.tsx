@@ -13,12 +13,11 @@ const CameraLayout = async ({ children }: { children: React.ReactNode }) => {
   };
   revalidatePath('/camera');
   return (
-    <>
+    <section>
       <Camera fetchData={fetchData} fetchCategoryData={fetchCategoryData} />
       {children}
-    </>
+    </section>
   );
-  return;
 };
 
 export default CameraLayout;

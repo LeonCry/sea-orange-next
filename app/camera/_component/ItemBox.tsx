@@ -13,7 +13,7 @@ const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
     <Link
       ref={itemRef}
       href={`/camera/${photo.id}`}
-      className={`w-[600px] h-[400px] relative rounded-xl cursor-none shadow-violet-200 shadow-xl box-trigger`}
+      className={`w-[600px] h-[400px] relative rounded-xl cursor-none box-trigger ${dark.isDark && 'blend-dark'}`}
     >
       {isIntoView && (
         <Image
@@ -21,7 +21,7 @@ const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
           src={photo.photoSrc}
           fill
           sizes="100"
-          className={`rounded-xl ${dark.isDark && 'blend-dark'}`}
+          className= "rounded-xl"
           priority
         />
       )}

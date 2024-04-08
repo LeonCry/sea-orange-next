@@ -35,9 +35,7 @@
 }
 .blend-dark {
   mix-blend-mode: difference;
-}
-.blend-light {
-  mix-blend-mode:normal,
+  /*filter: invert(1);*/
 }
 
 /* Webkit内核的浏览器 */

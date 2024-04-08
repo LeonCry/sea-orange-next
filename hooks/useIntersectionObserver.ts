@@ -12,7 +12,7 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>) => {
   };
   useEffect(() => {
     const io = new IntersectionObserver(callback, {
-      threshold: 1,
+      threshold: 0.6,
     });
     if (elements) {
       elements.current.classList.add("show-move-animation");

@@ -1,6 +1,6 @@
 'use client';
 import style from '../../funny/_component/Modal.module.scss';
-import { Acoustic, AppletClosed, Camera, GamePs, Record } from '@icon-park/react';
+import {Acoustic, AppletClosed, Camera, DownloadFour, GamePs, Record} from '@icon-park/react';
 import { CameraPageItem } from '@prisma/client';
 import { Button } from 'antd';
 import Image from 'next/image';
@@ -10,16 +10,17 @@ import { darkStore } from '@/store/darkStore';
 import { useSnapshot } from 'valtio';
 const CameraInfo = ({ local }: { local: CameraPageItem }) => {
   const dark = useSnapshot(darkStore);
+  console.log("isDark:",dark.isDark);
   const router = useRouter();
   const boxRef = useRef<HTMLDivElement | null>(null);
   const handleClose = async () => {
     if (!boxRef.current) return;
     boxRef.current.style.animationPlayState = 'running';
     await new Promise((resolve) => setTimeout(resolve, 500));
-    router.push('/camera');
+    router.back();
   };
   return (
-    <section className="w-full backdrop-blur-[84px] z-[60] h-full top-0 fixed">
+    <section className={`w-full backdrop-blur-[84px] z-[60] h-full fixed bottom-0 ${dark.isDark && 'invert bg-[rgba(0,0,0,0.8)]'}`}>
       <div
         ref={boxRef}
         className={`relative w-[95%] h-[95%] ml-[2.5%] mt-6 rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffOut}`}
@@ -28,33 +29,34 @@ const CameraInfo = ({ local }: { local: CameraPageItem }) => {
           <AppletClosed
             theme="outline"
             size="20"
-            fill="#000000"
+            fill={dark.isDark ? '#ffffff' : '#000000'}
             strokeWidth={2}
             onClick={handleClose}
           />
         </div>
         <div className="flex items-center justify-around w-full h-full">
-          <div className="w-[999px] h-[666px] relative">
+          <div className={`w-[1200px] h-[800px] relative rounded-xl cursor-none`}>
             <Image
               src={local.photoSrc}
               fill
               alt="pic"
+              sizes="100"
               priority
-              className={`rounded-lg shadow-xl shadow-blue-100 ${dark.isDark && 'blend-dark'}`}
+              className= "rounded-lg"
             />
           </div>
           <article className="flex-1 flex flex-col h-full justify-center items-start px-10 border-l ml-10 gap-10">
             <span className="flex items-center gap-3">
-              <Acoustic theme="outline" size="20" fill="#000000" /> {local.name}
+              <Acoustic theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} /> {local.name}
             </span>
             <span className="flex items-center gap-3">
-              <Record theme="outline" size="20" fill="#000000" /> {local.category}
+              <Record theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} /> {local.category}
             </span>
             <span className="flex items-center gap-3">
-              <Camera theme="outline" size="20" fill="#000000" /> {local.device}
+              <Camera theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} /> {local.device}
             </span>
             <span className="flex items-center gap-3">
-              <GamePs theme="outline" size="20" fill="#000000" /> {local.description}
+              <GamePs theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} /> {local.description}
             </span>
             <a
               href={`${local.photoSrc}?response-content-type=application/octet-stream`}
@@ -63,10 +65,10 @@ const CameraInfo = ({ local }: { local: CameraPageItem }) => {
               target="_blank"
             >
               <Button
-                className="cursor-none border-none bg-black hover:!bg-gray-900 font-base"
+                className="cursor-none border-none bg-blue-300 hover:!bg-blue-500 px-10"
                 type="text"
               >
-                Download
+                <DownloadFour theme="outline" size="24" fill="#333"/>
               </Button>
             </a>
           </article>
