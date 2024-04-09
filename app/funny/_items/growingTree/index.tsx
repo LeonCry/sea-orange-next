@@ -149,10 +149,11 @@ const GrowTree = () => {
     };
   }, [handleCb, branchGenerated]);
   return (
-    <section className="h-full flex items-center gap-3 relative">
+    <section className="h-full flex items-center gap-3">
       <canvas className="border rounded-xl bg-white" ref={canvasRef} width={1400} height={800} />
-      <div id="options" className="w-[20%] h-full py-6 px-32 border-l-4 border-dotted overflow-auto">
-        <h1>配置项</h1>
+      <div id="options" className="flex-1 flex flex-col h-full py-6 px-2 border-l-4 border-dotted overflow-auto">
+        <h1 className="text-center"> -- 配置项 -- </h1>
+        <div className="overflow-auto"></div>
       </div>
     </section>
   );
