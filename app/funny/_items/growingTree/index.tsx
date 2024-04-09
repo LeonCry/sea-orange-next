@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useRef } from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 class Branch {
   originPoint: [number, number];
   endPoint: [number, number];
@@ -149,9 +149,9 @@ const GrowTree = () => {
     };
   }, [handleCb, branchGenerated]);
   return (
-    <section className="h-full flex flex-col items-center gap-3">
-      <canvas className="border rounded-xl bg-white relative" width="1000px" height="550px" ref={canvasRef}></canvas>
-      <div id="options" className="w-[90%] flex-1 py-6 px-32 border-t-4 border-dotted overflow-auto">
+    <section className="h-full flex items-center gap-3 relative">
+      <canvas className="border rounded-xl bg-white" ref={canvasRef} width={1400} height={800} />
+      <div id="options" className="w-[20%] h-full py-6 px-32 border-l-4 border-dotted overflow-auto">
         <h1>配置项</h1>
       </div>
     </section>
