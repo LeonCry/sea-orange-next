@@ -1,13 +1,12 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect,ReactNode } from 'react';
 import getUserAgentData from '@/lib/getUserAgentData';
 import { uploadVisit } from '@/api/getSectionInfo';
-const RootTemplate = ({ children }: { children: React.ReactNode }) => {
-  const pathName = usePathname();
+const RootTemplate = ({ children }: { children: ReactNode }) => {
+  const path = usePathname();
   useEffect(() => {
     const time = new Date();
-    const path = pathName;
     return () => {
       if (process.env.NEXT_PUBLIC_APP_ENV === 'development') return;
       if (localStorage.getItem('ignore-visit') === process.env.NEXT_PUBLIC_IGNORE) return;
@@ -19,7 +18,7 @@ const RootTemplate = ({ children }: { children: React.ReactNode }) => {
       const infos = { path, machine, browser, time: time.toLocaleString(), spendTime };
       uploadVisit(infos);
     };
-  }, [pathName]);
+  }, [path]);
   return <> {children} </>;
 };
 
