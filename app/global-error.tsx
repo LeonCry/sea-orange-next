@@ -1,7 +1,8 @@
 'use client';
-import ErrorMark from "@/components/error/errorMark";
-import SearchFolder from "@/components/error/searchFolder";
+import ErrorMark from "@/lotties/error/errorMark";
+import SearchFolder from "@/lotties/error/searchFolder";
 import {Power, Refresh} from "@icon-park/react";
+import './globals.css';
 import Link from "next/link";
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (

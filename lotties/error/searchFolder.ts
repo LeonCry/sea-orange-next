@@ -1,6 +1,6 @@
 'use client';
-import { useLottie } from 'lottie-react';
 import searchFolder from './search-folder.json';
+import createLottie from "@/lotties/createLottie";
 const SearchFolder = () => {
     const style = {
         width: 400,
@@ -11,8 +11,7 @@ const SearchFolder = () => {
         loop: true,
         autoplay: true,
     };
-    const { View } = useLottie(options, style);
-    return View;
+    return createLottie(options, style);
 };
 
 export default SearchFolder;

@@ -1,6 +1,6 @@
 'use client';
-import { useLottie } from 'lottie-react';
 import notFound from './not-found.json';
+import createLottie from "@/lotties/createLottie";
 const NotFound = () => {
     const style = {
         width: 400,
@@ -11,8 +11,7 @@ const NotFound = () => {
         loop: true,
         autoplay: true,
     };
-    const { View } = useLottie(options, style);
-    return View;
+    return createLottie(options, style);
 };
 
 export default NotFound;

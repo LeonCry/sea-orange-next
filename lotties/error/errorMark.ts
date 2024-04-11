@@ -1,6 +1,6 @@
 'use client';
-import { useLottie } from 'lottie-react';
 import errorMarker from './error-marker.json';
+import createLottie from "@/lotties/createLottie";
 const ErrorMark = () => {
     const style = {
         width: 100,
@@ -11,8 +11,7 @@ const ErrorMark = () => {
         loop: false,
         autoplay: true,
     };
-    const { View } = useLottie(options, style);
-    return View;
+    return createLottie(options, style);
 };
 
 export default ErrorMark;

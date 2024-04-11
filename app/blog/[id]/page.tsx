@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import MainBox from './_component/MainBox';
-import Loading from '@/components/loading/Loading';
+import Loading from '@/lotties/loading/Loading';
 import { BlogPageItem } from '@prisma/client';
 import { getAllBlogInfo } from '@/api/blogPageApi';
 export const generateStaticParams = async () => {

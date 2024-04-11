@@ -1,6 +1,6 @@
 'use client';
-import { useLottie } from 'lottie-react';
 import loadingLottie from './LoadingSearch.json';
+import createLottie from "@/lotties/createLottie";
 const SmallLoading = () => {
   const style = {
     width: 100,
@@ -11,8 +11,7 @@ const SmallLoading = () => {
     loop: true,
     autoplay: true,
   };
-  const { View } = useLottie(options, style);
-  return View;
+  return createLottie(options, style);
 };
 
 export default SmallLoading;

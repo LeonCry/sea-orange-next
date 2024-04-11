@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import NotFound from '@/components/notFound/notFound';
+import NotFound from '@/lotties/notFound/notFound';
 import {Return} from "@icon-park/react";
 const notFound = () => {
   return (

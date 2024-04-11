@@ -4,9 +4,9 @@ import { useImmer } from 'use-immer';
 import ItemBox from './ItemBox';
 import { Button, Select, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import Loading from '@/components/loading/Loading';
+import Loading from '@/lotties/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
-import SmallLoading from '@/components/loading/smallLoading';
+import SmallLoading from '@/lotties/loading/smallLoading';
 import {AllApplication, ClearFormat} from "@icon-park/react";
 const Camera = ({
   fetchData,

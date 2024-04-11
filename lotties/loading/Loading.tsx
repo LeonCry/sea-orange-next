@@ -1,6 +1,6 @@
 'use client';
-import { useLottie } from 'lottie-react';
 import loadingLottie from './LoadingSearch.json';
+import createLottie from "@/lotties/createLottie";
 const Loading = () => {
   const style = {
     width: 400,
@@ -11,10 +11,10 @@ const Loading = () => {
     loop: true,
     autoplay: true,
   };
-  const { View } = useLottie(options, style);
+  const view = createLottie(options, style);
   return (
     <div className="w-full h-full flex flex-col justify-center items-center absolute top-0 z-50 backdrop:blur-sm">
-      {View}
+      {view}
       <span>Loading...</span>
     </div>
   );
