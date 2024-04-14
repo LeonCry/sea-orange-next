@@ -13,7 +13,7 @@ export const generateStaticParams = async () => {
   }));
 };
 const page = async ({ params }: { params: { page: string } }) => {
-  revalidatePath('/gossip/[page]');
+  revalidatePath('/gossip');
   return (
     <Suspense fallback={<Loading />}>
       <Main page={params.page}>

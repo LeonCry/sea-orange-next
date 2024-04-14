@@ -3,6 +3,7 @@ import type { FunnyPageItem } from '@prisma/client';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import dynamic from 'next/dynamic';
 import Modal from '../_component/Modal';
+import NotFound from '@/app/not-found';
 export const generateStaticParams = async () => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
   return projectInfo.map((item) => ({
@@ -19,13 +20,20 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
     }
   }
   if (fileList.includes(params.name) === false) {
-    return <section>404 NOT FOUND</section>;
+    return <NotFound />;
   }
+  const withoutModal = ['democracySimulator'];
   const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
   return (
-    <Modal>
-      <DynamicComponents />
-    </Modal>
+    <>
+      {withoutModal.includes(params.name) ? (
+        <DynamicComponents />
+      ) : (
+        <Modal>
+          <DynamicComponents />
+        </Modal>
+      )}
+    </>
   );
 };
 
