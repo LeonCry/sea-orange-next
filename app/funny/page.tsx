@@ -7,12 +7,14 @@ import ItemBox from './_component/ItemBox';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import type { FunnyPageItem } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { funnyOrders } from '@/lib/getCategoryOrder';
 export const metadata: Metadata = {
   title: 'seaci.me | ' + getSectionDescription['/funny']?.title,
   description: getSectionDescription['/funny']?.description,
 };
 const Funny = async () => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
+  projectInfo.sort((a, b) => funnyOrders.indexOf(a.category) - funnyOrders.indexOf(b.category));
   const category = groupBy(projectInfo, 'category');
   revalidatePath('/funny');
   return (

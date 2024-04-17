@@ -1,4 +1,5 @@
 import '../globals.css';
+import { blogOrders } from '@/lib/getCategoryOrder';
 import { Metadata } from 'next';
 import getSectionDescription from '@/lib/getSectionDescription';
 import { BlogPageItem } from '@prisma/client';
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 const Blog = async () => {
   const projectInfo: BlogPageItem[] = await getAllBlogInfo();
+  projectInfo.sort((a, b) => blogOrders.indexOf(a.category) - blogOrders.indexOf(b.category));
   const category = groupBy(projectInfo, 'category');
   revalidatePath('/blog');
   return (
