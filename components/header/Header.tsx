@@ -2,12 +2,21 @@
 import { usePathname } from 'next/navigation';
 import { chakraEN } from '@/style/defineFont';
 import { ReactTyped } from 'react-typed';
+import { memo } from 'react';
 import { AppProgressBar } from 'next-nprogress-bar';
-const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
+import { getSectionDescription, type SectionType } from '@/lib/getSectionDescription';
+import { useRouter } from 'next/navigation';
+const Header = memo(() => {
+  const router = useRouter();
   const pathName = usePathname();
+  console.log('render Header', pathName);
   const secPath = '/' + pathName.split('/')[1];
-  let curSection = sectionInfo[secPath];
-  if (pathName.split('/').length > 2 && (curSection.title === 'FuNnY' || curSection.title === 'bLoG')) {
+  if (!secPath) return;
+  let curSection: SectionType[string] | undefined = getSectionDescription[secPath];
+  if (
+    pathName.split('/').length > 2 &&
+    (curSection.title === 'FuNnY' || curSection.title === 'bLoG')
+  ) {
     curSection = undefined;
   }
   return (
@@ -15,7 +24,9 @@ const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
       <AppProgressBar height="2px" color="#4F46E5" options={{ showSpinner: false }} />
       {curSection && (
         <div>
-          <h1 className={`text-center w-full text-3xl font-bold pb-2 ${chakraEN.className}`}>{curSection?.title}</h1>
+          <h1 className={`text-center w-full text-3xl font-bold pb-2 ${chakraEN.className}`}>
+            {curSection?.title}
+          </h1>
           <div className="pb-1 border-dotted border-b-2 text-right pr-3 mb-5">
             <ReactTyped strings={[curSection?.description]} typeSpeed={30} cursorChar="_" />
           </div>
@@ -23,6 +34,6 @@ const Header = ({ sectionInfo }: { sectionInfo: Record<string, any> }) => {
       )}
     </section>
   );
-};
-
+});
+Header.displayName = 'Header';
 export default Header;

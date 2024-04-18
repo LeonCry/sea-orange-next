@@ -1,6 +1,4 @@
 import '../globals.css';
-import { Metadata } from 'next';
-import getSectionDescription from '@/lib/getSectionDescription';
 import AboutMe from './AboutMe';
 const About = () => {
   return (

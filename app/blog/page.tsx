@@ -1,7 +1,5 @@
 import '../globals.css';
 import { blogOrders } from '@/lib/getCategoryOrder';
-import { Metadata } from 'next';
-import getSectionDescription from '@/lib/getSectionDescription';
 import { BlogPageItem } from '@prisma/client';
 import { getAllBlogInfo } from '@/api/blogPageApi';
 import { groupBy } from 'lodash';

@@ -1,7 +1,5 @@
 import '../globals.css';
-import { Metadata } from 'next';
 import { groupBy } from 'lodash';
-import getSectionDescription from '@/lib/getSectionDescription';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';

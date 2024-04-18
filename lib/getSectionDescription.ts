@@ -1,4 +1,10 @@
-const getSectionDescription = {
+export interface SectionType {
+  [p: string]: {
+    title: string;
+    description: string;
+  };
+}
+export const getSectionDescription: SectionType = {
   "/": {
     title: "home",
     description: "seaci.me"
@@ -28,4 +34,3 @@ const getSectionDescription = {
     description: "seaci with me."
   },
 };
-export default getSectionDescription;

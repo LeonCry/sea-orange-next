@@ -1,6 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { useEffect,ReactNode } from 'react';
+import { useEffect, ReactNode } from 'react';
 import getUserAgentData from '@/lib/getUserAgentData';
 import { uploadVisit } from '@/api/getSectionInfo';
 const RootTemplate = ({ children }: { children: ReactNode }) => {

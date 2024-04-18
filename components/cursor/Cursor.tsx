@@ -3,6 +3,7 @@
 import style from './Cursor.module.scss';
 import { useEffect, useRef } from 'react';
 const Cursor = () => {
+  console.log('render cursor');
   const cursorRef = useRef<HTMLDivElement | null>(null);
   //hover后内出现的小球
   const innerCircleRef = useRef<HTMLDivElement | null>(null);

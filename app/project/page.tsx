@@ -1,6 +1,4 @@
 import '../globals.css';
-import { Metadata } from 'next';
-import getSectionDescription from '@/lib/getSectionDescription';
 import { ProjectPageItem } from '@prisma/client';
 import { groupBy } from 'lodash';
 import SectionBox from '@/components/sectionBox/SectionBox';
