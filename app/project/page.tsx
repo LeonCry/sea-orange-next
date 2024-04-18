@@ -8,10 +8,6 @@ import ItemBox from './_component/ItemBox';
 import { getAllProjects } from '@/api/projectPageApi';
 import { revalidatePath } from 'next/cache';
 import { projectOrders } from '@/lib/getCategoryOrder';
-export const metadata: Metadata = {
-  title: 'seaci.me | ' + getSectionDescription['/blog']?.title,
-  description: getSectionDescription['/blog']?.description,
-};
 const Project = async () => {
   const projectInfo: ProjectPageItem[] = await getAllProjects();
   projectInfo.sort((a, b) => projectOrders.indexOf(a.category) - projectOrders.indexOf(b.category));

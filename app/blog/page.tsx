@@ -8,10 +8,6 @@ import { groupBy } from 'lodash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { revalidatePath } from 'next/cache';
-export const metadata: Metadata = {
-  title: 'seaci.me | ' + getSectionDescription['/blog']?.title,
-  description: getSectionDescription['/blog']?.description,
-};
 const Blog = async () => {
   const projectInfo: BlogPageItem[] = await getAllBlogInfo();
   projectInfo.sort((a, b) => blogOrders.indexOf(a.category) - blogOrders.indexOf(b.category));
