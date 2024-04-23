@@ -9,7 +9,6 @@ import { alertInfo, tvUrl, gitUrl } from './Info';
 import { darkStore } from '@/store/darkStore';
 const RootBar = () => {
   const pathName = usePathname();
-  console.log('routeBarRender', pathName);
   const secPath = '/' + pathName.split('/')[1];
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);

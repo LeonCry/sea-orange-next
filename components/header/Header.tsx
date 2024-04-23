@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 const Header = memo(() => {
   const router = useRouter();
   const pathName = usePathname();
-  console.log('render Header', pathName);
   const secPath = '/' + pathName.split('/')[1];
   if (!secPath) return;
   let curSection: SectionType[string] | undefined = getSectionDescription[secPath];

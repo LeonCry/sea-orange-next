@@ -18,7 +18,6 @@ const GamePlay = () => {
     if (error || finish) return;
     const { ctrlKey, keyCode } = e;
     // if (!ctrlKey) return;
-    console.log(keyCode, baseKeyCode[dirs[curDir].instruction[curPass]]);
     if (keyCode !== baseKeyCode[dirs[curDir].instruction[curPass]]) {
       setError(() => true);
       setTimeout(() => {

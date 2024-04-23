@@ -16,15 +16,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log('layout render.');
   return (
     <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
       <body className="font-base bg-base-bg-color cursor-none h-svh overflow-x-hidden">
-        <Cursor />
-        <RootBar />
-        <Header />
-        {children}
+        <main className="flex flex-col-reverse">
+          {children}
+          <div>
+            <RootBar />
+            <Header />
+          </div>
+        </main>
         <BackView />
+        <Cursor />
       </body>
     </html>
   );
