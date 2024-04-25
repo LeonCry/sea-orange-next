@@ -50,19 +50,19 @@ const CameraInfo = ({ local }: { local: CameraPageItem }) => {
           </div>
           <article className="flex-1 flex flex-col h-full justify-center items-start px-10 border-l ml-10 gap-10">
             <span className="flex items-center gap-3">
-              <Acoustic theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />{' '}
+              <Acoustic theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
               {local.name}
             </span>
             <span className="flex items-center gap-3">
-              <Record theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />{' '}
+              <Record theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
               {local.category}
             </span>
             <span className="flex items-center gap-3">
-              <Camera theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />{' '}
+              <Camera theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
               {local.device}
             </span>
             <span className="flex items-center gap-3">
-              <GamePs theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />{' '}
+              <GamePs theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
               {local.description}
             </span>
             <a
