@@ -1,5 +1,5 @@
 import '../globals.css';
-import { groupBy } from 'lodash';
+import { group } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
@@ -9,13 +9,13 @@ import { funnyOrders } from '@/lib/getCategoryOrder';
 const Funny = async () => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
   projectInfo.sort((a, b) => funnyOrders.indexOf(a.category) - funnyOrders.indexOf(b.category));
-  const category = groupBy(projectInfo, 'category');
+  const category = group(projectInfo, (p) => p.category);
   revalidatePath('/funny');
   return (
     <section className="page-dropDown">
       {Object.keys(category).map((cty, i) => (
         <SectionBox key={i} title={cty}>
-          {category[cty].map((p, i) => (
+          {category[cty]!.map((p, i) => (
             <ItemBox key={i} projectInfo={p} />
           ))}
         </SectionBox>

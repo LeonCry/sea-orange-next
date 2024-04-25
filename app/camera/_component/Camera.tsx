@@ -1,13 +1,14 @@
 'use client';
 import { CameraPageItem } from '@prisma/client';
-import { useImmer } from 'use-immer';
 import ItemBox from './ItemBox';
 import { Button, Select, message } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Loading from '@/lotties/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/lotties/loading/smallLoading';
-import {AllApplication, ClearFormat} from "@icon-park/react";
+import { AllApplication, ClearFormat } from '@icon-park/react';
+import { useReactive, useScroll, useUpdateEffect } from 'ahooks';
+import { debounce, random } from 'radash';
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -15,86 +16,64 @@ const Camera = ({
   fetchData: (page: number) => Promise<CameraPageItem[]>;
   fetchCategoryData: () => Promise<{ category: string }[]>;
 }) => {
-  const [messageApi, contextHolder] = message.useMessage();
-  const [photos, setPhotos] = useImmer<CameraPageItem[]>([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [category, setCategory] = useImmer<string[]>([]);
   let page = useRef(1);
-  const fetchNextCamera = async () => {
-    setIsFetching(true);
+  const container = useRef<HTMLDivElement | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const photos = useReactive<CameraPageItem[]>([]);
+  const category = useReactive<string[]>([]);
+  const fetchNextCamera = debounce({ delay: 500 }, async () => {
+    page.current++;
     const res = await fetchData(page.current);
-    setIsFetching(false);
     if (!res.length)
       return messageApi.open({
         type: 'warning',
         content: 'has loaded all photos',
       });
-    setIsFetching(false);
-    setPhotos((draft) => {
-      draft.push(...res);
-    });
-  };
-  const refresh = async () => {
-    setIsFetching(true);
+    photos.push(...res);
+  });
+  const refresh = debounce({ delay: 500 }, async () => {
     page.current = 1;
+    setLoading(true);
     const res = await fetchData(page.current);
-    setIsFetching(false);
-    setPhotos((draft) => {
-      draft.splice(0, draft.length);
-      draft.push(...res);
-    });
-  };
-  const fetchCategory = async () => {
+    setLoading(false);
+    photos.length = 0;
+    photos.push(...res);
+  });
+  const fetchCategory = debounce({ delay: 500 }, async () => {
     const res = await fetchCategoryData();
-    setCategory((draft) => {
-      draft.splice(0, draft.length);
-      draft.push(...res.map((item) => item.category));
-    });
-  };
-  const handleSearch = async (v: string) => {
-    setIsFetching(true);
+    category.length = 0;
+    category.push(...res.map((item) => item.category));
+  });
+  const handleSearch = useCallback(async (v: string) => {
     page.current = 1;
+    setLoading(true);
     const res = await getPhotoByCategory(v, page.current);
-    setIsFetching(false);
-    setPhotos((draft) => {
-      draft.splice(0, draft.length);
-      draft.push(...res);
-    });
-  };
-  const handleScrollToBottom = () => {
-    const scrollTop = (document.documentElement || document.body.parentNode || document.body)
-      .scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    const scrollHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight,
-      document.documentElement.clientHeight
-    );
-    if (scrollTop + clientHeight >= scrollHeight) {
-      if (isFetching) return;
-      page.current++;
-      fetchNextCamera();
-    }
-  };
+    setLoading(false);
+    photos.length = 0;
+    photos.push(...res);
+  }, []);
+  const position = useScroll(
+    container,
+    (val) =>
+      !!container.current &&
+      !!val.top &&
+      val.top === container.current.scrollHeight - container.current.offsetHeight
+  );
+  useUpdateEffect(() => {
+    fetchNextCamera();
+  }, [position]);
   useEffect(() => {
     refresh();
     fetchCategory();
-    window.addEventListener('scroll', handleScrollToBottom);
-    return () => {
-      setCategory((draft) => draft.splice(0, draft.length));
-      setPhotos((draft) => draft.splice(0, draft.length));
-      window.removeEventListener('scroll', handleScrollToBottom);
-    };
   }, []);
   return (
     <>
       {!!photos.length && !!category.length ? (
-        <section className="page-dropDown">
+        <section ref={container} className="page-dropDown fix-h !overflow-auto">
           {contextHolder}
           <header className="flex items-center">
-            <AllApplication theme="outline" size="24" fill="#333" className="inline-block pr-2"/>
+            <AllApplication theme="outline" size="24" fill="#333" className="inline-block pr-2" />
             <Select
               className="cursor-none"
               style={{ width: 160 }}
@@ -103,10 +82,10 @@ const Camera = ({
             />
             <div className="w-5 inline-block"></div>
             <Button className="cursor-none px-5" onClick={refresh}>
-              <ClearFormat theme="outline" size="18" fill="#333"/>
+              <ClearFormat theme="outline" size="18" fill="#333" />
             </Button>
             <div className="w-5 inline-block"></div>
-            {isFetching && (
+            {loading && (
               <div className="relative inline-block">
                 <div className="absolute top-[-55px]">
                   <SmallLoading />

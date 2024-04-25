@@ -17,13 +17,14 @@
   color: var(--base-text-color);
 }
 .page-dropDown {
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
   overflow: hidden;
   animation: dropdownAnimation 1s ease-in-out;
 }
 .fix-h {
-  height: calc(100% - 233px);
+  height: calc(100vh - 233px);
 }
 .drop-animation {
   overflow: hidden;

@@ -2,12 +2,10 @@
 import { usePathname } from 'next/navigation';
 import { chakraEN } from '@/style/defineFont';
 import { ReactTyped } from 'react-typed';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { AppProgressBar } from 'next-nprogress-bar';
 import { getSectionDescription, type SectionType } from '@/lib/getSectionDescription';
-import { useRouter } from 'next/navigation';
-const Header = memo(() => {
-  const router = useRouter();
+const Header = () => {
   const pathName = usePathname();
   const secPath = '/' + pathName.split('/')[1];
   if (!secPath) return;
@@ -33,6 +31,6 @@ const Header = memo(() => {
       )}
     </section>
   );
-});
+};
 Header.displayName = 'Header';
 export default Header;
