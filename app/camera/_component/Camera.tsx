@@ -2,13 +2,13 @@
 import { CameraPageItem } from '@prisma/client';
 import ItemBox from './ItemBox';
 import { Button, Select, message } from 'antd';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Loading from '@/lotties/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/lotties/loading/smallLoading';
 import { AllApplication, ClearFormat } from '@icon-park/react';
-import { useReactive, useScroll, useUpdateEffect } from 'ahooks';
-import { debounce, random } from 'radash';
+import { useMemoizedFn, useReactive, useScroll, useUpdateEffect } from 'ahooks';
+import { debounce } from 'radash';
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -45,14 +45,14 @@ const Camera = ({
     category.length = 0;
     category.push(...res.map((item) => item.category));
   });
-  const handleSearch = useCallback(async (v: string) => {
+  const handleSearch = useMemoizedFn(async (v: string) => {
     page.current = 1;
     setLoading(true);
     const res = await getPhotoByCategory(v, page.current);
     setLoading(false);
     photos.length = 0;
     photos.push(...res);
-  }, []);
+  });
   const position = useScroll(
     container,
     (val) =>

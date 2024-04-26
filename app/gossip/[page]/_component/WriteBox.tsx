@@ -2,56 +2,48 @@
 import { useState } from 'react';
 import style from './WriteBox.module.scss';
 import { Button, Rate, Select, message } from 'antd';
-import { useImmer } from 'use-immer';
 import getUserAgentData from '@/lib/getUserAgentData';
 import { insertComment } from '@/api/gossipPageApi';
 import { LeftSquare, MessageUnread, RightSquare, ToBottomOne } from '@icon-park/react';
 import { useRouter } from 'next/navigation';
+import { useMemoizedFn, useResetState } from 'ahooks';
 const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: number }) => {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
-  const [loadings, setLoadings] = useState<boolean>(false);
-  const [showWriteBox, setShowWriteBox] = useState<boolean>(false);
+  const [loadings, setLoadings] = useState(false);
+  const [showWriteBox, setShowWriteBox] = useState(false);
   const [sectionClass, setSectionClass] = useState(style['section']);
-  const [comment, setComment] = useImmer({
+  const [comment, setComment, resetComment] = useResetState({
     rate: '',
     name: '',
     mood: '',
     message: '',
   });
-  const handleInputChange = (type: 'name' | 'mood' | 'message' | 'rate', value: string | number) => {
-    setComment((draft) => {
-      (draft[type] as any) = value;
-    });
-  };
-  const handleSubmit = async () => {
-    let key: keyof typeof comment;
-    for (key in comment) {
-      if (comment[key] === '') {
-        return messageApi.open({
-          type: 'warning',
-          content: key + " should't be empty",
-        });
-      }
+  const handleInputChange = useMemoizedFn(
+    (type: 'name' | 'mood' | 'message' | 'rate', value: string | number) => {
+      setComment({ ...comment, [type]: value + '' });
+    }
+  );
+  const handleSubmit = useMemoizedFn(async () => {
+    if (Object.values(comment).some((c) => c === '')) {
+      return messageApi.open({
+        type: 'warning',
+        content: "something is empty, please don't let it",
+      });
     }
     const { machine, browser } = getUserAgentData();
     setLoadings(true);
-    await insertComment(comment as any, machine, browser);
+    await insertComment(comment, machine, browser);
     setLoadings(false);
     handleChangeShowWriteBox(true);
     router.refresh();
-  };
-  const handleChangeShowWriteBox = (isShow: boolean) => {
-    setComment((draft) => {
-      draft.rate = '';
-      draft.message = '';
-      draft.mood = '';
-      draft.name = '';
-    });
+  });
+  const handleChangeShowWriteBox = useMemoizedFn((isShow: boolean) => {
+    resetComment();
     setShowWriteBox(!isShow);
     setSectionClass(isShow ? style['section-reverse'] : style['section-start']);
-  };
-  const handlePageChange = (swiftPage: number) => {
+  });
+  const handlePageChange = useMemoizedFn((swiftPage: number) => {
     const nextPage = parseInt(curPage) + swiftPage;
     if (nextPage <= 0)
       return messageApi.open({
@@ -64,24 +56,44 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
         content: "It's on the last page.",
       });
     router.push('/gossip/' + nextPage);
-  };
+  });
   return (
     <>
       <div className="w-[500px] z-10 self-center mb-[-16px] flex justify-center gap-2">
         <Button type="text" className="cursor-none">
-          <LeftSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} onClick={() => handlePageChange(-1)} />
+          <LeftSquare
+            theme="outline"
+            size="21"
+            fill="#4c4f69"
+            strokeWidth={4}
+            onClick={() => handlePageChange(-1)}
+          />
         </Button>
         {showWriteBox ? (
-          <Button type="text" className="cursor-none" onClick={() => handleChangeShowWriteBox(true)}>
+          <Button
+            type="text"
+            className="cursor-none"
+            onClick={() => handleChangeShowWriteBox(true)}
+          >
             <ToBottomOne theme="outline" size="21" fill="#4c4f69" strokeWidth={4} />
           </Button>
         ) : (
-          <Button type="text" className="cursor-none" onClick={() => handleChangeShowWriteBox(false)}>
+          <Button
+            type="text"
+            className="cursor-none"
+            onClick={() => handleChangeShowWriteBox(false)}
+          >
             <MessageUnread theme="outline" size="21" fill="#4c4f69" strokeWidth={4} />
           </Button>
         )}
         <Button type="text" className="cursor-none">
-          <RightSquare theme="outline" size="21" fill="#4c4f69" strokeWidth={4} onClick={() => handlePageChange(1)} />
+          <RightSquare
+            theme="outline"
+            size="21"
+            fill="#4c4f69"
+            strokeWidth={4}
+            onClick={() => handlePageChange(1)}
+          />
         </Button>
       </div>
       <section className={sectionClass} key={sectionClass}>
@@ -130,7 +142,11 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
             className={`${style.inputs} flex-1`}
           />
         </div>
-        <Button onClick={handleSubmit} loading={loadings} className="h-10 w-24 mt-10 self-center cursor-none">
+        <Button
+          onClick={handleSubmit}
+          loading={loadings}
+          className="h-10 w-24 mt-10 self-center cursor-none"
+        >
           submit
         </Button>
       </section>

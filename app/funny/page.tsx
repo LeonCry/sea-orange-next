@@ -1,5 +1,5 @@
 import '../globals.css';
-import { group } from 'radash';
+import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
@@ -7,8 +7,8 @@ import type { FunnyPageItem } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { funnyOrders } from '@/lib/getCategoryOrder';
 const Funny = async () => {
-  const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
-  projectInfo.sort((a, b) => funnyOrders.indexOf(a.category) - funnyOrders.indexOf(b.category));
+  const res: FunnyPageItem[] = await getAllProjectsFromFunny();
+  const projectInfo = sort(res, (r) => funnyOrders.indexOf(r.category));
   const category = group(projectInfo, (p) => p.category);
   revalidatePath('/funny');
   return (

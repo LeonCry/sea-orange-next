@@ -15,14 +15,14 @@ const getCommentInGossip = async (page: string | undefined | number) => {
   }));
 };
 //插入一条评论
-const insertComment = async (commentObj: { rate: number, name: string, mood: string, message: string }, machine: string, browser: string) => {
+const insertComment = async (commentObj: { rate: string, name: string, mood: string, message: string }, machine: string, browser: string) => {
   return executeWithDb(() => prisma.gossipPageItem.create({
     data: {
       userName: commentObj.name,
       commentContent: commentObj.message,
       device: machine,
       brower: browser,
-      stars: commentObj.rate,
+      stars: +commentObj.rate,
       isShow: true,
       headImg: commentObj.mood,
     },

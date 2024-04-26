@@ -1,14 +1,14 @@
 import '../globals.css';
 import { ProjectPageItem } from '@prisma/client';
-import { group } from 'radash';
+import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { getAllProjects } from '@/api/projectPageApi';
 import { revalidatePath } from 'next/cache';
 import { projectOrders } from '@/lib/getCategoryOrder';
 const Project = async () => {
-  const projectInfo: ProjectPageItem[] = await getAllProjects();
-  projectInfo.sort((a, b) => projectOrders.indexOf(a.category) - projectOrders.indexOf(b.category));
+  const res: ProjectPageItem[] = await getAllProjects();
+  const projectInfo = sort(res, (r) => projectOrders.indexOf(r.category));
   const category = group(projectInfo, (p) => p.category);
   revalidatePath('/project');
   return (
