@@ -25,12 +25,10 @@ const RootBar = () => {
     return document.body.classList.remove('blend-dark');
   };
   useEffect(() => {
-    const isLike = localStorage.getItem('isLike');
-    const isDark = sessionStorage.getItem('isDark');
-    if (isLike === 'true') {
+    if (localStorage.getItem('isLike') === 'true') {
       isLikeSet(true);
     }
-    if (isDark === 'true') {
+    if (sessionStorage.getItem('isDark') === 'true') {
       isDarkSet(true);
       document.body.classList.add('blend-dark');
     }
