@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useState } from "react";
 
-export const useIntersectionObserver = (elements: MutableRefObject<any>) => {
+export const useIntersectionObserver = (elements: MutableRefObject<any>, threshold: number = 0.66) => {
   const [isIntoView, setIsIntoView] = useState(false);
   const callback = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry: IntersectionObserverEntry) => {
@@ -12,7 +12,7 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>) => {
   };
   useEffect(() => {
     const io = new IntersectionObserver(callback, {
-      threshold: 0.6,
+      threshold,
     });
     if (elements) {
       elements.current.classList.add("show-move-animation");
@@ -21,6 +21,6 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>) => {
     return () => {
       io.disconnect();
     };
-  }, [elements]);
+  }, [elements, threshold]);
   return isIntoView;
 };

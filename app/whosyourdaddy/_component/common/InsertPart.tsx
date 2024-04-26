@@ -1,5 +1,6 @@
+import { CheckOne, CloseOne } from '@icon-park/react';
 import { useMemoizedFn, useReactive, useResetState } from 'ahooks';
-import { Button, Divider, Input, InputRef, Select, Space, Spin } from 'antd';
+import { Button, Divider, Input, InputRef, Select, Space, Spin, Tag } from 'antd';
 import { isEmpty, throttle } from 'radash';
 import { useRef, useState, memo } from 'react';
 
@@ -57,7 +58,8 @@ const InsertPart = memo(
       const reader = new FileReader();
       const file = e.target.files[0];
       reader.onload = async (e) => {
-        setInsertInfo({ ...insertInfo, content: e.target!.result });
+        if (!e?.target?.result) return;
+        setInsertInfo({ ...insertInfo, content: e.target.result });
       };
       reader.readAsText(file);
     });
@@ -140,12 +142,27 @@ const InsertPart = memo(
         {props.property.find((v) => v.causal === 'content') && (
           <div className="relative">
             <Button>上传文件</Button>
-            <input
-              type="file"
-              onChange={uploadFile}
-              value={insertInfo.content}
-              className="absolute left-0 w-full opacity-0"
-            />
+            {insertInfo.content || props.type === 'update' ? (
+              <Tag
+                bordered={false}
+                color="green"
+                className="absolute right-0 -top-1 p-2 flex gap-2"
+              >
+                <CheckOne theme="outline" size="20" fill="#53A052" />
+                <span>文件已上传</span>
+              </Tag>
+            ) : (
+              <Tag
+                bordered={false}
+                color="volcano"
+                className="absolute right-0 -top-1 p-2 flex gap-2"
+              >
+                <CloseOne theme="outline" size="20" fill="#D4380D" />
+                <span>无文件</span>
+              </Tag>
+            )}
+
+            <input type="file" onChange={uploadFile} className="absolute left-0 w-24 opacity-0" />
           </div>
         )}
         <Button type="dashed" onClick={submit}>

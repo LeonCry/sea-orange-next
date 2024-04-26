@@ -1,6 +1,6 @@
 'use client';
 import loadingLottie from './LoadingSearch.json';
-import createLottie from "@/lotties/createLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const Loading = () => {
   const style = {
     width: 400,
@@ -11,7 +11,7 @@ const Loading = () => {
     loop: true,
     autoplay: true,
   };
-  const view = createLottie(options, style);
+  const view = useCreateLottie(options, style);
   return (
     <div className="w-full h-full flex flex-col justify-center items-center absolute top-0 z-50 backdrop:blur-sm">
       {view}

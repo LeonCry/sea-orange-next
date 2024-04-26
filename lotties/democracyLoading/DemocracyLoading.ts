@@ -1,6 +1,6 @@
 'use client';
 import loadingLottie from './d-loading.json';
-import createLottie from "@/lotties/createLottie";
+import useCreateLottie from "@/hooks/useCreateLottie";
 const DemocracyLoading = () => {
   const style = {
     width: 100,
@@ -11,7 +11,7 @@ const DemocracyLoading = () => {
     loop: true,
     autoplay: true,
   };
-  return createLottie(options, style);
+  return useCreateLottie(options, style);
 };
 
 export default DemocracyLoading;
