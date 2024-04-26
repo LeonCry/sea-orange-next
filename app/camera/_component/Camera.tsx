@@ -8,7 +8,7 @@ import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/lotties/loading/smallLoading';
 import { AllApplication, ClearFormat } from '@icon-park/react';
 import { useMemoizedFn, useReactive, useScroll, useUpdateEffect } from 'ahooks';
-import { debounce } from 'radash';
+import { throttle } from 'radash';
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -22,7 +22,7 @@ const Camera = ({
   const [messageApi, contextHolder] = message.useMessage();
   const photos = useReactive<CameraPageItem[]>([]);
   const category = useReactive<string[]>([]);
-  const fetchNextCamera = debounce({ delay: 500 }, async () => {
+  const fetchNextCamera = throttle({ interval: 300 }, async () => {
     page.current++;
     const res = await fetchData(page.current);
     if (!res.length)
@@ -32,7 +32,7 @@ const Camera = ({
       });
     photos.push(...res);
   });
-  const refresh = debounce({ delay: 500 }, async () => {
+  const refresh = throttle({ interval: 300 }, async () => {
     page.current = 1;
     setLoading(true);
     const res = await fetchData(page.current);
@@ -40,7 +40,7 @@ const Camera = ({
     photos.length = 0;
     photos.push(...res);
   });
-  const fetchCategory = debounce({ delay: 500 }, async () => {
+  const fetchCategory = throttle({ interval: 300 }, async () => {
     const res = await fetchCategoryData();
     category.length = 0;
     category.push(...res.map((item) => item.category));

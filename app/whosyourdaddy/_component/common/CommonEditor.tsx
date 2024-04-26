@@ -1,8 +1,9 @@
 'use client';
 import { Button, Drawer, Popconfirm, Space, Spin, Table, TablePaginationConfig, Tag } from 'antd';
 import { useEffect, useState } from 'react';
-import { useImmer } from 'use-immer';
 import InsertPart from './InsertPart';
+import { useMemoizedFn, useSetState } from 'ahooks';
+import { throttle } from 'radash';
 export interface CommonEditorService {
   title: string;
   property: { causal: string; label: string }[];
@@ -17,16 +18,16 @@ export interface CommonEditorService {
   getCount?: () => Promise<any>;
 }
 const CommonEditor = (props: CommonEditorService) => {
+  const pageSize = 30;
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const [tableData, setTableData] = useImmer<Record<string, any>[]>([]);
-  const [editContent, setEditContent] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
-  const [columns, setColumns] = useImmer<Record<string, any>[]>([]);
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const pageSize = 30;
-  const getAllData = async () => {
+  const [editContent, setEditContent] = useSetState<Record<string, any>>({});
+  const [tableData, setTableData] = useState<Record<string, any>[]>([]);
+  const [columns, setColumns] = useState<Record<string, any>[]>([]);
+  const getAllData = throttle({ interval: 300 }, async () => {
     setLoading(true);
     const res = await props.getAllReq(page);
     setLoading(false);
@@ -36,7 +37,7 @@ const CommonEditor = (props: CommonEditorService) => {
       dataIndex: t,
       key: t + Math.random(),
     }));
-    setColumns(() => [
+    setColumns([
       ...col,
       {
         title: 'Action',
@@ -59,30 +60,30 @@ const CommonEditor = (props: CommonEditorService) => {
         ),
       },
     ]);
-    setTableData(() => res.map((t: any) => ({ ...t, key: t.id })));
-  };
-  const getTotals = async () => {
+    setTableData([...res.map((t: any) => ({ ...t, key: t.id }))]);
+  });
+  const getTotals = throttle({ interval: 300 }, async () => {
     if (!props.getCount) return;
     const res = await props.getCount();
     setTotal(res);
-  };
-  const handleDelete = async (id: number) => {
+  });
+  const handleDelete = useMemoizedFn(async (id: number) => {
     setLoading(false);
     await props.deleteReq(id);
     setLoading(true);
     setRefreshFlag(!refreshFlag);
-  };
-  const handleUpdate = (record: Record<string, any>) => {
+  });
+  const handleUpdate = useMemoizedFn((record: Record<string, any>) => {
     setEditContent(() => record);
     setOpen(true);
-  };
-  const handleRefresh = () => {
+  });
+  const handleRefresh = useMemoizedFn(() => {
     setRefreshFlag(!refreshFlag);
-  };
-  const handlePageChange = (pagination: TablePaginationConfig) => {
+  });
+  const handlePageChange = useMemoizedFn((pagination: TablePaginationConfig) => {
     if (!pagination.current) return;
     setPage(pagination.current);
-  };
+  });
   useEffect(() => {
     getAllData();
     getTotals();
@@ -136,6 +137,7 @@ const CommonEditor = (props: CommonEditorService) => {
           insertReq={props.insertReq}
           updateReq={props.updateReq}
           spare={props.spare}
+          closeSelfFn={() => setOpen(false)}
         />
       </Drawer>
     </section>
