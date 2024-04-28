@@ -67,7 +67,7 @@ const Cursor = () => {
     cursorRef.current!.style.height = `${tarBnd.height + 14}px`;
     cursorRef.current!.style.left = `${tarBnd.targetOrigin.x}px`;
     cursorRef.current!.style.top = `${tarBnd.targetOrigin.y}px`;
-    triggerElement.current!.style.transition += ' transform ease-in-out 10ms';
+    triggerElement.current!.style.transition = 'transform 10ms ease-in-out';
   };
   // 重置cursor与target的样式
   const resetStyle = () => {
