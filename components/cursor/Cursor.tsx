@@ -1,8 +1,9 @@
 'use client';
-import { useGetState, useMemoizedFn, useReactive, useUpdateEffect } from 'ahooks';
+import { useGetState, useMemoizedFn, useReactive } from 'ahooks';
 // 触发盒子class: box-trigger
 import style from './Cursor.module.scss';
 import { useEffect, useRef } from 'react';
+import { isEmpty } from 'radash';
 const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   //hover后内出现的小球
@@ -21,17 +22,14 @@ const Cursor = () => {
   }, []);
   useEffect(() => {
     if (getIsInTriggerBox()) {
+      const getTar = getTargetRectBounding();
+      for (const key in getTar) {
+        let k = key as keyof typeof getTar;
+        tarBnd[k] = getTar[k];
+      }
       return handleTriggerBox();
     }
     resetStyle();
-  }, [isInTriggerBox]);
-  useEffect(() => {
-    if (!isInTriggerBox) return;
-    const getTar = getTargetRectBounding();
-    for (const key in getTar) {
-      let k = key as keyof typeof getTar;
-      tarBnd[k] = getTar[k];
-    }
   }, [isInTriggerBox]);
   const handleMove = useMemoizedFn((e: MouseEvent) => {
     const point = { x: e.pageX, y: e.pageY };
@@ -69,7 +67,7 @@ const Cursor = () => {
     cursorRef.current!.style.height = `${tarBnd.height + 14}px`;
     cursorRef.current!.style.left = `${tarBnd.targetOrigin.x}px`;
     cursorRef.current!.style.top = `${tarBnd.targetOrigin.y}px`;
-    triggerElement.current!.style.transition += ',transform 50ms ease-in-out';
+    triggerElement.current!.style.transition += ' transform ease-in-out 10ms';
   };
   // 重置cursor与target的样式
   const resetStyle = () => {
@@ -96,7 +94,7 @@ const Cursor = () => {
   };
   //triggerBox的鼠标移动效果
   const handleHoverTriggerBox = (point: { x: number; y: number }) => {
-    console.log(tarBnd);
+    if (isEmpty(tarBnd)) return;
     const maxMoveDistance = 4;
     const maxMoveDistanceX = tarBnd.width / 2;
     const maxMoveDistanceY = tarBnd.height / 2;
