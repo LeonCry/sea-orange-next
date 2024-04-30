@@ -27,6 +27,11 @@ const nextConfig = {
         hostname: 'gitee.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 's2.loli.net',
+        port: '',
+      },
     ],
     formats: ['image/webp'],
   },

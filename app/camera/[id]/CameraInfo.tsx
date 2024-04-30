@@ -26,7 +26,7 @@ const CameraInfo = ({ local }: { local: CameraPageItem }) => {
     >
       <div
         ref={boxRef}
-        className={`relative w-[95%] h-[95%] ml-[2.5%] mt-6 rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffOut}`}
+        className={`relative w-[95%] h-[90%] mt-[4%] ml-[2.5%] rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffOut}`}
       >
         <div className="absolute right-2 top-2 p-4 transition duration-300 hover:rotate-180">
           <AppletClosed

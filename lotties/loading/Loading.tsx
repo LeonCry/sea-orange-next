@@ -1,10 +1,10 @@
 'use client';
-import loadingLottie from './LoadingSearch.json';
+import loadingLottie from './steal-bank.json';
 import useCreateLottie from '@/hooks/useCreateLottie';
 const Loading = () => {
   const style = {
-    width: 400,
-    height: 400,
+    width: 600,
+    height: 600,
   };
   const options = {
     animationData: loadingLottie,
