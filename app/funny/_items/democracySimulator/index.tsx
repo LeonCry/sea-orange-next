@@ -5,6 +5,7 @@ import DemocracyLoading from '@/lotties/democracyLoading/DemocracyLoading';
 import { useEffect, useState } from 'react';
 import OpButton from './component/OpButton';
 import GamePlay from './component/GamePlay';
+import { Progress } from 'antd';
 const DemocracySimulator = () => {
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -52,7 +53,7 @@ const DemocracySimulator = () => {
     setPlaying(true);
   };
   return (
-    <main className="bg-zinc-900 w-full h-full absolute top-0 z-[200]">
+    <main className="bg-zinc-900 w-full h-full absolute overflow-auto top-0 z-[200]">
       <section className="h-[100%] flex flex-col items-center">
         <Image
           src="https://vip.helloimg.com/i/2024/04/14/661baed101ce0.png"
@@ -60,12 +61,18 @@ const DemocracySimulator = () => {
           width={playing ? 400 : 800}
           height={300}
           priority
-          className={`${playing ? 'self-start m-8 absolute' : 'mt-28 mb-40'}`}
+          className={`${playing ? 'self-start m-8 absolute' : 'mt-28 mb-32'}`}
         />
         {loading ? (
           <section className="flex items-center absolute bottom-40">
             <DemocracyLoading />
             <h1 className="text-3xl text-gray-300">请民主的等待...</h1>
+            <Progress
+              className="absolute mt-24 ml-5"
+              percent={50}
+              size="small"
+              strokeColor="#FACC14"
+            />
           </section>
         ) : playing ? (
           <GamePlay />
@@ -111,9 +118,9 @@ const DemocracySimulator = () => {
             </div>
             <button
               onClick={startGame}
-              className=" w-[250px] mt-8 self-center text-yellow-500 p-3 cursor-none border-2 border-yellow-400 hover:bg-gray-200 hover:text-zinc-800"
+              className=" w-[250px] mt-8 mb-10 self-center text-yellow-500 p-3 cursor-none border-2 border-yellow-400 hover:bg-gray-200 hover:text-zinc-800"
             >
-              开始游戏
+              开始民主的训练!
             </button>
           </section>
         )}
