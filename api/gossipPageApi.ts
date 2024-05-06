@@ -28,4 +28,11 @@ const insertComment = async (commentObj: { rate: string, name: string, mood: str
     },
   }));
 };
-export { getCommentNum, getCommentInGossip, insertComment };
+const deleteComment = async (id: number) => {
+  return executeWithDb(() => prisma.gossipPageItem.delete({
+    where: {
+      id,
+    }
+  }));
+};
+export { getCommentNum, getCommentInGossip, insertComment, deleteComment };

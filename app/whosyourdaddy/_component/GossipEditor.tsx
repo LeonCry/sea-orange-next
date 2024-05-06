@@ -1,6 +1,6 @@
 'use client';
 import CommonEditor from './common/CommonEditor';
-import { getCommentInGossip, getCommentNum } from '@/api/gossipPageApi';
+import { getCommentInGossip, getCommentNum, deleteComment } from '@/api/gossipPageApi';
 const GossipEditor = () => {
   const property = [{ causal: 'gossip', label: 'gossip' }];
   const spare = { isShow: true };
@@ -11,7 +11,7 @@ const GossipEditor = () => {
         property={property}
         getAllReq={getCommentInGossip}
         updateReq={() => Promise.resolve()}
-        deleteReq={() => Promise.resolve()}
+        deleteReq={deleteComment}
         insertReq={() => Promise.resolve()}
         getCategoryReq={() => Promise.resolve()}
         getCount={getCommentNum}
