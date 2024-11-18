@@ -1,6 +1,7 @@
 {
   "name": "seaci.me",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env.dev next dev",
@@ -10,7 +11,9 @@
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "cz": "git add . && cz",
+    "lint:fix": "eslint . --fix",
+    "cz": "git add . && czg",
+    "type-check": "tsc  --noemit",
     "///": "初始化数据库",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate deploy",
     "migrate:prod": "dotenv -e .env.prod -- npx prisma migrate deploy",
@@ -51,6 +54,8 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.12",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@types/matter-js": "^0.19.6",
     "@types/node": "^20.12.2",
     "@types/react": "^18.2.73",
@@ -58,6 +63,7 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "autoprefixer": "^10.4.19",
     "cz-git": "^1.9.1",
+    "czg": "^1.11.0",
     "dotenv-cli": "^7.4.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
@@ -69,7 +75,7 @@
     "typescript": "^5.4.3"
   },
   "lint-staged": {
-    "src/**/*.{ts,js,jsx,tsx,vue}": [
+    "src/**/*.{ts,js,jsx,tsx}": [
       "eslint --fix"
     ]
   },
