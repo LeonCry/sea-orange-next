@@ -1,7 +1,6 @@
 {
   "name": "seaci.me",
   "version": "0.0.3",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env.dev next dev",
