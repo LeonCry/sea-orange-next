@@ -38,7 +38,7 @@ const CameraInfo = ({ local }: { local: CameraPageItem }) => {
           />
         </div>
         <div className="flex items-center justify-around w-full h-full">
-          <div className={`w-[1200px] h-[800px] relative rounded-xl cursor-none`}>
+          <div className={'w-[1200px] h-[800px] relative rounded-xl cursor-none'}>
             <Image
               src={local.photoSrc}
               fill

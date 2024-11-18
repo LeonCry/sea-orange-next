@@ -1,6 +1,6 @@
 'use client';
 import loadingLottie from './d-loading.json';
-import useCreateLottie from "@/hooks/useCreateLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const DemocracyLoading = () => {
   const style = {
     width: 100,

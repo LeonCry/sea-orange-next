@@ -1,7 +1,7 @@
-"use server";
-import type { VisitTime } from "@prisma/client";
-import executeWithDb from "./executeWithDb";
-import prisma from "@/lib/prisma";
+'use server';
+import type { VisitTime } from '@prisma/client';
+import executeWithDb from './executeWithDb';
+import prisma from '@/lib/prisma';
 //提交每个界面的访问信息
 const uploadVisit = async (info: Omit<VisitTime, 'id'>) => {
   return executeWithDb(() => prisma.visitTime.create({ data: info }));

@@ -1,6 +1,6 @@
 'use client';
 import like from './like.json';
-import useCreateLottie from "@/hooks/useCreateLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const SearchFolder = () => {
   const style = {
     width: 50,

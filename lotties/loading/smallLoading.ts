@@ -1,6 +1,6 @@
 'use client';
 import loadingLottie from './LoadingSearch.json';
-import useCreateLottie from "@/hooks/useCreateLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const SmallLoading = () => {
   const style = {
     width: 100,

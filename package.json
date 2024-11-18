@@ -12,7 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "eslint . --fix",
-    "cz": "git add . && czg",
+    "cz": "pnpm lint:fix && git add . && czg",
     "type-check": "tsc  --noemit",
     "///": "初始化数据库",
     "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate deploy",

@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import prisma from '@/lib/prisma';
 const executeWithDb = async (cb: () => Promise<any>) => {
   return cb().catch((error) => {
     console.log(error);

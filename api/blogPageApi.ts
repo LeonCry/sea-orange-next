@@ -1,7 +1,7 @@
-"use server";
-import executeWithDb from "./executeWithDb";
-import prisma from "@/lib/prisma";
-import { BlogPageItem } from "@prisma/client";
+'use server';
+import executeWithDb from './executeWithDb';
+import prisma from '@/lib/prisma';
+import { BlogPageItem } from '@prisma/client';
 //获得Blog页面的所有项目信息
 const getAllBlogInfo = async () => {
   return executeWithDb(() => prisma.blogPageItem.findMany({

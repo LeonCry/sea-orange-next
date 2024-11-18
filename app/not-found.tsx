@@ -1,7 +1,7 @@
-"use client";
+'use client';
 import Link from 'next/link';
 import NotFound from '@/lotties/notFound/notFound';
-import {Return} from "@icon-park/react";
+import {Return} from '@icon-park/react';
 const notFound = () => {
   return (
     <section className="text-2xl flex flex-col absolute top-[25%] w-full items-center gap-10">

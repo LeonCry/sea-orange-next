@@ -1,7 +1,7 @@
-"use server";
-import { CameraPageItem } from "@prisma/client";
-import executeWithDb from "./executeWithDb";
-import prisma from "@/lib/prisma";
+'use server';
+import { CameraPageItem } from '@prisma/client';
+import executeWithDb from './executeWithDb';
+import prisma from '@/lib/prisma';
 //获得camera页面的所有项目 按页数
 const getPhotoByPage = async (page: number | undefined) => {
   if (page === undefined) page = 1;

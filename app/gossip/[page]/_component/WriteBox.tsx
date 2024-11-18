@@ -28,7 +28,7 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
     if (Object.values(comment).some((c) => c === '')) {
       return messageApi.open({
         type: 'warning',
-        content: "something is empty, please don't let it",
+        content: 'something is empty, please don\'t let it',
       });
     }
     const { machine, browser } = getUserAgentData();
@@ -48,12 +48,12 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
     if (nextPage <= 0)
       return messageApi.open({
         type: 'warning',
-        content: "It's on the first page.",
+        content: 'It\'s on the first page.',
       });
     if (nextPage > Math.ceil(allComments / 30))
       return messageApi.open({
         type: 'warning',
-        content: "It's on the last page.",
+        content: 'It\'s on the last page.',
       });
     router.push('/gossip/' + nextPage);
   });

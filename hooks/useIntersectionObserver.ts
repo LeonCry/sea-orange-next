@@ -1,5 +1,5 @@
-import { useMemoizedFn } from "ahooks";
-import { MutableRefObject, useEffect, useState } from "react";
+import { useMemoizedFn } from 'ahooks';
+import { MutableRefObject, useEffect, useState } from 'react';
 
 export const useIntersectionObserver = (elements: MutableRefObject<any>, threshold: number = 0.66) => {
   const [isIntoView, setIsIntoView] = useState(false);
@@ -16,7 +16,7 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>, thresho
       threshold,
     });
     if (elements) {
-      elements.current.classList.add("show-move-animation");
+      elements.current.classList.add('show-move-animation');
       io.observe(elements.current);
     }
     return () => {

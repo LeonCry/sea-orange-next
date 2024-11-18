@@ -1,6 +1,6 @@
-"use server";
-import executeWithDb from "./executeWithDb";
-import prisma from "@/lib/prisma";
+'use server';
+import executeWithDb from './executeWithDb';
+import prisma from '@/lib/prisma';
 //获得gossip页面的所有评论数
 const getCommentNum = async () => {
   return executeWithDb(() => prisma.gossipPageItem.count());

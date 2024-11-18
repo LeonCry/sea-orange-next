@@ -1,6 +1,6 @@
 'use client';
 import notFound from './not-found.json';
-import useCreateLottie from "@/hooks/useCreateLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const NotFound = () => {
   const style = {
     width: 400,

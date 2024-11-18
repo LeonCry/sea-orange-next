@@ -1,6 +1,6 @@
 'use client';
 import errorMarker from './error-marker.json';
-import useCreateLottie from "@/hooks/useCreateLottie";
+import useCreateLottie from '@/hooks/useCreateLottie';
 const ErrorMark = () => {
   const style = {
     width: 100,

@@ -1,6 +1,6 @@
-import { useGetState, useMemoizedFn } from "ahooks";
-import { throttle } from "radash";
-import { useEffect, useMemo } from "react";
+import { useGetState, useMemoizedFn } from 'ahooks';
+import { throttle } from 'radash';
+import { useEffect, useMemo } from 'react';
 const usePreloadImages = (images: string[]) => {
   const getImages = useMemoizedFn(throttle({ interval: 100 }, () => images.forEach((mg) => {
     const imgElement = new Image();
