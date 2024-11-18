@@ -22,4 +22,5 @@ echo ">> Finish checking branch name"
 echo ">> Linting your files and fixing them if needed..."
 
 pnpm type-check
+pnpm lint:fix
 pnpm lint-staged
