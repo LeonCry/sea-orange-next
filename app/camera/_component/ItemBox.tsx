@@ -15,9 +15,7 @@ const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
     <Link
       ref={itemRef}
       href={`/camera/${photo.id}`}
-      className={`w-[600px] h-[400px] rounded-xl cursor-none box-trigger bg-[#c5c5c511] ${
-        dark.isDark && 'blend-dark'
-      }`}
+      className={'w-[600px] h-[400px] rounded-xl cursor-none box-trigger bg-[#c5c5c511]'}
     >
       {isIntoView && (
         <div className="flex justify-center items-center relative w-full h-full ">

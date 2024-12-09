@@ -21,8 +21,8 @@ const RootBar = () => {
     isDarkSet(!isDark);
     darkStore.isDark = !isDark;
     sessionStorage.setItem('isDark', String(!isLike));
-    if (!isDark) return document.body.classList.add('blend-dark');
-    return document.body.classList.remove('blend-dark');
+    if (!isDark) return document.documentElement.classList.add('blend-dark');
+    return document.documentElement.classList.remove('blend-dark');
   };
   useEffect(() => {
     if (localStorage.getItem('isLike') === 'true') {
@@ -30,7 +30,7 @@ const RootBar = () => {
     }
     if (sessionStorage.getItem('isDark') === 'true') {
       isDarkSet(true);
-      document.body.classList.add('blend-dark');
+      document.documentElement.classList.add('blend-dark');
     }
   }, []);
   return (

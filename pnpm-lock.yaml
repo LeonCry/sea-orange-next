@@ -13,7 +13,7 @@ dependencies:
     version: 7.4.2(@pixi/core@7.4.2)(@pixi/graphics@7.4.2)
   '@pixi/react':
     specifier: ^7.1.2
-    version: 7.1.2(@babel/runtime@7.24.1)(@pixi/app@7.4.2)(@pixi/constants@7.4.2)(@pixi/core@7.4.2)(@pixi/display@7.4.2)(@pixi/extensions@7.4.2)(@pixi/graphics@7.4.2)(@pixi/math@7.4.2)(@pixi/mesh-extras@7.4.2)(@pixi/mesh@7.4.2)(@pixi/particle-container@7.4.2)(@pixi/sprite-animated@7.4.2)(@pixi/sprite-tiling@7.4.2)(@pixi/sprite@7.4.2)(@pixi/text-bitmap@7.4.2)(@pixi/text@7.4.2)(@pixi/ticker@7.4.2)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+    version: 7.1.2(@babel/runtime@7.26.0)(@pixi/app@7.4.2)(@pixi/constants@7.4.2)(@pixi/core@7.4.2)(@pixi/display@7.4.2)(@pixi/extensions@7.4.2)(@pixi/graphics@7.4.2)(@pixi/math@7.4.2)(@pixi/mesh-extras@7.4.2)(@pixi/mesh@7.4.2)(@pixi/particle-container@7.4.2)(@pixi/sprite-animated@7.4.2)(@pixi/sprite-tiling@7.4.2)(@pixi/sprite@7.4.2)(@pixi/text-bitmap@7.4.2)(@pixi/text@7.4.2)(@pixi/ticker@7.4.2)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@prisma/client':
     specifier: ^5.11.0
     version: 5.11.0(prisma@5.11.0)
@@ -79,7 +79,7 @@ dependencies:
     version: 0.2.4
   use-immer:
     specifier: ^0.9.0
-    version: 0.9.0(immer@10.0.4)(react@18.2.0)
+    version: 0.9.0(immer@10.1.1)(react@18.2.0)
   valtio:
     specifier: ^1.13.2
     version: 1.13.2(@types/react@18.2.73)(react@18.2.0)
@@ -233,6 +233,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+
+  /@babel/runtime@7.26.0:
+    resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@commitlint/cli@19.5.0(@types/node@20.12.2)(typescript@5.4.3):
     resolution: {integrity: sha512-gaGqSliGwB86MDmAAKAtV9SV1SHdmN8pnGq4EJU4+hLisQ7IFfx4jvU4s+pk6tl0+9bv6yT+CaZkufOinkSJIQ==}
@@ -882,7 +889,7 @@ packages:
       '@pixi/text': 7.4.2(@pixi/core@7.4.2)(@pixi/sprite@7.4.2)
     dev: false
 
-  /@pixi/react@7.1.2(@babel/runtime@7.24.1)(@pixi/app@7.4.2)(@pixi/constants@7.4.2)(@pixi/core@7.4.2)(@pixi/display@7.4.2)(@pixi/extensions@7.4.2)(@pixi/graphics@7.4.2)(@pixi/math@7.4.2)(@pixi/mesh-extras@7.4.2)(@pixi/mesh@7.4.2)(@pixi/particle-container@7.4.2)(@pixi/sprite-animated@7.4.2)(@pixi/sprite-tiling@7.4.2)(@pixi/sprite@7.4.2)(@pixi/text-bitmap@7.4.2)(@pixi/text@7.4.2)(@pixi/ticker@7.4.2)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
+  /@pixi/react@7.1.2(@babel/runtime@7.26.0)(@pixi/app@7.4.2)(@pixi/constants@7.4.2)(@pixi/core@7.4.2)(@pixi/display@7.4.2)(@pixi/extensions@7.4.2)(@pixi/graphics@7.4.2)(@pixi/math@7.4.2)(@pixi/mesh-extras@7.4.2)(@pixi/mesh@7.4.2)(@pixi/particle-container@7.4.2)(@pixi/sprite-animated@7.4.2)(@pixi/sprite-tiling@7.4.2)(@pixi/sprite@7.4.2)(@pixi/text-bitmap@7.4.2)(@pixi/text@7.4.2)(@pixi/ticker@7.4.2)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-ZhqeXcFCRfFYCvncGW6Bxc3PFCYN1PgpF60iZwQJA6/UD3DB70JQvtDkRnyQcy5yqsjNtdxS8HB42oNjQFnZrA==}
     peerDependencies:
       '@babel/runtime': ^7.14.8
@@ -906,7 +913,7 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.26.0
       '@pixi/app': 7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2)
       '@pixi/constants': 7.4.2
       '@pixi/core': 7.4.2
@@ -1681,7 +1688,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001603
+      caniuse-lite: 1.0.30001687
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -1743,7 +1750,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001603
+      caniuse-lite: 1.0.30001687
       electron-to-chromium: 1.4.722
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -1776,8 +1783,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite@1.0.30001603:
-    resolution: {integrity: sha512-iL2iSS0eDILMb9n5yKQoTBim9jMZ0Yrk8g0N9K7UzYyWnfIKzXBZD5ngpM37ZcL/cv0Mli8XtVMRYMQAfFpi5Q==}
+  /caniuse-lite@1.0.30001687:
+    resolution: {integrity: sha512-0S/FDhf4ZiqrTUiQ39dKeUjYRjkv7lOZU1Dgif2rIqrTzX/1wV2hfKu9TOm1IHkdSijfLswxTFzl/cvir+SLSQ==}
 
   /ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -3153,8 +3160,8 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immer@10.0.4:
-    resolution: {integrity: sha512-cuBuGK40P/sk5IzWa9QPUaAdvPHjkk1c+xYsd9oZw+YQQEV+10G0P5uMpGctZZKnyQ+ibRO08bD25nWLmYi2pw==}
+  /immer@10.1.1:
+    resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
     dev: false
 
   /immutable@4.3.5:
@@ -4358,7 +4365,7 @@ packages:
       '@next/env': 14.1.0
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001603
+      caniuse-lite: 1.0.30001687
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -6325,13 +6332,13 @@ packages:
       qs: 6.12.0
     dev: false
 
-  /use-immer@0.9.0(immer@10.0.4)(react@18.2.0):
+  /use-immer@0.9.0(immer@10.1.1)(react@18.2.0):
     resolution: {integrity: sha512-/L+enLi0nvuZ6j4WlyK0US9/ECUtV5v9RUbtxnn5+WbtaXYUaOBoKHDNL9I5AETdurQ4rIFIj/s+Z5X80ATyKw==}
     peerDependencies:
       immer: '>=2.0.0'
       react: ^16.8.0 || ^17.0.1 || ^18.0.0
     dependencies:
-      immer: 10.0.4
+      immer: 10.1.1
       react: 18.2.0
     dev: false
 
