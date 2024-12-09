@@ -7,8 +7,8 @@ import Loading from '@/lotties/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/lotties/loading/smallLoading';
 import { AllApplication, ClearFormat } from '@icon-park/react';
-import { useMemoizedFn, useReactive, useScroll, useUpdateEffect } from 'ahooks';
-import { throttle } from 'radash';
+import { useMemoizedFn, useScroll, useUpdateEffect } from 'ahooks';
+import { useImmer } from 'use-immer';
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -20,9 +20,9 @@ const Camera = ({
   const container = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-  const photos = useReactive<CameraPageItem[]>([]);
-  const category = useReactive<string[]>([]);
-  const fetchNextCamera = throttle({ interval: 300 }, async () => {
+  const [photos, setPhotos] = useImmer<CameraPageItem[]>([]);
+  const [category, setCategory] = useImmer<string[]>([]);
+  const fetchNextCamera = async () => {
     page.current++;
     const res = await fetchData(page.current);
     if (!res.length)
@@ -30,28 +30,25 @@ const Camera = ({
         type: 'warning',
         content: 'has loaded all photos',
       });
-    photos.push(...res);
-  });
-  const refresh = throttle({ interval: 300 }, async () => {
-    page.current = 1;
-    setLoading(true);
-    const res = await fetchData(page.current);
-    setLoading(false);
-    photos.length = 0;
-    photos.push(...res);
-  });
-  const fetchCategory = throttle({ interval: 300 }, async () => {
-    const res = await fetchCategoryData();
-    category.length = 0;
-    category.push(...res.map((item) => item.category));
-  });
-  const handleSearch = useMemoizedFn(async (v: string) => {
+    setPhotos((draft) => draft.push(...res));
+  };
+  const handleSearch = async (v: string) => {
     page.current = 1;
     setLoading(true);
     const res = await getPhotoByCategory(v, page.current);
     setLoading(false);
     photos.length = 0;
     photos.push(...res);
+  };
+  const refresh = useMemoizedFn(async () => {
+    page.current = 1;
+    setLoading(true);
+    const res = await fetchData(page.current);
+    setLoading(false);
+    setPhotos((draft) => {
+      draft.length = 0;
+      draft.push(...res);
+    });
   });
   const position = useScroll(
     container,
@@ -65,8 +62,12 @@ const Camera = ({
   }, [position]);
   useEffect(() => {
     refresh();
-    fetchCategory();
-  }, []);
+  }, [refresh]);
+  useEffect(() => {
+    fetchCategoryData().then((res) => {
+      setCategory(res.map((item) => item.category));
+    });
+  }, [fetchCategoryData, setCategory]);
   return (
     <>
       {!!photos.length && !!category.length ? (

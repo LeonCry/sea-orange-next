@@ -46,7 +46,7 @@
     "remark-gfm": "^4.0.0",
     "sass": "^1.72.0",
     "scss": "^0.2.4",
-    "use-immer": "^0.9.0",
+    "use-immer": "^0.10.0",
     "valtio": "^1.13.2"
   },
   "devDependencies": {
