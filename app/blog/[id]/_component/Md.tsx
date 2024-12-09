@@ -1,4 +1,3 @@
-'use client';
 import { BlogPageItem } from '@prisma/client';
 import style from './MainBox.module.scss';
 import rehypeRaw from 'rehype-raw';

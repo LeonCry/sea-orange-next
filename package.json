@@ -3,9 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e .env.dev next dev",
     "prod": "dotenv -e .env.prod next dev",
-    "build:dev": "dotenv -e .env.dev next build",
     "build:prod": "dotenv -e .env.prod next build",
     "postinstall": "prisma generate",
     "start": "next start",
