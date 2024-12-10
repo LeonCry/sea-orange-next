@@ -10,7 +10,12 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   // Linting using ESLint.
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
 
   // Enable file nesting.
   "explorer.fileNesting.enabled": true,
@@ -23,6 +28,7 @@
   },
   "prettier.semi": true,
   "prettier.printWidth": 100,
+  "prettier.singleQuote": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   } // 或者其他适合你的长度值，这个数值表示每行最大字符数

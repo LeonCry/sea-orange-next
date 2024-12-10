@@ -6,29 +6,33 @@ import getUserAgentData from '@/lib/getUserAgentData';
 import { insertComment } from '@/api/gossipPageApi';
 import { LeftSquare, MessageUnread, RightSquare, ToBottomOne } from '@icon-park/react';
 import { useRouter } from 'next/navigation';
-import { useMemoizedFn, useResetState } from 'ahooks';
+import { useImmer } from 'use-immer';
 const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: number }) => {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const [loadings, setLoadings] = useState(false);
   const [showWriteBox, setShowWriteBox] = useState(false);
   const [sectionClass, setSectionClass] = useState(style['section']);
-  const [comment, setComment, resetComment] = useResetState({
+  const initialComment = {
     rate: '',
     name: '',
     mood: '',
     message: '',
-  });
-  const handleInputChange = useMemoizedFn(
-    (type: 'name' | 'mood' | 'message' | 'rate', value: string | number) => {
-      setComment({ ...comment, [type]: value + '' });
-    }
-  );
-  const handleSubmit = useMemoizedFn(async () => {
+  };
+  const [comment, setComment] = useImmer({ ...initialComment });
+  const handleInputChange = (
+    type: 'name' | 'mood' | 'message' | 'rate',
+    value: string | number
+  ) => {
+    setComment((draft) => {
+      draft[type] = value + '';
+    });
+  };
+  const handleSubmit = async () => {
     if (Object.values(comment).some((c) => c === '')) {
       return messageApi.open({
         type: 'warning',
-        content: 'something is empty, please don\'t let it',
+        content: 'something is empty, please don`t let it',
       });
     }
     const { machine, browser } = getUserAgentData();
@@ -37,26 +41,26 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
     setLoadings(false);
     handleChangeShowWriteBox(true);
     router.refresh();
-  });
-  const handleChangeShowWriteBox = useMemoizedFn((isShow: boolean) => {
-    resetComment();
+  };
+  const handleChangeShowWriteBox = (isShow: boolean) => {
+    setComment({ ...initialComment });
     setShowWriteBox(!isShow);
     setSectionClass(isShow ? style['section-reverse'] : style['section-start']);
-  });
-  const handlePageChange = useMemoizedFn((swiftPage: number) => {
+  };
+  const handlePageChange = (swiftPage: number) => {
     const nextPage = parseInt(curPage) + swiftPage;
     if (nextPage <= 0)
       return messageApi.open({
         type: 'warning',
-        content: 'It\'s on the first page.',
+        content: 'It is on the first page.',
       });
     if (nextPage > Math.ceil(allComments / 30))
       return messageApi.open({
         type: 'warning',
-        content: 'It\'s on the last page.',
+        content: 'It is on the last page.',
       });
     router.push('/gossip/' + nextPage);
-  });
+  };
   return (
     <>
       <div className="w-[500px] z-10 self-center mb-[-16px] flex justify-center gap-2">

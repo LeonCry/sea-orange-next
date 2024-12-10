@@ -6,4 +6,4 @@ module.exports = {
     eqeqeq: ['error', 'always'],
     'no-console': 'off',
   },
-};
+}

@@ -19,7 +19,7 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
       fileList.push(entry.name);
     }
   }
-  if (fileList.includes(params.name) === false) {
+  if (!fileList.includes(params.name)) {
     return <NotFound />;
   }
   const withoutModalList = ['democracySimulator'];
