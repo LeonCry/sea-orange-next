@@ -1,6 +1,7 @@
 import { useTick, Graphics } from '@pixi/react';
 import type { Graphics as GraphicsType, Ticker } from 'pixi.js';
 import { useCallback, useEffect, useMemo, useRef, memo } from 'react';
+import { useMemoizedFn } from 'ahooks';
 const GraphicsMemo = memo(Graphics);
 class Branch {
   originPoint: [number, number];
@@ -41,7 +42,7 @@ const TreeGrow = () => {
   const branchRate = 0.55;
   //所有plum最大分支树
   const limitBranch = 1400;
-  const branchGenerated = () => {
+  const branchGenerated = useMemoizedFn(() => {
     let hasSelected: number = -1;
     const originPointArr = Array.from({ length: initBranchNum }, () => {
       //随机模式
@@ -80,11 +81,13 @@ const TreeGrow = () => {
       branchLoop([item], branchNum);
     });
     return originPointArr;
-  };
+  });
   const branchLoop: any = (branch: Branch[], branchNum: number) => {
     if (branchNum > limitBranch || !branch.length) return;
     const curBranch = branch.shift()!;
-    let newBranchNum = Array.from({ length: maxBranch }, () => Math.random() <= branchRate).filter(Boolean).length;
+    let newBranchNum = Array.from({ length: maxBranch }, () => Math.random() <= branchRate).filter(
+      Boolean
+    ).length;
     if (branchNum < 100) newBranchNum = 2;
     branchNum += newBranchNum;
     for (let i = 0; i < newBranchNum; i++) {
@@ -114,10 +117,13 @@ const TreeGrow = () => {
     const angleInRadians = (Math.PI / 180) * arc;
     const rotatedUnitX = vecXUnit * Math.cos(angleInRadians) - vecYUnit * Math.sin(angleInRadians);
     const rotatedUnitY = vecXUnit * Math.sin(angleInRadians) + vecYUnit * Math.cos(angleInRadians);
-    const nextPoint = [lastEndPoint[0] + rotatedUnitX * curLen, lastEndPoint[1] + rotatedUnitY * curLen];
+    const nextPoint = [
+      lastEndPoint[0] + rotatedUnitX * curLen,
+      lastEndPoint[1] + rotatedUnitY * curLen,
+    ];
     return nextPoint as [number, number];
   };
-  const remainPoints: Branch[] = useMemo(() => branchGenerated(), []);
+  const remainPoints: Branch[] = useMemo(() => branchGenerated(), [branchGenerated]);
   const graphicsRef = useRef<GraphicsType | null>(null);
   const handleTick = useCallback(
     (delta: number, ticker: Ticker) => {

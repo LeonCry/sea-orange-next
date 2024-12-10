@@ -5,16 +5,6 @@ const CircleGrow = () => {
   const width = document.documentElement.clientWidth;
   const height = document.documentElement.clientHeight;
   const graphicsRef = useRef<GraphicsType | null>(null);
-  const handleTick = useCallback(async (delta: number, ticker: Ticker) => {
-    ticker.speed = 1;
-    const op = circles[0] as [number, number, number, number, number, boolean];
-    op[3] += delta * 1;
-    op[2] += delta * 15;
-    op[0] += delta * 1;
-    op[1] += delta * 1;
-    graphicsRef.current?.arc(...op);
-    if (op[2] > width * 1.5) ticker.stop();
-  }, []);
   const randomCircle = () => {
     const cx = Math.random() * width;
     const cy = Math.random() * height;
@@ -25,6 +15,16 @@ const CircleGrow = () => {
     return [cx, cy, r, startAngle, endAngle, anticlockwise];
   };
   const circles = [randomCircle(), randomCircle()];
+  const handleTick = async (delta: number, ticker: Ticker) => {
+    ticker.speed = 1;
+    const op = circles[0] as [number, number, number, number, number, boolean];
+    op[3] += delta * 1;
+    op[2] += delta * 15;
+    op[0] += delta * 1;
+    op[1] += delta * 1;
+    graphicsRef.current?.arc(...op);
+    if (op[2] > width * 1.5) ticker.stop();
+  };
   useTick(handleTick);
   useEffect(() => {
     if (!graphicsRef.current) return;
