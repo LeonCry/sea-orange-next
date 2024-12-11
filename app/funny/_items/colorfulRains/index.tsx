@@ -5,11 +5,12 @@ import { Engine, Render, Bodies, Composite, Runner, use, Body, Events } from 'ma
 import type { World, Body as BodyType, Vector as VectorType } from 'matter-js';
 import MatterWrap from 'matter-wrap';
 import sleepingCat from '@/public/images/sleepingCat.gif';
+import { useEffectOnce } from 'react-use';
 use(MatterWrap);
 const BackView = () => {
   const container = useRef<HTMLCanvasElement | null>(null);
   let globalAngle = 0;
-  useEffect(() => {
+  useEffectOnce(() => {
     const currentContainer = container.current;
     if (!currentContainer) return;
     let engine = Engine.create({ gravity: { x: 0.1, y: 10 } });
@@ -38,8 +39,7 @@ const BackView = () => {
       Events.off(engine, 'afterUpdate', () => afterUpdateHandler(rains, engine.world));
       window.removeEventListener('mousemove', (e) => mouseListener(e, engine.world));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
   const rainInit = (render: Render) => {
     const maxRainCount = 1000;
     return Array.from({ length: maxRainCount }, () => {
@@ -111,7 +111,10 @@ const BackView = () => {
     const maxForceX = 30;
     const maxForceY = 30;
     const point = { x: e.pageX, y: e.pageY };
-    const origin = { x: document.documentElement.clientWidth / 2, y: document.documentElement.clientHeight / 2 };
+    const origin = {
+      x: document.documentElement.clientWidth / 2,
+      y: document.documentElement.clientHeight / 2,
+    };
     const forceX = ((point.x - origin.x) * maxForceX) / origin.x;
     const forceY = ((point.y - origin.y) * maxForceY) / origin.y;
     world.gravity.x = forceX;
@@ -146,9 +149,19 @@ const BackView = () => {
     <section className="h-full flex flex-col items-center gap-3">
       <div className="w-[65%] h-[65%] border rounded-xl relative">
         <canvas className="w-full h-full border rounded-xl" ref={container}></canvas>
-        <Image src={sleepingCat} alt="sleepCat" style={{ left: '55%' }} width={50} height={50} className="absolute bottom-0" />
+        <Image
+          src={sleepingCat}
+          alt="sleepCat"
+          style={{ left: '55%' }}
+          width={50}
+          height={50}
+          className="absolute bottom-0"
+        />
       </div>
-      <div id="options" className="w-[90%] flex-1 py-6 px-32 border-t-4 border-dotted overflow-auto">
+      <div
+        id="options"
+        className="w-[90%] flex-1 py-6 px-32 border-t-4 border-dotted overflow-auto"
+      >
         <h1>配置项</h1>
       </div>
     </section>

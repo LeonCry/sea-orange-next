@@ -22,7 +22,7 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
   if (!fileList.includes(params.name)) {
     return <NotFound />;
   }
-  const withoutModalList = ['democracySimulator'];
+  const withoutModalList = ['democracySimulator', 'demo'];
   const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
   return (
     <>

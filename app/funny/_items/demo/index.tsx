@@ -1,31 +1,32 @@
 'use client';
-import usePreloadImages from '@/hooks/usePreloadImages';
-import { useRef, useState } from 'react';
+import { useMemoizedFn } from 'ahooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useEffectOnce, useUpdateEffect } from 'react-use';
 const Index = () => {
-  const [imageUrl, setImageUrl] = useState('https://s2.loli.net/2024/04/29/l1EgJNeL2qxCdAv.jpg');
-  const allImages = useRef([
-    'https://s2.loli.net/2024/04/29/2wWthGerapL6nYN.jpg',
-    'https://s2.loli.net/2024/04/29/iJER1aKzymgtcBU.jpg',
-    'https://s2.loli.net/2024/04/29/zkPYOCxmEJsyT1p.jpg',
-    'https://s2.loli.net/2024/04/29/l1EgJNeL2qxCdAv.jpg',
-  ]);
-  const changeImageUrl = () => {
-    const image = allImages.current.shift();
-    if (!image) return;
-    setImageUrl(image);
+  const [count, setCount] = useState(0);
+  const [light, setLight] = useState(false);
+  const fetchData = () => {
+    console.log('data', count, light);
   };
-  const { process, total } = usePreloadImages(allImages.current);
+  const initFetchData = useMemoizedFn(fetchData);
+  useEffectOnce(() => {
+    initFetchData();
+  });
   return (
     <section>
-      <button className=" absolute right-20 z-10" onClick={changeImageUrl}>
-        change
+      <button className=" border" onClick={() => setCount(count + 1)}>
+        count + 1
       </button>
-      <picture>
-        <img src={imageUrl} alt="pic" />
-      </picture>
-      <span>
-        loading: {process} / {total}
-      </span>
+      <br />
+      <span>{count}</span>
+      <br />
+      <button className=" border" onClick={() => setLight(!light)}>
+        light
+      </button>
+      <br />
+      <span>{light ? 'light' : 'dark'}</span>
+      <br />
+      <button className=" border" onClick={fetchData}></button>
     </section>
   );
 };
