@@ -2,7 +2,6 @@
 import { usePathname } from 'next/navigation';
 import { chakraEN } from '@/style/defineFont';
 import { ReactTyped } from 'react-typed';
-import { memo, useEffect } from 'react';
 import { AppProgressBar } from 'next-nprogress-bar';
 import { getSectionDescription, type SectionType } from '@/lib/getSectionDescription';
 const Header = () => {

@@ -1,39 +1,69 @@
 'use client';
-import { useGetState, useMemoizedFn, useReactive } from 'ahooks';
 // 触发盒子class: box-trigger
 import style from './Cursor.module.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'radash';
+import { useEffectOnce } from 'react-use';
+import { useMemoizedFn } from 'ahooks';
+// 可以通过cursor操作的触发盒子
+const handleTriggerBox = (el: HTMLDivElement, triggerEl: HTMLElement, tarBnd: any) => {
+  //更改cursor样式
+  el.style.borderRadius = tarBnd.targetStyle.borderTopLeftRadius;
+  el.style.borderColor = tarBnd.targetStyle.backgroundColor;
+  el.style.animationDuration = '0.5s';
+  el.style.width = `${tarBnd.width + 14}px`;
+  el.style.height = `${tarBnd.height + 14}px`;
+  el.style.left = `${tarBnd.targetOrigin.x}px`;
+  el.style.top = `${tarBnd.targetOrigin.y}px`;
+  triggerEl.style.transition = 'transform 0ms ease-in-out';
+  triggerEl.classList.add('blend-dark');
+};
+// 重置cursor与target的样式
+const resetStyle = (
+  cursorEl: HTMLDivElement,
+  triggerEl: HTMLElement,
+  innerCircleEl: HTMLDivElement
+) => {
+  cursorEl.style.width = '20px';
+  cursorEl.style.height = '20px';
+  cursorEl.style.borderRadius = '50%';
+  cursorEl.style.borderColor = '#585b70';
+  cursorEl.style.animationDuration = '0s';
+  if (!triggerEl) return;
+  triggerEl.style.transform = 'none';
+  innerCircleEl.style.opacity = '0';
+  triggerEl.classList.remove('blend-dark');
+};
 const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   //hover后内出现的小球
   const innerCircleRef = useRef<HTMLDivElement | null>(null);
   //是否在触发盒子内
-  const [isInTriggerBox, setIsInTriggerBox, getIsInTriggerBox] = useGetState(false);
+  const [isInTriggerBox, setIsInTriggerBox] = useState(false);
   //触发盒子元素ref
   const triggerElement = useRef<HTMLElement | null>(null);
   //触发盒子的位置与大小
-  const tarBnd = useReactive<any>({});
-  useEffect(() => {
+  const tarBnd = useRef<any>({});
+  useEffectOnce(() => {
     window.addEventListener('mousemove', handleMove);
     return () => {
       window.removeEventListener('mousemove', handleMove);
     };
-  }, []);
+  });
   useEffect(() => {
-    if (getIsInTriggerBox()) {
+    if (isInTriggerBox) {
       const getTar = getTargetRectBounding();
       for (const key in getTar) {
         let k = key as keyof typeof getTar;
-        tarBnd[k] = getTar[k];
+        tarBnd.current[k] = getTar[k];
       }
-      return handleTriggerBox();
+      return handleTriggerBox(cursorRef.current!, triggerElement.current!, tarBnd.current);
     }
-    resetStyle();
+    resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
   }, [isInTriggerBox]);
   const handleMove = useMemoizedFn((e: MouseEvent) => {
     const point = { x: e.pageX, y: e.pageY };
-    if (!getIsInTriggerBox()) {
+    if (!isInTriggerBox) {
       if (!cursorRef.current) return;
       cursorRef.current.style.left = `${point.x}px`;
       cursorRef.current.style.top = `${point.y}px`;
@@ -44,12 +74,13 @@ const Cursor = () => {
       innerCircleRef.current.style.left = `${point.x - left}px`;
       innerCircleRef.current.style.top = `${point.y - top}px`;
       innerCircleRef.current!.style.opacity = '1';
+      console.log(innerCircleRef.current?.style.opacity);
     }
     let target = e.target as HTMLElement;
     while (target.tagName !== 'HTML') {
       if (target.classList.contains('box-trigger')) {
         handleHoverTriggerBox(point);
-        if (getIsInTriggerBox()) return;
+        if (isInTriggerBox) return;
         triggerElement.current = target;
         return setIsInTriggerBox(true);
       }
@@ -57,29 +88,6 @@ const Cursor = () => {
     }
     if (target.tagName === 'HTML') return setIsInTriggerBox(false);
   });
-  // 可以通过cursor操作的触发盒子
-  const handleTriggerBox = () => {
-    //更改cursor样式
-    cursorRef.current!.style.borderRadius = tarBnd.targetStyle.borderTopLeftRadius;
-    cursorRef.current!.style.borderColor = tarBnd.targetStyle.backgroundColor;
-    cursorRef.current!.style.animationDuration = '0.5s';
-    cursorRef.current!.style.width = `${tarBnd.width + 14}px`;
-    cursorRef.current!.style.height = `${tarBnd.height + 14}px`;
-    cursorRef.current!.style.left = `${tarBnd.targetOrigin.x}px`;
-    cursorRef.current!.style.top = `${tarBnd.targetOrigin.y}px`;
-    triggerElement.current!.style.transition = 'transform 0ms ease-in-out';
-  };
-  // 重置cursor与target的样式
-  const resetStyle = () => {
-    cursorRef.current!.style.width = '20px';
-    cursorRef.current!.style.height = '20px';
-    cursorRef.current!.style.borderRadius = '50%';
-    cursorRef.current!.style.borderColor = '#585b70';
-    cursorRef.current!.style.animationDuration = '0s';
-    if (!triggerElement.current) return;
-    triggerElement.current.style.transform = 'none';
-    innerCircleRef.current!.style.opacity = '0';
-  };
   //获得target的位置与大小信息
   const getTargetRectBounding = () => {
     if (!triggerElement.current) return;
@@ -94,14 +102,14 @@ const Cursor = () => {
   };
   //triggerBox的鼠标移动效果
   const handleHoverTriggerBox = (point: { x: number; y: number }) => {
-    if (isEmpty(tarBnd)) return;
+    if (isEmpty(tarBnd.current)) return;
     const maxMoveDistance = 4;
-    const maxMoveDistanceX = tarBnd.width / 2;
-    const maxMoveDistanceY = tarBnd.height / 2;
+    const maxMoveDistanceX = tarBnd.current.width / 2;
+    const maxMoveDistanceY = tarBnd.current.height / 2;
     //最大鼠标移动时target移动距离
     const [deltaX, deltaY] = [
-      ((point.x - tarBnd.targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
-      ((point.y - tarBnd.targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
+      ((point.x - tarBnd.current.targetOrigin.x) * maxMoveDistance) / maxMoveDistanceX,
+      ((point.y - tarBnd.current.targetOrigin.y) * maxMoveDistance) / maxMoveDistanceY,
     ];
     triggerElement.current!.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
   };

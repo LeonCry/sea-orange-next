@@ -1,7 +1,8 @@
 .default {
   position: absolute;
-  transition: width .25s ease, height .25s ease, transform 150ms ease-in-out;
-  width: 20px; height: 20px;
+  transition: width 0.25s ease, height 0.25s ease, transform 150ms ease-in-out;
+  width: 20px;
+  height: 20px;
   border: 2px solid var(--light-text-color);
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -13,26 +14,27 @@
 }
 .innerCircle {
   position: absolute;
-  width: 15px; height: 15px;
+  width: 15px;
+  height: 15px;
   border: 2px dotted var(--light-text-color);
   background-color: rgba(255, 255, 255, 0.33);
   border-radius: 50%;
   animation: rotate 10s linear infinite;
   opacity: 0;
 }
-	@keyframes rotate {
-    0%{
-        transform: rotate(0);
-      }
-    100%{
-    	transform:rotate(360deg);
-    }
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
   }
-  @keyframes flash {
-    0% {
-      border-color: inherit;
-    }
-    100% {
-      border-color: whitesmoke;
-    }
+  100% {
+    transform: rotate(360deg);
   }
+}
+@keyframes flash {
+  0% {
+    border-color: inherit;
+  }
+  100% {
+    border-color: whitesmoke;
+  }
+}
