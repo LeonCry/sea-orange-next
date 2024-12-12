@@ -10,7 +10,7 @@ const handleTriggerBox = (el: HTMLDivElement, triggerEl: HTMLElement, tarBnd: an
   //更改cursor样式
   el.style.borderRadius = tarBnd.targetStyle.borderTopLeftRadius;
   el.style.borderColor = tarBnd.targetStyle.backgroundColor;
-  el.style.animationDuration = '0.5s';
+  el.style.animation = `${style.flash} 0.5s linear infinite alternate-reverse`;
   el.style.width = `${tarBnd.width + 14}px`;
   el.style.height = `${tarBnd.height + 14}px`;
   el.style.left = `${tarBnd.targetOrigin.x}px`;
@@ -28,7 +28,7 @@ const resetStyle = (
   cursorEl.style.height = '20px';
   cursorEl.style.borderRadius = '50%';
   cursorEl.style.borderColor = '#585b70';
-  cursorEl.style.animationDuration = '0.8s';
+  cursorEl.style.animation = `${style.defaultRotate} 24s linear infinite`;
   if (!triggerEl) return;
   triggerEl.style.transform = 'none';
   innerCircleEl.style.opacity = '0';

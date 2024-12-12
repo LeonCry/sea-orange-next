@@ -20,7 +20,7 @@ const RootBar = () => {
   const handleDark = () => {
     isDarkSet(!isDark);
     darkStore.isDark = !isDark;
-    sessionStorage.setItem('isDark', String(!isLike));
+    sessionStorage.setItem('isDark', String(!isDark));
     if (!isDark) return document.documentElement.classList.add('blend-dark');
     return document.documentElement.classList.remove('blend-dark');
   };

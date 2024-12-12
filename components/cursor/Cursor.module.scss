@@ -1,16 +1,27 @@
 .default {
   position: absolute;
-  transition: width 0.25s ease, height 0.25s ease, transform 150ms ease-in-out;
+  transition: all 0s !important;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--light-text-color);
+  border: 3px dashed #828282;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
   user-select: none;
-  //使指针具有穿透效果
+  transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1000;
-  animation: flash 0s linear infinite alternate-reverse;
+  animation: defaultRotate 24s linear infinite;
+  background-color: #8400ff14;
+}
+.default::before {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #828282;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  animation: translate-before 1s ease-in-out infinite alternate-reverse;
 }
 .innerCircle {
   position: absolute;
@@ -22,6 +33,14 @@
   animation: rotate 0.5s linear infinite;
   opacity: 0;
 }
+@keyframes defaultRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 @keyframes rotate {
   0% {
     transform: rotate(0);
@@ -32,9 +51,19 @@
 }
 @keyframes flash {
   0% {
-    border-color: darkgray;
+    border: #828282 solid 2px;
+    opacity: 1;
   }
   100% {
-    border-color: whitesmoke;
+    border: #828282 solid 2px;
+    opacity: 0.33;
+  }
+}
+@keyframes translate-before {
+  0% {
+    transform: translate(320%, 320%);
+  }
+  100% {
+    transform: translate(-100%, -100%);
   }
 }
