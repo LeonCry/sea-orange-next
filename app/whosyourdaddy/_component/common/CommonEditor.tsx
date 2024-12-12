@@ -1,9 +1,9 @@
 'use client';
 import { Button, Drawer, Popconfirm, Space, Spin, Table, TablePaginationConfig, Tag } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import InsertPart from './InsertPart';
-import { useMemoizedFn, useSetState } from 'ahooks';
-import { throttle } from 'radash';
+import { useMemoizedFn } from 'ahooks';
+import { useImmer } from 'use-immer';
 export interface CommonEditorService {
   title: string;
   property: { causal: string; label: string }[];
@@ -24,10 +24,22 @@ const CommonEditor = (props: CommonEditorService) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [editContent, setEditContent] = useSetState<Record<string, any>>({});
+  const [editContent, setEditContent] = useImmer<Record<string, any>>({});
   const [tableData, setTableData] = useState<Record<string, any>[]>([]);
   const [columns, setColumns] = useState<Record<string, any>[]>([]);
-  const getAllData = throttle({ interval: 300 }, async () => {
+  const getAllData = useCallback(async () => {
+    const handleDelete = async (id: number) => {
+      setLoading(false);
+      await props.deleteReq(id);
+      setLoading(true);
+      setRefreshFlag(!refreshFlag);
+    };
+    const handleUpdate = (record: Record<string, any>) => {
+      setEditContent((draft) => {
+        draft = record;
+      });
+      setOpen(true);
+    };
     setLoading(true);
     const res = await props.getAllReq(page);
     setLoading(false);
@@ -61,22 +73,12 @@ const CommonEditor = (props: CommonEditorService) => {
       },
     ]);
     setTableData([...res.map((t: any) => ({ ...t, key: t.id }))]);
-  });
-  const getTotals = throttle({ interval: 300 }, async () => {
+  }, [page, props, refreshFlag, setEditContent]);
+  const getTotals = useCallback(async () => {
     if (!props.getCount) return;
     const res = await props.getCount();
     setTotal(res);
-  });
-  const handleDelete = useMemoizedFn(async (id: number) => {
-    setLoading(false);
-    await props.deleteReq(id);
-    setLoading(true);
-    setRefreshFlag(!refreshFlag);
-  });
-  const handleUpdate = useMemoizedFn((record: Record<string, any>) => {
-    setEditContent(() => record);
-    setOpen(true);
-  });
+  }, [props]);
   const handleRefresh = useMemoizedFn(() => {
     setRefreshFlag(!refreshFlag);
   });
@@ -87,7 +89,7 @@ const CommonEditor = (props: CommonEditorService) => {
   useEffect(() => {
     getAllData();
     getTotals();
-  }, [refreshFlag, page]);
+  }, [getAllData, getTotals]);
   return (
     <section className="p-4 border">
       {loading && <Spin />}
