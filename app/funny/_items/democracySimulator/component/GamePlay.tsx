@@ -3,16 +3,18 @@ import { UpTwo } from '@icon-park/react';
 import { useEffect, useState } from 'react';
 import allDirections from '../allDirections';
 import Image from 'next/image';
+import { useMemoizedFn } from 'ahooks';
+import { useEffectOnce } from 'react-use';
 const baseKeyCode = [37, 38, 39, 40];
 const fillColor = ['#C1C1BA', '#f9c116'];
 const direction = ['-rotate-90', '', 'rotate-90', 'rotate-180'];
-const GamePlay = () => {
+const GamePlay = ({ exit }: { exit: () => void }) => {
   const dirs = [...allDirections];
   const [curPass, setCurPass] = useState(0);
   const [curDir, setCurDir] = useState(0);
   const [error, setError] = useState(false);
   const [finish, setFinish] = useState(false);
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useMemoizedFn((e: KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (error || finish) return;
@@ -34,13 +36,19 @@ const GamePlay = () => {
         return setCurPass(() => 0);
       }, 500);
     }
-  };
-  useEffect(() => {
+  });
+  useEffectOnce(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [curPass, error]);
+  });
   return (
     <main className="w-full flex justify-center h-full items-center">
+      <div
+        className="text-yellow-500 absolute top-10 right-10 text-2xl border-yellow-500 border px-2"
+        onClick={exit}
+      >
+        EXIT
+      </div>
       <section
         className={`flex flex-col w-[500px] p-3 rounded-xl h-[160px] transition-all duration-500 ${
           finish ? 'bg-emerald-900' : 'bg-zinc-800'

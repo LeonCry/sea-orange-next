@@ -28,7 +28,7 @@ const resetStyle = (
   cursorEl.style.height = '20px';
   cursorEl.style.borderRadius = '50%';
   cursorEl.style.borderColor = '#585b70';
-  cursorEl.style.animationDuration = '0s';
+  cursorEl.style.animationDuration = '0.8s';
   if (!triggerEl) return;
   triggerEl.style.transform = 'none';
   innerCircleEl.style.opacity = '0';
@@ -74,7 +74,6 @@ const Cursor = () => {
       innerCircleRef.current.style.left = `${point.x - left}px`;
       innerCircleRef.current.style.top = `${point.y - top}px`;
       innerCircleRef.current!.style.opacity = '1';
-      console.log(innerCircleRef.current?.style.opacity);
     }
     let target = e.target as HTMLElement;
     while (target.tagName !== 'HTML') {

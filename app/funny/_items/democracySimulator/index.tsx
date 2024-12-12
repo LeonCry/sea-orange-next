@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import OpButton from './component/OpButton';
 import GamePlay from './component/GamePlay';
 import { Progress } from 'antd';
+import { useEffectOnce } from 'react-use';
 const DemocracySimulator = () => {
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -14,12 +15,19 @@ const DemocracySimulator = () => {
   const [fray, setFray] = useState('');
   const [isRank, setIsRank] = useState<boolean>(false);
   const [keyboard, setKeyboard] = useState<boolean>(false);
-  useEffect(() => {
+  const [progress, setProgress] = useState(0);
+  useEffectOnce(() => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    const timer2 = setInterval(() => {
+      setProgress((n) => n + 1);
+    }, 20);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(timer2);
+    };
+  });
   const optionChoose = (e: MouseEvent | any, type: string) => {
     const target = e.target as HTMLButtonElement;
     const children = target.parentElement?.children;
@@ -48,7 +56,13 @@ const DemocracySimulator = () => {
   };
   const startGame = async () => {
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setProgress(0);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setProgress(21);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setProgress(63);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setProgress(100);
     setLoading(false);
     setPlaying(true);
   };
@@ -69,13 +83,13 @@ const DemocracySimulator = () => {
             <h1 className="text-3xl text-gray-300">请民主的等待...</h1>
             <Progress
               className="absolute mt-24 ml-5"
-              percent={50}
+              percent={progress}
               size="small"
               strokeColor="#FACC14"
             />
           </section>
         ) : playing ? (
-          <GamePlay />
+          <GamePlay exit={() => setPlaying(false)} />
         ) : (
           <section className="flex flex-col gap-6 w-[1000px] text-2xl">
             <div className="flex gap-6 ">

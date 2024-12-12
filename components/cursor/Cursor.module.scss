@@ -16,10 +16,10 @@
   position: absolute;
   width: 15px;
   height: 15px;
-  border: 2px dotted var(--light-text-color);
+  border: 2px dashed var(--light-text-color);
   background-color: rgba(255, 255, 255, 0.33);
   border-radius: 50%;
-  animation: rotate 10s linear infinite;
+  animation: rotate 0.5s linear infinite;
   opacity: 0;
 }
 @keyframes rotate {
@@ -32,7 +32,7 @@
 }
 @keyframes flash {
   0% {
-    border-color: inherit;
+    border-color: darkgray;
   }
   100% {
     border-color: whitesmoke;
