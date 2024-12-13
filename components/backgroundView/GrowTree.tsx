@@ -163,7 +163,7 @@ const GrowTree = () => {
   //每个分支生成概率
   const branchRate = 0.5;
   //所有plum最大分支树
-  const limitBranch = 3000;
+  const limitBranch = 3333;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d');

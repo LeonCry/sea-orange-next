@@ -1,5 +1,6 @@
 'use client';
 import { BlogPageItem } from '@prisma/client';
+import './prose-md.scss';
 import style from './MainBox.module.scss';
 import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
@@ -24,7 +25,7 @@ const Md = ({ blogInfo }: { blogInfo: BlogPageItem }) => {
           remarkPlugins={[gfm]}
           components={CodeBlock}
         >
-          {content as any}
+          {content}
         </ReactMarkdown>
       </article>
     </section>

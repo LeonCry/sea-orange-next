@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@icon-park/react": "^1.4.2",
+    "@million/lint": "^1.0.14",
     "@pixi/graphics-extras": "^7.4.2",
     "@pixi/react": "^7.1.2",
     "@prisma/client": "^5.11.0",
@@ -50,9 +51,9 @@
     "valtio": "^1.13.2"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.12",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@tailwindcss/typography": "^0.5.12",
     "@types/matter-js": "^0.19.6",
     "@types/node": "^20.12.2",
     "@types/react": "^18.2.73",
