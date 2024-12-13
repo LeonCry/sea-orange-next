@@ -34,9 +34,9 @@
   animation-play-state: paused;
 }
 .blend-dark {
-  filter: invert(1) hue-rotate(270deg);
+  filter: invert(1) hue-rotate(360deg);
   img {
-    filter: invert(1) hue-rotate(270deg);
+    filter: invert(1) hue-rotate(360deg);
   }
 }
 @keyframes dropdownAnimation {
