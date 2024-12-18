@@ -45,9 +45,14 @@ const Cursor = () => {
   //触发盒子的位置与大小
   const tarBnd = useRef<any>({});
   useEffectOnce(() => {
+    const handleReset = () => {
+      resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
+    };
     window.addEventListener('mousemove', handleMove);
+    window.addEventListener('click', handleReset);
     return () => {
       window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('click', handleReset);
     };
   });
   useEffect(() => {

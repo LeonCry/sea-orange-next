@@ -21,7 +21,7 @@ export default async function RootLayout({
       <body className="font-base bg-base-bg-color cursor-none h-svh overflow-x-hidden">
         <main className="flex flex-col-reverse">
           {children}
-          <div>
+          <div className="min-h-16">
             <RootBar />
             <Header />
           </div>

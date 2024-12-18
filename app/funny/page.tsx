@@ -1,4 +1,5 @@
 import '../globals.css';
+import '@/app/enter-fade.scss';
 import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
@@ -12,7 +13,7 @@ const Funny = async () => {
   const category = group(projectInfo, (p) => p.category);
   revalidatePath('/funny');
   return (
-    <section className="page-dropDown">
+    <section className="page-dropDown enterFade">
       {Object.keys(category).map((cty, i) => (
         <SectionBox key={i} title={cty}>
           {category[cty]!.map((p, i) => (

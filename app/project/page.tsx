@@ -1,4 +1,5 @@
 import '../globals.css';
+import '@/app/enter-fade.scss';
 import { ProjectPageItem } from '@prisma/client';
 import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
@@ -12,7 +13,7 @@ const Project = async () => {
   const category = group(projectInfo, (p) => p.category);
   revalidatePath('/project');
   return (
-    <section className="page-dropDown">
+    <section className="page-dropDown enterFade">
       {Object.keys(category).map((cty, i) => (
         <SectionBox key={i} title={cty}>
           {category[cty]!.map((p, i) => (

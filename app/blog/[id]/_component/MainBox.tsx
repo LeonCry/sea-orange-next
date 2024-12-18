@@ -8,7 +8,7 @@ const MainBox = async ({ mdId }: { mdId: string }) => {
   return (
     <>
       <Link
-        className={`${style.exit} absolute top-20 left-8 cursor-none transition-all duration-500 px-2 py-1 rounded box-trigger`}
+        className={`${style.exit} absolute top-20 left-8 cursor-none transition-all duration-500 px-2 py-2 w-24 text-center rounded box-trigger`}
         href={'/blog'}
       >
         EXIT

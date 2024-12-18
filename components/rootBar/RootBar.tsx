@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import '@/app/enter-fade.scss';
 import { chakraEN } from '@/style/defineFont';
 import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
@@ -34,9 +35,9 @@ const RootBar = () => {
     }
   }, []);
   return (
-    <header className="mb-10 sticky top-0 z-[60]">
+    <header className="mb-10 fixed top-0 right-0 z-[60] w-full">
       <ol
-        className={`${style.main} w-full h-16 flex items-center justify-end ${chakraEN.className}`}
+        className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}
       >
         <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
           <Link className="cursor-none" href={'/blog'}>

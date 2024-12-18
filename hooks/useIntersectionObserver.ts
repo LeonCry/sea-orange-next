@@ -8,6 +8,7 @@ export const useIntersectionObserver = (elements: MutableRefObject<any>, thresho
         if (entry.isIntersecting) {
           (entry.target as HTMLDivElement).style.animationPlayState = 'running';
           setIsIntoView(true);
+          io.disconnect();
         }
       });
     });

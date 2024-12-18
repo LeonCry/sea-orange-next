@@ -4,11 +4,13 @@
   height: 400px;
   overflow: hidden;
   margin: 10px;
-  margin-left: 20px;margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
   padding-right: 16px;
   background-color: #c5c5c511;
+  border: 4px solid #001eff09;
   color: rgba(39, 39, 39, 0.5);
-  transition: all .25s;
+  transition: all 0.25s;
   border-radius: 10px;
   cursor: none;
   &:hover {
@@ -16,12 +18,12 @@
     color: #585b70;
     font-weight: bold;
   }
-   > div > div > h6 {
+  > div > div > h6 {
     width: calc(100% - 82px);
     left: 82px;
     top: 32px;
   }
-   > div > div > span {
+  > div > div > span {
     font-weight: 400;
     color: #8c8d97;
     overflow: hidden;
@@ -35,9 +37,15 @@
     padding: 0 10px;
     height: 320px;
     line-height: 28px;
-    background-image: repeating-linear-gradient(to bottom, lightgray, lightgray 1px,transparent 1px,transparent 28px);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      lightgray,
+      lightgray 1px,
+      transparent 1px,
+      transparent 28px
+    );
     background-size: 1px 100%;
-    background-clip:content-box;
+    background-clip: content-box;
     background-repeat: repeat-x;
     &:hover {
       color: #585b70;

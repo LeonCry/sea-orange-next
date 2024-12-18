@@ -16,14 +16,14 @@ const Header = () => {
     curSection = undefined;
   }
   return (
-    <section>
+    <section className=" mt-[104px] h-24">
       <AppProgressBar height="2px" color="#4F46E5" options={{ showSpinner: false }} />
       {curSection && (
         <div>
           <h1 className={`text-center w-full text-3xl font-bold pb-2 ${chakraEN.className}`}>
             {curSection?.title}
           </h1>
-          <div className="pb-1 border-dotted border-b-2 text-right pr-3 mb-5">
+          <div className="pb-1 border-dotted border-b-2 text-right pr-3 mb-5 h-6">
             <ReactTyped strings={[curSection?.description]} typeSpeed={30} cursorChar="_" />
           </div>
         </div>

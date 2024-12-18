@@ -17,10 +17,10 @@
 }
 .page-dropDown {
   width: 100%;
+  height: 100%;
   padding-left: 10%;
   padding-right: 10%;
   overflow: hidden;
-  animation: dropdownAnimation 1s ease-in-out;
 }
 .fix-h {
   height: calc(100vh - 233px);
@@ -34,9 +34,9 @@
   animation-play-state: paused;
 }
 .blend-dark {
-  filter: invert(1) hue-rotate(360deg);
+  filter: invert(0.9) hue-rotate(360deg);
   img {
-    filter: invert(1) hue-rotate(360deg);
+    filter: invert(0.9) hue-rotate(360deg);
   }
 }
 @keyframes dropdownAnimation {
@@ -69,7 +69,6 @@
     transform: translateY(0px);
   }
 }
-
 ::-webkit-scrollbar {
   width: 5px; /* 滚动条整体宽度 */
   height: 5px; /* 对于垂直滚动条的高度 */

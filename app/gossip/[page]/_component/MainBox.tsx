@@ -1,6 +1,7 @@
 import { getCommentInGossip, getCommentNum } from '@/api/gossipPageApi';
 import { GossipPageItem } from '@prisma/client';
 import CommentItem from './CommentItem';
+import '@/app/enter-fade.scss';
 import style from './Main.module.scss';
 import { cloneElement } from 'react';
 const Main = async ({ page, children }: { page: string; children: React.ReactElement }) => {
@@ -9,7 +10,7 @@ const Main = async ({ page, children }: { page: string; children: React.ReactEle
   const addPropChildren = cloneElement(children, { allComments: commentCount });
   return (
     <section className={`${style.main}`}>
-      <div className="flex-1 w-full overflow-auto flex flex-wrap justify-evenly gap-10 relative">
+      <div className="flex-1 w-full overflow-auto flex flex-wrap justify-evenly gap-10 relative enterFade">
         {comments.map((c, i) => (
           <CommentItem key={i} comment={c} />
         ))}
