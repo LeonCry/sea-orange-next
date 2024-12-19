@@ -1,4 +1,3 @@
-'use client';
 import GrowTree from './GrowTree';
 const BackView = () => {
   return (

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import '@/app/enter-fade.scss';
+import { AppProgressBar } from 'next-nprogress-bar';
 import { chakraEN } from '@/style/defineFont';
 import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
@@ -35,87 +36,90 @@ const RootBar = () => {
     }
   }, []);
   return (
-    <header className="mb-10 fixed top-0 right-0 z-[60] w-full">
-      <ol
-        className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}
-      >
-        <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/blog'}>
-            BLOG
-          </Link>
-        </li>
-        <li className={`${style.rootBar} ${secPath === '/project' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/project'}>
-            PROJECT
-          </Link>
-        </li>
-        <li className={`${style.rootBar} ${secPath === '/camera' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/camera'}>
-            CAMERA
-          </Link>
-        </li>
-        <li className={`${style.rootBar} ${secPath === '/funny' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/funny'}>
-            FUNNY
-          </Link>
-        </li>
-        <li className={`${style.rootBar} ${secPath === '/gossip' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/gossip'}>
-            GOSSIP
-          </Link>
-        </li>
-        <li className={`${style.rootBar} ${secPath === '/about' && liActiveStyle}`}>
-          <Link className="cursor-none" href={'/about'}>
-            ABOUT
-          </Link>
-        </li>
-        <li className="w-16 text-center select-none"> || </li>
-        <li onClick={handleLike} className={style.icon}>
-          {isLike ? (
-            isDark ? (
-              <Like
-                theme="two-tone"
-                size="20"
-                fill={['#00ADB1', '#006364']}
-                strokeLinejoin="bevel"
-              />
+    <>
+      <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
+      <header className="mb-10 fixed top-0 right-0 z-[60] w-full">
+        <ol
+          className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}
+        >
+          <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/blog'}>
+              BLOG
+            </Link>
+          </li>
+          <li className={`${style.rootBar} ${secPath === '/project' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/project'}>
+              PROJECT
+            </Link>
+          </li>
+          <li className={`${style.rootBar} ${secPath === '/camera' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/camera'}>
+              CAMERA
+            </Link>
+          </li>
+          <li className={`${style.rootBar} ${secPath === '/funny' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/funny'}>
+              FUNNY
+            </Link>
+          </li>
+          <li className={`${style.rootBar} ${secPath === '/gossip' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/gossip'}>
+              GOSSIP
+            </Link>
+          </li>
+          <li className={`${style.rootBar} ${secPath === '/about' && liActiveStyle}`}>
+            <Link className="cursor-none" href={'/about'}>
+              ABOUT
+            </Link>
+          </li>
+          <li className="w-16 text-center select-none"> || </li>
+          <li onClick={handleLike} className={style.icon}>
+            {isLike ? (
+              isDark ? (
+                <Like
+                  theme="two-tone"
+                  size="20"
+                  fill={['#00ADB1', '#006364']}
+                  strokeLinejoin="bevel"
+                />
+              ) : (
+                <Like
+                  theme="two-tone"
+                  size="20"
+                  fill={['#f64649', '#ff9999']}
+                  strokeLinejoin="bevel"
+                />
+              )
             ) : (
-              <Like
-                theme="two-tone"
-                size="20"
-                fill={['#f64649', '#ff9999']}
-                strokeLinejoin="bevel"
-              />
-            )
-          ) : (
-            <Like theme="outline" size="20" fill="#181926" />
-          )}
-        </li>
-        <li className={style.icon} onClick={() => window.alert(alertInfo)}>
-          <MessageEmoji theme="outline" size="20" fill="#181926" />
-        </li>
-        <li className={style.icon}>
-          <a className="cursor-none" href={tvUrl} target="_blank">
-            <Tv theme="outline" size="20" fill="#181926" />
-          </a>
-        </li>
-        <li className={style.icon}>
-          <a className="cursor-none" href={gitUrl} target="_blank">
-            <GithubOne theme="outline" size="20" fill="#181926" />
-          </a>
-        </li>
-        <li className={style.icon}>
-          <CastScreen theme="outline" size="20" fill="#181926" />
-        </li>
-        <li className={`${style.icon} mr-10`} onClick={handleDark}>
-          {isDark ? (
-            <DarkMode theme="filled" size="20" fill="#333" />
-          ) : (
-            <DarkMode theme="outline" size="20" fill="#181926" />
-          )}
-        </li>
-      </ol>
-    </header>
+              <Like theme="outline" size="20" fill="#181926" />
+            )}
+          </li>
+          <li className={style.icon} onClick={() => window.alert(alertInfo)}>
+            <MessageEmoji theme="outline" size="20" fill="#181926" />
+          </li>
+          <li className={style.icon}>
+            <a className="cursor-none" href={tvUrl} target="_blank">
+              <Tv theme="outline" size="20" fill="#181926" />
+            </a>
+          </li>
+          <li className={style.icon}>
+            <a className="cursor-none" href={gitUrl} target="_blank">
+              <GithubOne theme="outline" size="20" fill="#181926" />
+            </a>
+          </li>
+          <li className={style.icon}>
+            <CastScreen theme="outline" size="20" fill="#181926" />
+          </li>
+          <li className={`${style.icon} mr-10`} onClick={handleDark}>
+            {isDark ? (
+              <DarkMode theme="filled" size="20" fill="#333" />
+            ) : (
+              <DarkMode theme="outline" size="20" fill="#181926" />
+            )}
+          </li>
+        </ol>
+      </header>
+    </>
   );
 };
 
