@@ -59,7 +59,7 @@ const branchLoop = (
   let newBranchNum = Array.from({ length: maxBranch }, () => Math.random() <= branchRate).filter(
     Boolean
   ).length;
-  if (branchNum < 100) newBranchNum = 2;
+  if (branchNum < 100) newBranchNum = 3;
   branchNum += newBranchNum;
   for (let i = 0; i < newBranchNum; i++) {
     const len = Math.random() * maxLen + minLen;
@@ -88,17 +88,12 @@ const branchGenerated = (
     const diagonalBranch = [
       [new Branch([0, 0], [1, 1], 1), new Branch([width, height], [width - 1, height - 1], 1)],
       [new Branch([width, 0], [width - 1, 1], 1), new Branch([0, height], [1, height - 1], 1)],
-      [
-        new Branch([0, height / 2], [1, height / 2], 1),
-        new Branch([width, height / 2], [width - 1, height / 2], 1),
-      ],
+      [new Branch([width / 2, 0], [width / 2, 1], 1)],
+      [new Branch([width / 2, height], [width / 2, height - 1], 1)],
     ];
-    originPointArr =
-      Math.random() > 0.5
-        ? diagonalBranch[0]
-        : Math.random() > 0.5
-        ? diagonalBranch[1]
-        : diagonalBranch[2];
+    const random = Math.floor((Math.random() * 100) / 25);
+    console.log('random:', random);
+    originPointArr = diagonalBranch[random];
   }
   //随机模式
   else {
