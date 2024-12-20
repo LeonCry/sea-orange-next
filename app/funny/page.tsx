@@ -7,12 +7,6 @@ import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import type { FunnyPageItem } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { funnyOrders } from '@/lib/getCategoryOrder';
-export const generateStaticParams = async () => {
-  const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
-  return projectInfo.map((item) => ({
-    name: item.path,
-  }));
-};
 const Funny = async () => {
   const res: FunnyPageItem[] = await getAllProjectsFromFunny();
   const projectInfo = sort(res, (r) => funnyOrders.indexOf(r.category));

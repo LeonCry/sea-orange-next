@@ -2,6 +2,14 @@
 import dynamic from 'next/dynamic';
 import Modal from '../_component/Modal';
 import NotFound from '@/app/not-found';
+import { FunnyPageItem } from '@prisma/client';
+import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
+export const generateStaticParams = async () => {
+  const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
+  return projectInfo.map((item) => ({
+    name: item.path,
+  }));
+};
 const FunnyItem = async ({ params }: { params: { name: string } }) => {
   const fs = require('fs').promises;
   const fileList = [];

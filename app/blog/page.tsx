@@ -6,12 +6,6 @@ import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { revalidatePath } from 'next/cache';
-export const generateStaticParams = async () => {
-  const blogInfo: BlogPageItem[] = await getAllBlogInfo();
-  return blogInfo.map((item) => ({
-    id: item.id + '',
-  }));
-};
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
   const projectInfo = sort(res, (r) => blogOrders.indexOf(r.category));
