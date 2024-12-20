@@ -1,8 +1,9 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { useEffect, ReactNode } from 'react';
+import { useEffect, ReactNode, Suspense } from 'react';
 import getUserAgentData from '@/lib/getUserAgentData';
 import { uploadVisit } from '@/api/getSectionInfo';
+import Loading from '@/lotties/loading/Loading';
 const RootTemplate = ({ children }: { children: ReactNode }) => {
   const path = usePathname();
   useEffect(() => {
@@ -19,7 +20,11 @@ const RootTemplate = ({ children }: { children: ReactNode }) => {
       uploadVisit(infos);
     };
   }, [path]);
-  return <> {children} </>;
+  return (
+    <>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </>
+  );
 };
 
 export default RootTemplate;

@@ -20,7 +20,7 @@ export default async function RootLayout({
     <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
       <body className="font-base bg-base-bg-color cursor-none h-svh overflow-x-hidden">
         <main className="flex flex-col-reverse">
-          {children}
+          <div>{children}</div>
           <div className="min-h-24">
             <RootBar />
             <Header />

@@ -1,0 +1,15 @@
+.box {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 500px;
+  left: 1200px;
+
+  background: linear-gradient(0deg, transparent 6px, #409eff 6px) repeat-y,
+    linear-gradient(0deg, transparent 50%, #409eff 0) repeat-y,
+    linear-gradient(90deg, transparent 50%, #409eff 0) repeat-x,
+    linear-gradient(90deg, transparent 50%, #409eff 0) repeat-x;
+  background-size: 3px 12px, 3px 12px, 12px 3px, 12px 3px;
+  background-position: 0 0, 100% 0, 0 0, 0 100%;
+  animation: moveCopyCellBorder 0.5s linear infinite;
+}

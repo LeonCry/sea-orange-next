@@ -1,17 +1,7 @@
 'use server';
-import type { FunnyPageItem } from '@prisma/client';
-import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
 import dynamic from 'next/dynamic';
 import Modal from '../_component/Modal';
 import NotFound from '@/app/not-found';
-import { Suspense } from 'react';
-import Loading from '@/lotties/loading/Loading';
-export const generateStaticParams = async () => {
-  const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
-  return projectInfo.map((item) => ({
-    name: item.path,
-  }));
-};
 const FunnyItem = async ({ params }: { params: { name: string } }) => {
   const fs = require('fs').promises;
   const fileList = [];
@@ -27,7 +17,7 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
   const withoutModalList = ['democracySimulator', 'demo'];
   const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       {withoutModalList.includes(params.name) ? (
         <DynamicComponents />
       ) : (
@@ -35,7 +25,7 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
           <DynamicComponents />
         </Modal>
       )}
-    </Suspense>
+    </>
   );
 };
 
