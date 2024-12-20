@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   keywords: ['seaci', 'blog', 'seaci.me', 'funny', 'camera', 'gossip', 'project'],
   description:
     'welcome to visit seaci.me, a collection of several small features, some front-end demos and learning notes on a personal website! ',
+  openGraph: {
+    title: 'seaci.me',
+    description:
+      'seaci.me is a collection of several small features, some front-end demos and learning notes on a personal website! ',
+    images: [
+      {
+        url: '/public/images/orange.svg',
+        width: 100,
+        height: 100,
+        alt: 'seaci.me',
+        type: 'image/svg',
+      },
+    ],
+  },
 };
 export default async function RootLayout({
   children,
