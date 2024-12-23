@@ -12,12 +12,13 @@ export const generateStaticParams = async () => {
     page: String(i + 1),
   }));
 };
-const page = async ({ params }: { params: { page: string } }) => {
+const page = async ({ params }: { params: Promise<{ page: string }> }) => {
   revalidatePath('/gossip');
+  const page = (await params).page;
   return (
     <Suspense fallback={<Loading />}>
-      <Main page={params.page}>
-        <WriteBox curPage={params.page} allComments={0} />
+      <Main page={page}>
+        <WriteBox curPage={page} allComments={0} />
       </Main>
     </Suspense>
   );

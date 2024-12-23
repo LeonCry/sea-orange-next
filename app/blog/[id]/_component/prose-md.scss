@@ -42,6 +42,11 @@ section > code {
   color: #fa5d19;
   padding: 0 4px;
   display: inline-block;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #bf00ff;
+    transform: scale(1.05);
+  }
 }
 .prose :where(.prose > :first-child):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
   text-align: center;

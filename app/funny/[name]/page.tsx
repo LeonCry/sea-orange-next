@@ -10,7 +10,7 @@ export const generateStaticParams = async () => {
     name: item.path,
   }));
 };
-const FunnyItem = async ({ params }: { params: { name: string } }) => {
+const FunnyItem = async ({ params }: { params: Promise<{ name: string }> }) => {
   const fs = require('fs').promises;
   const fileList = [];
   const entries = await fs.readdir('app/funny/_items', { withFileTypes: true });
@@ -19,14 +19,15 @@ const FunnyItem = async ({ params }: { params: { name: string } }) => {
       fileList.push(entry.name);
     }
   }
-  if (!fileList.includes(params.name)) {
+  const name = (await params).name;
+  if (!fileList.includes(name)) {
     return <NotFound />;
   }
   const withoutModalList = ['democracySimulator', 'demo'];
-  const DynamicComponents = dynamic(() => import(`../_items/${params.name}/index`), { ssr: false });
+  const DynamicComponents = dynamic(() => import(`../_items/${name}/index`), { ssr: false });
   return (
     <>
-      {withoutModalList.includes(params.name) ? (
+      {withoutModalList.includes(name) ? (
         <DynamicComponents />
       ) : (
         <Modal>
