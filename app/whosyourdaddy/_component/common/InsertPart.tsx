@@ -1,8 +1,9 @@
 import { CheckOne, CloseOne } from '@icon-park/react';
-import { useMemoizedFn, useReactive, useResetState } from 'ahooks';
+import { useMemoizedFn, useUpdateEffect } from 'ahooks';
 import { Button, Divider, Input, InputRef, Select, Space, Spin, Tag } from 'antd';
 import { isEmpty, throttle } from 'radash';
 import { useRef, useState, memo } from 'react';
+import { useImmer } from 'use-immer';
 
 const InsertPart = memo(
   (props: {
@@ -25,30 +26,33 @@ const InsertPart = memo(
       initInfo[v.causal] = props.defaultValue?.[v.causal];
       labels[v.causal] = v.label;
     });
-    const [insertInfo, setInsertInfo, resetInsertInfo] = useResetState(initInfo);
-    const category = useReactive<string[]>([]);
+    const [insertInfo, setInsertInfo] = useImmer(initInfo);
+    const [category, setCategory] = useImmer<string[]>([]);
     const handleChange = useMemoizedFn((e: any) => {
       let key: keyof typeof insertInfo = e.target.dataset.title;
-      setInsertInfo({ ...insertInfo, [key]: e.target.value });
+      setInsertInfo((draft) => {
+        draft[key] = e.target.value;
+      });
     });
     const categoryChange = useMemoizedFn((val: string) => {
-      setInsertInfo({ ...insertInfo, category: val });
+      setInsertInfo((draft) => {
+        draft.category = val;
+      });
     });
-    const getAllCategory = useMemoizedFn(
-      throttle({ interval: 300 }, async () => {
-        if (!props.getCategoryReq) return;
-        const res = await props.getCategoryReq();
-        category.length = 0;
-        category.push(...res.map((v: any) => v.category));
-      })
-    );
+    const getAllCategory = useMemoizedFn(async () => {
+      if (!props.getCategoryReq) return;
+      const res = await props.getCategoryReq();
+      setCategory(res.map((v: any) => v.category));
+    });
     const onNameChange = useMemoizedFn((event: React.ChangeEvent<HTMLInputElement>) => {
       setName(event.target.value);
     });
     const addItem = useMemoizedFn(
       async (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         e.preventDefault();
-        category.push(name || 'empty');
+        setCategory((draft) => {
+          draft.push(name || 'empty');
+        });
         setName('');
         await new Promise((resolve) => setTimeout(resolve, 0));
         inputRef.current?.focus();
@@ -91,10 +95,13 @@ const InsertPart = memo(
         props.refreshTable();
         if (res.id) {
           alert('success!');
-          return props.closeSelfFn ? props.closeSelfFn() : resetInsertInfo();
+          return props.closeSelfFn ? props.closeSelfFn() : setInsertInfo(initInfo);
         }
       })
     );
+    useUpdateEffect(() => {
+      setInsertInfo(initInfo);
+    }, [props.defaultValue]);
     return (
       <div className="flex flex-col gap-6 w-[500px]">
         {loading && <Spin />}
@@ -117,7 +124,6 @@ const InsertPart = memo(
             defaultValue={insertInfo?.category}
             onChange={categoryChange}
             onDropdownVisibleChange={getAllCategory}
-            className="!cursor-default"
             dropdownRender={(menu) => (
               <>
                 {menu}
@@ -162,7 +168,7 @@ const InsertPart = memo(
               </Tag>
             )}
 
-            <input type="file" onChange={uploadFile} className="absolute left-0 w-24 opacity-0" />
+            <input type="file" onChange={uploadFile} className="absolute left-0 w-24 opacity-0 " />
           </div>
         )}
         <Button type="dashed" onClick={submit}>
@@ -174,8 +180,9 @@ const InsertPart = memo(
   (pre, next) => {
     const { defaultValue: pd, property: pp, spare: ps } = pre;
     const { defaultValue: nd, property: np, spare: ns } = next;
-    if (pd !== nd || pp !== np || ps !== ns) return true;
-    return false;
+    // 如果属性发生变化,则重新渲染该组件，更新return false 不更新return true
+    if (pd !== nd || pp !== np || ps !== ns) return false;
+    return true;
   }
 );
 InsertPart.displayName = 'InsertPart';

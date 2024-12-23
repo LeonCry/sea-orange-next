@@ -7,7 +7,7 @@ async function waitReturn(time: number) {
 }
 const AsyncComponent = async () => {
   await waitReturn(30);
-  return <div>asyncComponent</div>;
+  return <div>CLSX...</div>;
 };
 
 const Page = async () => {

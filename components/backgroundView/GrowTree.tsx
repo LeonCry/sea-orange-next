@@ -92,7 +92,6 @@ const branchGenerated = (
       [new Branch([width / 2, height], [width / 2, height - 1], 1)],
     ];
     const random = Math.floor((Math.random() * 100) / 25);
-    console.log('random:', random);
     originPointArr = diagonalBranch[random];
   }
   //随机模式

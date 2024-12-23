@@ -35,9 +35,7 @@ const CommonEditor = (props: CommonEditorService) => {
       setRefreshFlag(!refreshFlag);
     };
     const handleUpdate = (record: Record<string, any>) => {
-      setEditContent((draft) => {
-        draft = record;
-      });
+      setEditContent(record);
       setOpen(true);
     };
     setLoading(true);
@@ -122,14 +120,7 @@ const CommonEditor = (props: CommonEditorService) => {
           />
         </div>
       )}
-      <Drawer
-        width={550}
-        zIndex={1040}
-        className="!cursor-default"
-        title="update"
-        onClose={() => setOpen(false)}
-        open={open}
-      >
+      <Drawer width={550} zIndex={1040} title="update" onClose={() => setOpen(false)} open={open}>
         <InsertPart
           defaultValue={editContent}
           type={'update'}
