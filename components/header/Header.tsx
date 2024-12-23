@@ -10,7 +10,7 @@ const Header = () => {
   let curSection: SectionType[string] | undefined = getSectionDescription[secPath];
   if (
     pathName.split('/').length > 2 &&
-    (curSection.title === 'FuNnY' || curSection.title === 'bLoG')
+    (curSection?.title === 'FuNnY' || curSection?.title === 'bLoG')
   ) {
     curSection = undefined;
   }

@@ -5,8 +5,6 @@ import { getAllBlogInfo } from '@/api/blogPageApi';
 import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
-// 默认重新验证时间：60s
-export const revalidate = 60;
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
   const projectInfo = sort(res, (r) => blogOrders.indexOf(r.category));

@@ -5,7 +5,6 @@ import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import { getAllProjects } from '@/api/projectPageApi';
-import { revalidatePath } from 'next/cache';
 import { projectOrders } from '@/lib/getCategoryOrder';
 import { Suspense } from 'react';
 import Loading from '@/lotties/loading/Loading';
@@ -13,7 +12,6 @@ const Project = async () => {
   const res: ProjectPageItem[] = await getAllProjects();
   const projectInfo = sort(res, (r) => projectOrders.indexOf(r.category));
   const category = group(projectInfo, (p) => p.category);
-  revalidatePath('/project');
   return (
     <Suspense fallback={<Loading />}>
       <section className="page-dropDown enterFade">

@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import Main from './_component/MainBox';
 import Loading from '@/lotties/loading/Loading';
 export const dynamic = 'force-dynamic';
-import { revalidatePath } from 'next/cache';
 export const generateStaticParams = async () => {
   const commentCount: number = await getCommentNum();
   const pages = Math.ceil(commentCount / 30);
@@ -13,7 +12,6 @@ export const generateStaticParams = async () => {
   }));
 };
 const page = async ({ params }: { params: Promise<{ page: string }> }) => {
-  revalidatePath('/gossip');
   const page = (await params).page;
   return (
     <Suspense fallback={<Loading />}>
