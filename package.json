@@ -27,8 +27,8 @@
     "@pixi/graphics-extras": "^7.4.2",
     "@pixi/react": "^7.1.2",
     "@prisma/client": "^5.11.0",
-    "ahooks": "^3.7.10",
-    "antd": "^5.15.4",
+    "ahooks": "^3.8.4",
+    "antd": "^5.22.6",
     "gray-matter": "^4.0.3",
     "lottie-react": "^2.4.0",
     "matter-js": "^0.19.0",
@@ -48,7 +48,7 @@
     "sass": "^1.72.0",
     "scss": "^0.2.4",
     "use-immer": "^0.11.0",
-    "valtio": "^1.13.2"
+    "valtio": "^2.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",

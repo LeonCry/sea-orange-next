@@ -1,11 +1,10 @@
 import { CheckOne, CloseOne } from '@icon-park/react';
 import { useMemoizedFn, useUpdateEffect } from 'ahooks';
 import { Button, Divider, Input, InputRef, Select, Space, Spin, Tag } from 'antd';
-import { revalidatePath, revalidateTag } from 'next/cache';
 import { isEmpty, throttle } from 'radash';
 import { useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
-
+import { serverRevalidatePath, serverRevalidateTag } from './revalidate';
 const InsertPart = memo(
   (props: {
     defaultValue?: Record<string, any>;
@@ -99,9 +98,9 @@ const InsertPart = memo(
           alert('success!');
           // 进行ISR 如果是创建，则只针对一级路由，如果是更新，则需要重置tag
           if (props.type === 'create') {
-            revalidatePath(props.revaPath);
+            serverRevalidatePath(props.revaPath);
           } else {
-            revalidateTag(props.revaPath + props.defaultValue?.id);
+            serverRevalidateTag(props.revaPath + props.defaultValue?.id);
           }
           return props.closeSelfFn ? props.closeSelfFn() : setInsertInfo(initInfo);
         }
