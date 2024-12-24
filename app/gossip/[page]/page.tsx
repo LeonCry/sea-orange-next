@@ -15,9 +15,12 @@ const page = async ({ params }: { params: Promise<{ page: string }> }) => {
   const page = (await params).page;
   return (
     <Suspense fallback={<Loading />}>
-      <Main page={page}>
-        <WriteBox curPage={page} allComments={0} />
-      </Main>
+      <Main
+        page={page}
+        renderItem={(pages: string, comments: number) => (
+          <WriteBox curPage={pages} allComments={comments} />
+        )}
+      />
     </Suspense>
   );
 };

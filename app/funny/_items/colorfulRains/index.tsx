@@ -6,8 +6,8 @@ import type { World, Body as BodyType, Vector as VectorType } from 'matter-js';
 import MatterWrap from 'matter-wrap';
 import sleepingCat from '@/public/images/sleepingCat.gif';
 import { useEffectOnce } from 'react-use';
-use(MatterWrap);
 const BackView = () => {
+  use(MatterWrap);
   const container = useRef<HTMLCanvasElement | null>(null);
   let globalAngle = 0;
   useEffectOnce(() => {

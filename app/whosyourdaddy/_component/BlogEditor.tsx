@@ -20,6 +20,7 @@ const BlogEditor = () => {
     <section>
       <CommonEditor
         title="BLOG"
+        revaPath={'/blog'}
         property={property}
         getAllReq={getAllBlogInfo}
         updateReq={updateBlogById}

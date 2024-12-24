@@ -3,11 +3,16 @@ import { GossipPageItem } from '@prisma/client';
 import CommentItem from './CommentItem';
 import '@/app/enter-fade.scss';
 import style from './Main.module.scss';
-import { cloneElement } from 'react';
-const Main = async ({ page, children }: { page: string; children: React.ReactElement }) => {
+const Main = async ({
+  page,
+  renderItem,
+}: {
+  page: string;
+  renderItem: (pages: string, comments: number) => React.ReactElement;
+}) => {
   const comments: GossipPageItem[] = await getCommentInGossip(page);
   const commentCount: number = await getCommentNum();
-  const addPropChildren = cloneElement(children, { allComments: commentCount });
+  const addPropChildren = renderItem(page, commentCount);
   return (
     <section className={`${style.main}`}>
       <div className="flex-1 w-full overflow-auto flex flex-wrap justify-evenly gap-10 relative enterFade">

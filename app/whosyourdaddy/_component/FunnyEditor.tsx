@@ -20,6 +20,7 @@ const FunnyEditor = () => {
     <section>
       <CommonEditor
         title="Funny"
+        revaPath={'/funny'}
         property={property}
         getAllReq={getAllProjectsFromFunny}
         updateReq={updateFunnyById}

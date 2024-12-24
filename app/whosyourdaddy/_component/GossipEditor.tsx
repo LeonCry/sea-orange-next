@@ -8,6 +8,7 @@ const GossipEditor = () => {
     <section>
       <CommonEditor
         title="Gossip"
+        revaPath={'/gossip'}
         property={property}
         getAllReq={getCommentInGossip}
         updateReq={() => Promise.resolve()}

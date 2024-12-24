@@ -21,6 +21,7 @@ const CameraEditor = () => {
     <section>
       <CommonEditor
         title="Camera"
+        revaPath={'/camera'}
         property={property}
         getAllReq={getPhotoByPage}
         updateReq={updateCameraById}

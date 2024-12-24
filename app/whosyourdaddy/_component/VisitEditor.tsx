@@ -8,6 +8,7 @@ const VisitEditor = () => {
     <section>
       <CommonEditor
         title="Visit"
+        revaPath={'/visit'}
         property={property}
         getAllReq={getVisitByPage}
         updateReq={() => Promise.resolve()}

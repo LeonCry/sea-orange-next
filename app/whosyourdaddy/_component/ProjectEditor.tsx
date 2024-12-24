@@ -20,6 +20,7 @@ const ProjectEditor = () => {
     <section>
       <CommonEditor
         title="Project"
+        revaPath={'/project'}
         property={property}
         getAllReq={getAllProjects}
         updateReq={updateProjectById}

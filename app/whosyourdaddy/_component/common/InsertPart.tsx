@@ -1,6 +1,7 @@
 import { CheckOne, CloseOne } from '@icon-park/react';
 import { useMemoizedFn, useUpdateEffect } from 'ahooks';
 import { Button, Divider, Input, InputRef, Select, Space, Spin, Tag } from 'antd';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { isEmpty, throttle } from 'radash';
 import { useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
@@ -8,6 +9,7 @@ import { useImmer } from 'use-immer';
 const InsertPart = memo(
   (props: {
     defaultValue?: Record<string, any>;
+    revaPath: string;
     type: 'update' | 'create';
     property: { causal: string; label: string }[];
     refreshTable: () => void;
@@ -95,6 +97,12 @@ const InsertPart = memo(
         props.refreshTable();
         if (res.id) {
           alert('success!');
+          // 进行ISR 如果是创建，则只针对一级路由，如果是更新，则需要重置tag
+          if (props.type === 'create') {
+            revalidatePath(props.revaPath);
+          } else {
+            revalidateTag(props.revaPath + props.defaultValue?.id);
+          }
           return props.closeSelfFn ? props.closeSelfFn() : setInsertInfo(initInfo);
         }
       })
@@ -147,7 +155,7 @@ const InsertPart = memo(
         )}
         {props.property.find((v) => v.causal === 'content') && (
           <div className="relative">
-            <Button>上传文件</Button>
+            <Button> 上传文件 </Button>
             {insertInfo.content || props.type === 'update' ? (
               <Tag
                 bordered={false}

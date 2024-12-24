@@ -6,6 +6,7 @@ import { useMemoizedFn } from 'ahooks';
 import { useImmer } from 'use-immer';
 export interface CommonEditorService {
   title: string;
+  revaPath: string;
   property: { causal: string; label: string }[];
   spare?: Record<string, any>;
   readonly?: boolean;
@@ -111,6 +112,7 @@ const CommonEditor = (props: CommonEditorService) => {
         <div className="border p-10 flex justify-center">
           <InsertPart
             type={'create'}
+            revaPath={props.revaPath}
             refreshTable={handleRefresh}
             property={props.property}
             getCategoryReq={props.getCategoryReq}
@@ -123,6 +125,7 @@ const CommonEditor = (props: CommonEditorService) => {
       <Drawer width={550} zIndex={1040} title="update" onClose={() => setOpen(false)} open={open}>
         <InsertPart
           defaultValue={editContent}
+          revaPath={props.revaPath}
           type={'update'}
           refreshTable={handleRefresh}
           property={props.property}
