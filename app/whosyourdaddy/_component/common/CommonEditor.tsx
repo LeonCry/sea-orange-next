@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import InsertPart from './InsertPart';
 import { useMemoizedFn } from 'ahooks';
 import { useImmer } from 'use-immer';
+import { serverRevalidateTag } from './revalidate';
 export interface CommonEditorService {
   title: string;
   revaPath: string;
@@ -34,6 +35,7 @@ const CommonEditor = (props: CommonEditorService) => {
       await props.deleteReq(id);
       setLoading(true);
       setRefreshFlag(!refreshFlag);
+      serverRevalidateTag(props.revaPath);
     };
     const handleUpdate = (record: Record<string, any>) => {
       setEditContent(record);
