@@ -43,7 +43,6 @@ const Container = () => {
           />
         </div>
       )}
-      <RandomSpan />
     </section>
   );
 };

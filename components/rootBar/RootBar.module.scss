@@ -1,8 +1,8 @@
 .main {
-    background-image: radial-gradient(transparent 2px, white 2px);
-    background-size: 4px 4px;
-    backdrop-filter: saturate(50%) blur(4px);
-    -webkit-backdrop-filter: saturate(50%) blur(4px);
+  background-image: radial-gradient(transparent 2px, white 2px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
 }
 .rootBar {
   @apply px-2 py-1 mx-1;
@@ -10,7 +10,7 @@
   transition: all 0.2s;
   &:hover {
     padding-bottom: 12px;
-    background: linear-gradient(to bottom, #fff6ef 0%,transparent 25%,transparent 100%);
+    background: linear-gradient(to bottom, #fff6ef 0%, transparent 25%, transparent 100%);
   }
 }
 .icon {
@@ -18,5 +18,16 @@
   transition: all 150ms;
   &:hover {
     transform: rotateZ(-24deg) translateY(-2px);
+  }
+}
+.visLoading {
+  animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -6,9 +6,11 @@ import { chakraEN } from '@/style/defineFont';
 import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
 import style from './RootBar.module.scss';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { alertInfo, tvUrl, gitUrl } from './Info';
 import { darkStore } from '@/store/darkStore';
+import { useEffectOnce } from 'react-use';
+import { getCount } from '@/api/getSectionInfo';
 const RootBar = () => {
   const pathName = usePathname();
   const secPath = '/' + pathName.split('/')[1];
@@ -62,6 +64,14 @@ const RootBar = () => {
       document.documentElement.classList.add('blend-dark');
     }
   }, []);
+  const [visitCount, setVisitCount] = useState(0);
+  const getVisitCount = useCallback(async () => {
+    const count = await getCount();
+    setVisitCount(count);
+  }, []);
+  useEffectOnce(() => {
+    getVisitCount();
+  });
 
   return (
     <>
@@ -70,6 +80,15 @@ const RootBar = () => {
         <ol
           className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}
         >
+          <p className=" text-gray-300 px-2 text-xs absolute w-fit text-center top-2 left-2">
+            {visitCount ? (
+              <span className=" text-gray-400">{visitCount}</span>
+            ) : (
+              <span
+                className={`${style.visLoading} block w-4 h-4 border-dashed border-gray-400 border-2 rounded-full`}
+              />
+            )}
+          </p>
           <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
             <Link className="cursor-none" href={'/blog'}>
               BLOG
