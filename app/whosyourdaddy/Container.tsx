@@ -9,16 +9,16 @@ import VisitEditor from './_component/VisitEditor';
 import { useState } from 'react';
 import { useEffectOnce } from 'react-use';
 const tabs = [
-  { label: 'Blog', key: '1', children: <BlogEditor /> },
-  { label: 'Project', key: '2', children: <ProjectEditor /> },
-  { label: 'Camera', key: '3', children: <CameraEditor /> },
-  { label: 'Funny', key: '4', children: <FunnyEditor /> },
-  { label: 'Gossip', key: '5', children: <GossipEditor /> },
-  { label: 'Visit', key: '6', children: <VisitEditor /> },
+  { label: 'BLOG', key: '1', children: <BlogEditor /> },
+  { label: 'PROJECT', key: '2', children: <ProjectEditor /> },
+  { label: 'CAMERA', key: '3', children: <CameraEditor /> },
+  { label: 'FUNNY', key: '4', children: <FunnyEditor /> },
+  { label: 'GOSSIP', key: '5', children: <GossipEditor /> },
+  { label: 'VISIT', key: '6', children: <VisitEditor /> },
 ];
+const correct = process.env.NEXT_PUBLIC_PASSWORD;
 const Container = () => {
-  const [password, setPassword] = useState('');
-  const correct = process.env.NEXT_PUBLIC_PASSWORD;
+  const [password, setPassword] = useState();
   const handlePassword = (e: any) => {
     setPassword(e.target.value);
   };

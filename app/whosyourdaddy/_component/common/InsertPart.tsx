@@ -29,6 +29,7 @@ const InsertPart = memo(
     });
     const [insertInfo, setInsertInfo] = useImmer(initInfo);
     const [category, setCategory] = useImmer<string[]>([]);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const handleChange = useMemoizedFn((e: any) => {
       let key: keyof typeof insertInfo = e.target.dataset.title;
       setInsertInfo((draft) => {
@@ -64,7 +65,9 @@ const InsertPart = memo(
       const file = e.target.files[0];
       reader.onload = async (e) => {
         if (!e?.target?.result) return;
-        setInsertInfo({ ...insertInfo, content: e.target.result });
+        setInsertInfo((draft) => {
+          draft.content = e?.target?.result;
+        });
       };
       reader.readAsText(file);
     });
@@ -102,6 +105,7 @@ const InsertPart = memo(
           } else {
             serverRevalidateTag(props.revaPath + props.defaultValue?.id);
           }
+          fileInputRef.current!.value = '';
           return props.closeSelfFn ? props.closeSelfFn() : setInsertInfo(initInfo);
         }
       })
@@ -129,6 +133,7 @@ const InsertPart = memo(
             style={{ width: 500 }}
             placeholder="请选择分类"
             defaultValue={insertInfo?.category}
+            value={insertInfo?.category}
             onChange={categoryChange}
             onDropdownVisibleChange={getAllCategory}
             dropdownRender={(menu) => (
@@ -162,7 +167,11 @@ const InsertPart = memo(
                 className="absolute right-0 -top-1 p-2 flex gap-2"
               >
                 <CheckOne theme="outline" size="20" fill="#53A052" />
-                <span>文件已上传</span>
+                {props.type === 'update' ? (
+                  <span>{insertInfo.content ? '文件已更新' : '已存在文件'}</span>
+                ) : (
+                  <span>文件已上传</span>
+                )}
               </Tag>
             ) : (
               <Tag
@@ -174,8 +183,12 @@ const InsertPart = memo(
                 <span>无文件</span>
               </Tag>
             )}
-
-            <input type="file" onChange={uploadFile} className="absolute left-0 w-24 opacity-0 " />
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={uploadFile}
+              className="absolute left-0 w-24 opacity-0 "
+            />
           </div>
         )}
         <Button type="dashed" onClick={submit}>
