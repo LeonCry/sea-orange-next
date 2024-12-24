@@ -6,7 +6,7 @@ import CameraEditor from './_component/CameraEditor';
 import FunnyEditor from './_component/FunnyEditor';
 import GossipEditor from './_component/GossipEditor';
 import VisitEditor from './_component/VisitEditor';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 const tabs = [
   { label: 'BLOG', key: '1', children: <BlogEditor /> },
@@ -18,21 +18,24 @@ const tabs = [
 ];
 const correct = process.env.NEXT_PUBLIC_PASSWORD;
 const Container = () => {
-  const [password, setPassword] = useState();
-  const handlePassword = (e: any) => {
+  const tabsElement = useMemo(() => {
+    return <Tabs defaultActiveKey="1" type="card" size="large" items={tabs} />;
+  }, []);
+  const [password, setPassword] = useState('');
+  const handlePassword = useCallback((e: any) => {
     setPassword(e.target.value);
-  };
+  }, []);
   useEffectOnce(() => {
     document.body.style.cursor = 'auto';
   });
   return (
     <section className="w-full h-full absolute top-0 z-[1040] bg-white p-5 !text-base">
       {password === correct ? (
-        <Tabs defaultActiveKey="1" type="card" size="large" items={tabs} />
+        tabsElement
       ) : (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="w-full h-full overflow-hidden">
           <Input
-            className="w-96"
+            className="w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             placeholder="password"
             onChange={handlePassword}
             type="password"

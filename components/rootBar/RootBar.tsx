@@ -6,7 +6,7 @@ import { chakraEN } from '@/style/defineFont';
 import { usePathname } from 'next/navigation';
 import { Like, MessageEmoji, Tv, GithubOne, CastScreen, DarkMode } from '@icon-park/react';
 import style from './RootBar.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { alertInfo, tvUrl, gitUrl } from './Info';
 import { darkStore } from '@/store/darkStore';
 const RootBar = () => {
@@ -15,10 +15,36 @@ const RootBar = () => {
   const liActiveStyle = 'border-b-[1px] border-black text-[#181926]';
   const [isLike, isLikeSet] = useState(false);
   const [isDark, isDarkSet] = useState(false);
+
+  const memoizedLike = useMemo(
+    () =>
+      isLike ? (
+        isDark ? (
+          <Like theme="two-tone" size="20" fill={['#00ADB1', '#006364']} strokeLinejoin="bevel" />
+        ) : (
+          <Like theme="two-tone" size="20" fill={['#f64649', '#ff9999']} strokeLinejoin="bevel" />
+        )
+      ) : (
+        <Like theme="outline" size="20" fill="#181926" />
+      ),
+    [isLike, isDark]
+  );
+
+  const memoizedDarkMode = useMemo(
+    () =>
+      isDark ? (
+        <DarkMode theme="filled" size="20" fill="#333" />
+      ) : (
+        <DarkMode theme="outline" size="20" fill="#181926" />
+      ),
+    [isDark]
+  );
+
   const handleLike = () => {
     isLikeSet(!isLike);
     localStorage.setItem('isLike', String(!isLike));
   };
+
   const handleDark = () => {
     isDarkSet(!isDark);
     darkStore.isDark = !isDark;
@@ -26,6 +52,7 @@ const RootBar = () => {
     if (!isDark) return document.documentElement.classList.add('blend-dark');
     return document.documentElement.classList.remove('blend-dark');
   };
+
   useEffect(() => {
     if (localStorage.getItem('isLike') === 'true') {
       isLikeSet(true);
@@ -35,6 +62,7 @@ const RootBar = () => {
       document.documentElement.classList.add('blend-dark');
     }
   }, []);
+
   return (
     <>
       <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
@@ -74,25 +102,7 @@ const RootBar = () => {
           </li>
           <li className="w-16 text-center select-none"> || </li>
           <li onClick={handleLike} className={style.icon}>
-            {isLike ? (
-              isDark ? (
-                <Like
-                  theme="two-tone"
-                  size="20"
-                  fill={['#00ADB1', '#006364']}
-                  strokeLinejoin="bevel"
-                />
-              ) : (
-                <Like
-                  theme="two-tone"
-                  size="20"
-                  fill={['#f64649', '#ff9999']}
-                  strokeLinejoin="bevel"
-                />
-              )
-            ) : (
-              <Like theme="outline" size="20" fill="#181926" />
-            )}
+            {memoizedLike}
           </li>
           <li className={style.icon} onClick={() => window.alert(alertInfo)}>
             <MessageEmoji theme="outline" size="20" fill="#181926" />
@@ -111,11 +121,7 @@ const RootBar = () => {
             <CastScreen theme="outline" size="20" fill="#181926" />
           </li>
           <li className={`${style.icon} mr-10`} onClick={handleDark}>
-            {isDark ? (
-              <DarkMode theme="filled" size="20" fill="#333" />
-            ) : (
-              <DarkMode theme="outline" size="20" fill="#181926" />
-            )}
+            {memoizedDarkMode}
           </li>
         </ol>
       </header>
