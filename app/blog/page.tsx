@@ -5,6 +5,7 @@ import { getAllBlogInfo } from '@/api/blogPageApi';
 import { group, sort } from 'radash';
 import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
+import RandomSpan from '@/components/randomSpan/RandomSpan';
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
   const projectInfo = sort(res, (r) => blogOrders.indexOf(r.category));
@@ -19,6 +20,7 @@ const Blog = async () => {
         </SectionBox>
       ))}
       <div className="my-20" />
+      <RandomSpan />
     </section>
   );
 };

@@ -4,6 +4,7 @@ import Modal from '../_component/Modal';
 import NotFound from '@/app/not-found';
 import { FunnyPageItem } from '@prisma/client';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
+import RandomSpan from '@/components/randomSpan/RandomSpan';
 export const generateStaticParams = async () => {
   const projectInfo: FunnyPageItem[] = await getAllProjectsFromFunny();
   return projectInfo.map((item) => ({
@@ -27,6 +28,7 @@ const FunnyItem = async ({ params }: { params: Promise<{ name: string }> }) => {
   const DynamicComponents = dynamic(() => import(`../_items/${name}/index`), { ssr: true });
   return (
     <>
+      <RandomSpan />
       {withoutModalList.includes(name) ? (
         <DynamicComponents />
       ) : (

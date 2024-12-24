@@ -8,6 +8,7 @@ import { getAllProjects } from '@/api/projectPageApi';
 import { projectOrders } from '@/lib/getCategoryOrder';
 import { Suspense } from 'react';
 import Loading from '@/lotties/loading/Loading';
+import RandomSpan from '@/components/randomSpan/RandomSpan';
 const Project = async () => {
   const res: ProjectPageItem[] = await getAllProjects();
   const projectInfo = sort(res, (r) => projectOrders.indexOf(r.category));
@@ -23,6 +24,7 @@ const Project = async () => {
           </SectionBox>
         ))}
         <div className="my-20" />
+        <RandomSpan />
       </section>
     </Suspense>
   );

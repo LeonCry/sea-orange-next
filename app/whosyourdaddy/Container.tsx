@@ -8,6 +8,7 @@ import GossipEditor from './_component/GossipEditor';
 import VisitEditor from './_component/VisitEditor';
 import { useCallback, useMemo, useState } from 'react';
 import { useEffectOnce } from 'react-use';
+import RandomSpan from '@/components/randomSpan/RandomSpan';
 const tabs = [
   { label: 'BLOG', key: '1', children: <BlogEditor /> },
   { label: 'PROJECT', key: '2', children: <ProjectEditor /> },
@@ -42,6 +43,7 @@ const Container = () => {
           />
         </div>
       )}
+      <RandomSpan />
     </section>
   );
 };

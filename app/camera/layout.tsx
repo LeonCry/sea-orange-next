@@ -1,5 +1,6 @@
 import { getPhotoByPage, getPossibleCategory } from '@/api/cameraPageApi';
 import Camera from './_component/Camera';
+import RandomSpan from '@/components/randomSpan/RandomSpan';
 
 const CameraLayout = async ({ children }: { children: React.ReactNode }) => {
   const fetchData = async (page: number) => {
@@ -14,6 +15,7 @@ const CameraLayout = async ({ children }: { children: React.ReactNode }) => {
     <section>
       <Camera fetchData={fetchData} fetchCategoryData={fetchCategoryData} />
       {children}
+      <RandomSpan />
     </section>
   );
 };
