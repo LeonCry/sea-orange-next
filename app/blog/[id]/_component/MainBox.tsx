@@ -2,9 +2,16 @@ import { getBlogInfoById } from '@/api/blogPageApi';
 import style from './MainBox.module.scss';
 import Md from './Md';
 import Link from 'next/link';
+import { unstable_cache } from 'next/cache';
 import { BlogPageItem } from '@prisma/client';
 const MainBox = async ({ mdId }: { mdId: string }) => {
-  const blogInfo: BlogPageItem = await getBlogInfoById(parseInt(mdId));
+  const blogInfo: BlogPageItem = await unstable_cache(
+    async () => await getBlogInfoById(parseInt(mdId)),
+    [mdId],
+    {
+      tags: ['/blog' + mdId],
+    }
+  )();
   return (
     <>
       <Link
