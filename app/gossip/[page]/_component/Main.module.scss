@@ -7,3 +7,25 @@
   flex-direction: column;
   gap: 20px;
 }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 384px);
+  grid-auto-rows: 240px;
+  justify-content: center;
+  gap: 20px;
+}
+.commentItem::-webkit-scrollbar {
+  width: 1px; /* 滚动条整体宽度 */
+  height: 1px; /* 对于垂直滚动条的高度 */
+}
+.commentItem::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, transparent, #b9bac482, transparent); /* 滚动滑块的颜色 */
+  border-radius: 100px; /* 滚动滑块圆角 */
+}
+.commentItem::-webkit-scrollbar-track {
+  background: transparent; /* 滚动轨道背景颜色 */
+  border-radius: 100px; /* 轨道圆角 */
+}
+.commentItem::-webkit-scrollbar-thumb:hover {
+  background: #b1b1b178; /* 鼠标悬停在滚动滑块时的颜色 */
+}

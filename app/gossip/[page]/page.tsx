@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import Main from './_component/MainBox';
 import Loading from '@/lotties/loading/Loading';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
+import { connection } from 'next/server';
 export const generateStaticParams = async () => {
   const commentCount: number = await getCommentNum();
   const pages = Math.ceil(commentCount / 30);
@@ -13,7 +14,7 @@ export const generateStaticParams = async () => {
 };
 const page = async ({ params }: { params: Promise<{ page: string }> }) => {
   // 声明动态渲染
-  // await connection();
+  await connection();
   const page = (await params).page;
   return (
     <>

@@ -15,7 +15,7 @@ const Main = async ({
   const addPropChildren = renderItem(page, commentCount);
   return (
     <section className={`${style.main}`}>
-      <div className="flex-1 w-full overflow-auto flex flex-wrap justify-evenly gap-10 relative enterFade">
+      <div className={`flex-1 w-full overflow-auto relative enterFade ${style.grid}`}>
         {comments.map((c, i) => (
           <CommentItem key={i} comment={c} />
         ))}

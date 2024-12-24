@@ -1,4 +1,5 @@
 'use client';
+import style from './Main.module.scss';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import Icon from '@icon-park/react/es/all';
 import { GossipPageItem } from '@prisma/client';
@@ -28,7 +29,7 @@ const CommentItem = ({ comment }: { comment: GossipPageItem }) => {
   const isShow = useIntersectionObserver(contentRef);
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   return (
-    <div ref={contentRef} style={{ opacity: isShow ? 1 : 0 }} className="h-44 w-96">
+    <div ref={contentRef} style={{ opacity: isShow ? 1 : 0 }} className="w-96 h-[240px]">
       {isShow && (
         <div
           className={` h-fit flex flex-col max-w-[400px] gap-3 rounded-xl p-3 transition-all duration-300 hover:bg-slate-50 border ${randomColor}`}
@@ -40,7 +41,11 @@ const CommentItem = ({ comment }: { comment: GossipPageItem }) => {
             </div>
             <Rate defaultValue={comment.stars} disabled className="text-[#ff9a9a]" />
           </div>
-          <div className="border-t text-base p-2 overflow-auto max-h-[80px]">{comment.commentContent}</div>
+          <div
+            className={`border-t text-base p-2 py-4 overflow-auto h-[133px] ${style.commentItem}`}
+          >
+            {comment.commentContent}
+          </div>
           <span className="self-end text-xs text-gray-400">- {comment.date.toLocaleString()}</span>
         </div>
       )}
