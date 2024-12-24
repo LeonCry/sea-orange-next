@@ -24,7 +24,7 @@ const FunnyItem = async ({ params }: { params: Promise<{ name: string }> }) => {
     return <NotFound />;
   }
   const withoutModalList = ['democracySimulator', 'demo'];
-  const DynamicComponents = dynamic(() => import(`../_items/${name}/index`), { ssr: false });
+  const DynamicComponents = dynamic(() => import(`../_items/${name}/index`), { ssr: true });
   return (
     <>
       {withoutModalList.includes(name) ? (
