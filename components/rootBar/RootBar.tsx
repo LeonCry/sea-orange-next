@@ -11,6 +11,7 @@ import { alertInfo, tvUrl, gitUrl } from './Info';
 import { darkStore } from '@/store/darkStore';
 import { useEffectOnce } from 'react-use';
 import { getCount } from '@/api/getSectionInfo';
+import NumberFlow from '@number-flow/react';
 const RootBar = () => {
   const pathName = usePathname();
   const secPath = '/' + pathName.split('/')[1];
@@ -68,6 +69,8 @@ const RootBar = () => {
   const getVisitCount = useCallback(async () => {
     const count = await getCount();
     setVisitCount(count);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setVisitCount(count + 1);
   }, []);
   useEffectOnce(() => {
     getVisitCount();
@@ -80,15 +83,18 @@ const RootBar = () => {
         <ol
           className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}
         >
-          <p className=" text-gray-300 px-2 text-xs absolute w-fit text-center top-2 left-2">
-            {visitCount ? (
-              <span className=" text-gray-400">{visitCount}</span>
-            ) : (
-              <span
-                className={`${style.visLoading} block w-4 h-4 border-dashed border-gray-400 border-2 rounded-full`}
-              />
+          <div className=" text-gray-300 px-2 flex gap-1 items-center text-xs absolute w-fit text-center top-2 left-2">
+            <NumberFlow
+              prefix="0"
+              value={visitCount}
+              transformTiming={{ duration: 1000, easing: 'ease-out' }}
+              continuous
+              trend={1}
+            />
+            {visitCount && (
+              <span className={`text-gray-300 text-xs block opacity-0 ${style.visAdd}`}> +1 </span>
             )}
-          </p>
+          </div>
           <li className={`${style.rootBar}  ${secPath === '/blog' && liActiveStyle}`}>
             <Link className="cursor-none" href={'/blog'}>
               BLOG

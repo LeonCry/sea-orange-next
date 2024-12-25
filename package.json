@@ -24,6 +24,7 @@
   "dependencies": {
     "@icon-park/react": "^1.4.2",
     "@million/lint": "^1.0.14",
+    "@number-flow/react": "^0.4.4",
     "@pixi/graphics-extras": "^7.4.2",
     "@pixi/react": "^7.1.2",
     "@prisma/client": "^5.11.0",

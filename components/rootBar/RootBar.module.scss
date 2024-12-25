@@ -20,14 +20,29 @@
     transform: rotateZ(-24deg) translateY(-2px);
   }
 }
-.visLoading {
-  animation: rotate 1s linear infinite;
+.visAdd {
+  animation: addAnimate 2s ease-in-out forwards;
+  animation-delay: 1s;
 }
-@keyframes rotate {
+@keyframes addAnimate {
   0% {
-    transform: rotate(0);
+    transform: translateY(10px);
+    color: yellow;
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0);
+    color: seagreen;
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(0);
+    color: seagreen;
+    opacity: 1;
   }
   100% {
-    transform: rotate(360deg);
+    transform: translateY(-10px);
+    color: red;
+    opacity: 0;
   }
 }

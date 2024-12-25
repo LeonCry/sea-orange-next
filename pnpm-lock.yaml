@@ -11,6 +11,9 @@ dependencies:
   '@million/lint':
     specifier: ^1.0.14
     version: 1.0.14
+  '@number-flow/react':
+    specifier: ^0.4.4
+    version: 0.4.4(react-dom@19.0.0)(react@19.0.0)
   '@pixi/graphics-extras':
     specifier: ^7.4.2
     version: 7.4.2(@pixi/core@7.4.2)(@pixi/graphics@7.4.2)
@@ -1479,6 +1482,18 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
     dev: true
+
+  /@number-flow/react@0.4.4(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-m2FW55jnWqiJzKNRETgyxgR7a8x0WYIZ1uyiIW8C5g6HyjIynryJJop1mEcmHG6OyNePkcb8OQIcjKlV5TfHAw==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
+    dependencies:
+      esm-env: 1.2.1
+      number-flow: 0.4.2
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    dev: false
 
   /@pixi/accessibility@7.4.2(@pixi/core@7.4.2)(@pixi/display@7.4.2)(@pixi/events@7.4.2):
     resolution: {integrity: sha512-R6VEolm8uyy1FB1F2qaLKxVbzXAFTZCF2ka8fl9lsz7We6ZfO4QpXv9ur7DvzratjCQUQVCKo0/V7xL5q1EV/g==}
@@ -3902,6 +3917,10 @@ packages:
       - supports-color
     dev: true
 
+  /esm-env@1.2.1:
+    resolution: {integrity: sha512-U9JedYYjCnadUlXk7e1Kr+aENQhtUaoaV9+gZm1T8LC/YBAPJx3NSPIAurFOC0U5vrdSevnUJS2/wUVxGwPhng==}
+    dev: false
+
   /espree@9.6.1:
     resolution: {integrity: sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -5915,6 +5934,12 @@ packages:
 
   /nprogress@0.2.0:
     resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
+
+  /number-flow@0.4.2:
+    resolution: {integrity: sha512-YLN73/m8BUU4r/6mq9zqLdpFKt3LSPPRectOECheA9jtNWF4PP8EIz0+Z1giqu/x9nS86KnKwwouLXXiqnjhQQ==}
+    dependencies:
+      esm-env: 1.2.1
     dev: false
 
   /object-assign@4.1.1:
