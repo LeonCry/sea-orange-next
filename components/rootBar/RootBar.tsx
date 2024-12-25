@@ -77,6 +77,7 @@ const RootBar = () => {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const getVisitCount = useCallback(async () => {
     const count = await getCount();
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     clearInterval(timer.current!);
     setIsCount(true);
     setVisitCount(count);
@@ -84,6 +85,7 @@ const RootBar = () => {
     setVisitCount(count + 1);
   }, []);
   useEffectOnce(() => {
+    setVisitCount(789);
     getVisitCount();
     timer.current = setInterval(() => {
       setVisitCount(Math.floor(100 + Math.random() * 900));
