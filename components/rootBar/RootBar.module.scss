@@ -5,19 +5,20 @@
   -webkit-backdrop-filter: saturate(50%) blur(4px);
 }
 .rootBar {
-  @apply px-2 py-1 mx-1;
-  color: var(--light-text-color);
+  @apply px-4 py-1 mx-1;
+  color: #585b70a7;
   transition: all 0.2s;
   &:hover {
-    padding-bottom: 12px;
-    background: linear-gradient(to bottom, #fff6ef 0%, transparent 25%, transparent 100%);
+    background: rgba(255, 255, 255, 0.5);
+    color: #585b70d2;
+    border-radius: 10px;
   }
 }
 .icon {
   @apply p-2 mx-1 rounded-full;
   transition: all 150ms;
   &:hover {
-    transform: rotateZ(-24deg) translateY(-2px);
+    transform: translateY(-2px);
   }
 }
 .visAdd {
