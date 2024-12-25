@@ -159,7 +159,7 @@ const RootBar = () => {
             <li className="px-2 py-1 mx-1 text-[#585b70a7]">
               <Link className="cursor-none flex items-center gap-1" href={'/user'}>
                 <UserPositioning theme="outline" size="20" fill="#585b70d2" />
-                <div className=" text-gray-400 relative flex gap-1 items-center text-xs w-fit text-center">
+                <div className=" text-gray-400 relative flex gap-1 items-center text-xs min-w-8 text-center">
                   <NumberFlow
                     prefix="0"
                     value={visitCount}
@@ -171,8 +171,7 @@ const RootBar = () => {
                     <span
                       className={`text-gray-300 absolute -right-4 text-xs block opacity-0 ${style.visAdd}`}
                     >
-                      {' '}
-                      +1{' '}
+                      +1
                     </span>
                   )}
                 </div>

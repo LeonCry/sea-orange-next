@@ -9,7 +9,7 @@ import { CodeBlock } from './CodeBlock';
 const Md = ({ blogInfo }: { blogInfo: BlogPageItem }) => {
   const { content } = blogInfo;
   return (
-    <section className="overflow-auto">
+    <section className="overflow-auto pt-10">
       <article className={style.md}>
         <ReactMarkdown
           className="prose prose-pre:bg-white prose-pre:overflow-auto prose-pre:p-0 !max-w-full enterFade"
