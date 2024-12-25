@@ -46,6 +46,7 @@ const Cursor = () => {
   const tarBnd = useRef<any>({});
   useEffectOnce(() => {
     const handleReset = () => {
+      if (!isInTriggerBox) return;
       resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
     };
     window.addEventListener('mousemove', handleMove);
@@ -56,7 +57,11 @@ const Cursor = () => {
     };
   });
   useEffect(() => {
+    const scrollContainer = document.getElementById('overflow-container');
     if (isInTriggerBox) {
+      scrollContainer?.classList.remove('overflow-auto');
+      scrollContainer?.classList.add('overflow-hidden');
+      cursorRef.current!.style.zIndex = '1';
       const getTar = getTargetRectBounding();
       for (const key in getTar) {
         let k = key as keyof typeof getTar;
@@ -64,6 +69,9 @@ const Cursor = () => {
       }
       return handleTriggerBox(cursorRef.current!, triggerElement.current!, tarBnd.current);
     }
+    scrollContainer?.classList.remove('overflow-hidden');
+    scrollContainer?.classList.add('overflow-auto');
+    cursorRef.current!.style.zIndex = '1000';
     resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
   }, [isInTriggerBox]);
   const handleMove = useMemoizedFn((e: MouseEvent) => {
@@ -74,8 +82,9 @@ const Cursor = () => {
       cursorRef.current.style.top = `${point.y}px`;
     } else {
       if (!innerCircleRef.current || !triggerElement.current) return;
-      const left = triggerElement.current.offsetLeft;
-      const top = triggerElement.current.offsetTop;
+      const triggerRect = triggerElement.current.getBoundingClientRect();
+      const left = triggerRect.left;
+      const top = triggerRect.top;
       innerCircleRef.current.style.left = `${point.x - left}px`;
       innerCircleRef.current.style.top = `${point.y - top}px`;
       innerCircleRef.current!.style.opacity = '1';
@@ -96,10 +105,11 @@ const Cursor = () => {
   const getTargetRectBounding = () => {
     if (!triggerElement.current) return;
     const target = triggerElement.current;
-    const width = target.offsetWidth;
-    const height = target.offsetHeight;
-    const left = target.offsetLeft;
-    const top = target.offsetTop;
+    const targetRect = target.getBoundingClientRect();
+    const width = targetRect.width;
+    const height = targetRect.height;
+    const left = targetRect.left;
+    const top = targetRect.top;
     const targetStyle = getComputedStyle(target);
     const targetOrigin = { x: left + width / 2, y: top + height / 2 };
     return { width, height, left, top, targetStyle, targetOrigin };

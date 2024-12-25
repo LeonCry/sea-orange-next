@@ -34,8 +34,10 @@ export default async function RootLayout({
   return (
     <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
       <body className="font-base bg-base-bg-color cursor-none h-svh overflow-hidden">
-        <main className="flex flex-col-reverse h-screen">
-          <div className="flex-1 overflow-auto relative">{children}</div>
+        <main className="flex flex-col-reverse h-screen z-10 relative">
+          <div id="overflow-container" className="flex-1 overflow-auto">
+            {children}
+          </div>
           <div className="min-h-16 !shrink-0">
             <RootBar />
             <Header />
