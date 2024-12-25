@@ -17,7 +17,7 @@
 }
 .page-dropDown {
   width: 100%;
-  height: 80%;
+  height: auto;
   padding-left: 10%;
   padding-right: 10%;
   overflow: hidden;

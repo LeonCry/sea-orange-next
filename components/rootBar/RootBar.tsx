@@ -89,7 +89,7 @@ const RootBar = () => {
     getVisitCount();
     timer.current = setInterval(() => {
       setVisitCount(Math.floor(100 + Math.random() * 900));
-    }, 1000);
+    }, 500);
   });
   const activeStyle = '!text-[#585b70] bg-[#ffffffea] shadow rounded-xl animate-play';
   return (
@@ -159,7 +159,7 @@ const RootBar = () => {
           <li className="w-6 text-center h-3 select-none bg-[#eaeaeb99]" />
           <div className="h-12 mr-4 flex items-center enterFade w-fit mt-4 bg-[#eaeaeb99] rounded-2xl transition-all hover:bg-[#8686ff31]">
             <li className="px-2 py-1 mx-1 text-[#585b70a7]">
-              <Link className="cursor-none flex items-center gap-1" href={'/user'}>
+              <Link className="!cursor-none flex items-center gap-1" href={'/whosyourdaddy'}>
                 <UserPositioning theme="outline" size="20" fill="#585b70d2" />
                 <div className=" text-gray-400 relative flex gap-1 items-center text-xs min-w-8 text-center">
                   <NumberFlow

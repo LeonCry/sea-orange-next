@@ -9,6 +9,8 @@ import VisitEditor from './_component/VisitEditor';
 import { useCallback, useMemo, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
+import Link from 'next/link';
+import { Home } from '@icon-park/react';
 const tabs = [
   { label: 'BLOG', key: '1', children: <BlogEditor /> },
   { label: 'PROJECT', key: '2', children: <ProjectEditor /> },
@@ -31,6 +33,9 @@ const Container = () => {
   });
   return (
     <section className="w-full h-full absolute top-0 z-[1040] bg-white p-5 !text-base">
+      <Link href={'/'} className="absolute top-8 right-8 z-[9999]">
+        <Home theme="outline" size="20" fill="#4c4f69" />
+      </Link>
       {password === correct ? (
         tabsElement
       ) : (
