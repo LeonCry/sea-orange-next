@@ -23,6 +23,7 @@ export const metadata: Metadata = {
         type: 'image/svg',
       },
     ],
+    url: 'https://www.seaci.me',
   },
 };
 export default async function RootLayout({
