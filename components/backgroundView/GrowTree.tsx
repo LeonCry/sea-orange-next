@@ -59,7 +59,7 @@ const branchLoop = (
   let newBranchNum = Array.from({ length: maxBranch }, () => Math.random() <= branchRate).filter(
     Boolean
   ).length;
-  if (branchNum < 100) newBranchNum = 3;
+  if (branchNum < 100) newBranchNum = 2;
   branchNum += newBranchNum;
   for (let i = 0; i < newBranchNum; i++) {
     const len = Math.random() * maxLen + minLen;

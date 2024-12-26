@@ -46,7 +46,7 @@ const Cursor = () => {
   const tarBnd = useRef<any>({});
   useEffectOnce(() => {
     const handleReset = () => {
-      if (!isInTriggerBox) return;
+      setIsInTriggerBox(false);
       resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
     };
     window.addEventListener('mousemove', handleMove);
@@ -61,7 +61,6 @@ const Cursor = () => {
     if (isInTriggerBox) {
       scrollContainer?.classList.remove('overflow-auto');
       scrollContainer?.classList.add('overflow-hidden');
-      cursorRef.current!.style.zIndex = '1';
       const getTar = getTargetRectBounding();
       for (const key in getTar) {
         let k = key as keyof typeof getTar;
@@ -71,7 +70,6 @@ const Cursor = () => {
     }
     scrollContainer?.classList.remove('overflow-hidden');
     scrollContainer?.classList.add('overflow-auto');
-    cursorRef.current!.style.zIndex = '1000';
     resetStyle(cursorRef.current!, triggerElement.current!, innerCircleRef.current!);
   }, [isInTriggerBox]);
   const handleMove = useMemoizedFn((e: MouseEvent) => {
@@ -83,8 +81,9 @@ const Cursor = () => {
     } else {
       if (!innerCircleRef.current || !triggerElement.current) return;
       const triggerRect = triggerElement.current.getBoundingClientRect();
+      const addedTop = triggerRect.top < 200 ? 200 - triggerRect.top : 0;
       const left = triggerRect.left;
-      const top = triggerRect.top;
+      const top = triggerRect.top + addedTop;
       innerCircleRef.current.style.left = `${point.x - left}px`;
       innerCircleRef.current.style.top = `${point.y - top}px`;
       innerCircleRef.current!.style.opacity = '1';
@@ -106,10 +105,11 @@ const Cursor = () => {
     if (!triggerElement.current) return;
     const target = triggerElement.current;
     const targetRect = target.getBoundingClientRect();
+    const addedTop = targetRect.top < 200 ? 200 - targetRect.top : 0;
     const width = targetRect.width;
-    const height = targetRect.height;
+    const height = targetRect.height - addedTop;
     const left = targetRect.left;
-    const top = targetRect.top;
+    const top = targetRect.top + addedTop;
     const targetStyle = getComputedStyle(target);
     const targetOrigin = { x: left + width / 2, y: top + height / 2 };
     return { width, height, left, top, targetStyle, targetOrigin };
@@ -130,6 +130,11 @@ const Cursor = () => {
   return (
     <div ref={cursorRef} className={style.default}>
       <div ref={innerCircleRef} className={style.innerCircle} />
+      {isInTriggerBox && (
+        <span className="absolute top-1 text-white right-1 text-[8px] bg-[#00000024] rounded p-1 w-9 text-center">
+          SCROLL LOCKED
+        </span>
+      )}
     </div>
   );
 };

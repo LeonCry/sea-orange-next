@@ -13,11 +13,6 @@
   background-color: white;
   color: black;
   border: 2px solid black;
-  &:hover {
-    background-color: black;
-    color: white;
-    border: 2px solid black;
-  }
   animation: exit-animation 1.5s ease-in-out;
 }
 .md {
@@ -25,6 +20,9 @@
   padding: 50px;
   padding-top: 0;
   position: relative;
+}
+.left {
+  animation: left-animation 4s ease-in-out infinite;
 }
 @keyframes exit-animation {
   0% {
@@ -47,5 +45,23 @@
   }
   100% {
     transform: translateY(0);
+  }
+}
+@keyframes left-animation {
+  0% {
+    transform: translateX(15px);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(-15px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(15px);
+    opacity: 1;
   }
 }

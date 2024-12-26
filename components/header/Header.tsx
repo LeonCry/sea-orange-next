@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <>
       {curSection && (
-        <div className="mt-[104px] h-24">
+        <div className="mt-[104px]">
           <h1 className={`text-center w-full text-3xl font-bold pb-2 ${chakraEN.className}`}>
             {curSection?.title}
           </h1>
