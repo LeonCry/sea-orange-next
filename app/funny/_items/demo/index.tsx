@@ -2,10 +2,26 @@
 import style from './index.module.scss';
 const Index = () => {
   return (
-    <section className=" w-full text-center px-40">
-      <div className="w-[400px] h-[600px] bg-white border rounded-[36px] border-gray-300"></div>
-      <div className={style.box}></div>
-    </section>
+    <>
+      <section className="w-full h-full overflow-auto flex items-center backdrop-blur">
+        <aside className="w-40 ml-10 h-full bg-white relative rounded-2xl flex flex-col items-center justify-center gap-16">
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+          <div className=" w-5 h-5 bg-orange-500 rounded-full"></div>
+        </aside>
+        <section className={` w-full text-center px-10 h-full overflow-auto ${style.container}`}>
+          <div className={`${style.linear} w-full rounded-md h-full border-2`}></div>
+          <div className={`${style.linear} w-full rounded-md h-full border-2`}></div>
+          <div className={`${style.linear} w-full rounded-md h-full border-2`}></div>
+          <div className={`${style.linear} w-full rounded-md h-full border-2`}></div>
+        </section>
+      </section>
+    </>
   );
 };
 export default Index;
