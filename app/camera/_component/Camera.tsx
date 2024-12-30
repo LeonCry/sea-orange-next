@@ -1,13 +1,12 @@
 'use client';
 import { CameraPageItem } from '@prisma/client';
-import ItemBox from './ItemBox';
 import { Button, Select, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import Loading from '@/lotties/loading/Loading';
 import { getPhotoByCategory } from '@/api/cameraPageApi';
 import SmallLoading from '@/lotties/loading/smallLoading';
 import { AllApplication, ClearFormat } from '@icon-park/react';
-import { useMemoizedFn, useScroll, useUpdateEffect } from 'ahooks';
+import { useMemoizedFn } from 'ahooks';
 import { useImmer } from 'use-immer';
 import GridPhoto from './GridPhoto';
 const Camera = ({
@@ -23,22 +22,22 @@ const Camera = ({
   const [messageApi, contextHolder] = message.useMessage();
   const [photos, setPhotos] = useImmer<CameraPageItem[]>([]);
   const [category, setCategory] = useImmer<string[]>([]);
-  const [isFinish, setIsFinish] = useState(false);
   const fetchNextCamera = async () => {
+    console.log('page.current:', page.current);
     page.current++;
     const res = await fetchData(page.current);
     if (!res.length) {
-      setIsFinish(true);
       return messageApi.open({
         type: 'warning',
         content: 'has loaded all photos',
       });
     }
-    setPhotos((draft) => draft.push(...res));
+    setPhotos((draft) => {
+      draft.push(...res);
+    });
   };
   const handleSearch = async (v: string) => {
     page.current = 1;
-    setIsFinish(false);
     setLoading(true);
     const res = await getPhotoByCategory(v, page.current);
     setLoading(false);
@@ -48,7 +47,6 @@ const Camera = ({
   const refresh = useMemoizedFn(async () => {
     page.current = 1;
     setLoading(true);
-    setIsFinish(false);
     const res = await fetchData(page.current);
     setLoading(false);
     setPhotos((draft) => {
@@ -56,16 +54,6 @@ const Camera = ({
       draft.push(...res);
     });
   });
-  const position = useScroll(
-    container,
-    (val) =>
-      !!container.current &&
-      !!val.top &&
-      val.top === container.current.scrollHeight - container.current.offsetHeight
-  );
-  useUpdateEffect(() => {
-    fetchNextCamera();
-  }, [position]);
   useEffect(() => {
     refresh();
   }, [refresh]);
@@ -100,7 +88,7 @@ const Camera = ({
               </div>
             )}
           </header>
-          <GridPhoto photos={photos} isFinish={isFinish} />
+          <GridPhoto photos={photos} fetchNextCamera={fetchNextCamera} />
         </section>
       ) : (
         <Loading />

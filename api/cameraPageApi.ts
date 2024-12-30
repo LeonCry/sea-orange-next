@@ -6,8 +6,8 @@ import prisma from '@/lib/prisma';
 const getPhotoByPage = async (page: number | undefined) => {
   if (page === undefined) page = 1;
   return executeWithDb(() => prisma.cameraPageItem.findMany({
-    skip: (page! - 1) * 30,
-    take: 30,
+    skip: (page! - 1) * 10,
+    take: 10,
   }));
 };
 //查找所有的类别
@@ -25,8 +25,8 @@ const getPhotoByCategory = async (category: string, page: number) => {
     where: {
       category,
     },
-    skip: (page - 1) * 20,
-    take: 20,
+    skip: (page - 1) * 10,
+    take: 10,
   }));
 };
 const getPhotoById = async (id: number) => {

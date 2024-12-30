@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useEffectOnce } from 'react-use';
 
 export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>) => {
   const [arrivedState, setArrivedState] = useState({
@@ -7,7 +8,7 @@ export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>) =
   });
   const [y, setY] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  useEffect(() => {
+  useEffectOnce(() => {
     const currentContainer = container.current;
     if (!currentContainer) return;
     const handleScroll = () => {
@@ -22,6 +23,6 @@ export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>) =
     return () => {
       currentContainer.removeEventListener('scroll', handleScroll);
     };
-  }, [container]);
+  });
   return { arrivedState, y, isScrolling };
 };

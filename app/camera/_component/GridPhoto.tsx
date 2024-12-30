@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import { CameraPageItem } from '@prisma/client';
 import ItemBox from './ItemBox';
 import { useImmer } from 'use-immer';
+import { useAsyncEffect, useUpdateEffect } from 'ahooks';
+import { useEffectOnce } from 'react-use';
 interface blockType {
   width: number;
   height: number;
@@ -82,12 +84,13 @@ const generateGridTemplateArea = (
 };
 export default function GridPhoto({
   photos,
-  isFinish,
+  fetchNextCamera,
 }: {
   photos: CameraPageItem[];
-  isFinish: boolean;
+  fetchNextCamera: () => Promise<boolean | undefined>;
 }) {
   const container = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const continueRow = useRef(0);
   const [allGridAreaNames, setAllGridAreaNames] = useImmer<string[]>([]);
   //生成函数
@@ -114,7 +117,7 @@ export default function GridPhoto({
   const t = useRef(0);
   const [gridTemplateAreas, setGridTemplateAreas] = useState('');
   useEffect(() => {
-    const getGridTemplateAreaStyle = debounce({ delay: 300 }, () => {
+    const getGridTemplateAreaStyle = debounce({ delay: 300 }, async () => {
       t.current++;
       const gridAreaNames = Array.from({ length: count }, (_, i) => `_${t.current}_${i}`);
       setAllGridAreaNames((draft) => {
@@ -123,10 +126,26 @@ export default function GridPhoto({
       setGridTemplateAreas(handleGenerating(gridAreaNames));
     });
     getGridTemplateAreaStyle();
-  }, [photos, setAllGridAreaNames]);
+  }, [photos]);
+  const { arrivedState } = useMyScroll(container);
+  useAsyncEffect(async () => {
+    if (!gridRef.current) return;
+    if (!arrivedState.bottom) return;
+    fetchNextCamera();
+    gridRef.current.style.opacity = '0';
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    gridRef.current.style.opacity = '1';
+  }, [arrivedState.bottom]);
+  useAsyncEffect(async () => {
+    if (!gridRef.current) return;
+    gridRef.current.style.opacity = '0';
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    gridRef.current.style.opacity = '1';
+  }, []);
   return (
     <article ref={container} className="relative z-10 h-full w-fit m-auto overflow-scroll">
       <div
+        ref={gridRef}
         className={style.edgeGrid}
         style={{
           gridTemplateAreas,
