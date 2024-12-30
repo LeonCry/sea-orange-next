@@ -20,7 +20,6 @@
   height: auto;
   padding-left: 10%;
   padding-right: 10%;
-  overflow: hidden;
 }
 .fix-h {
   height: calc(100vh - 233px);
