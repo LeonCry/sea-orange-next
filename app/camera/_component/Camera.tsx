@@ -9,6 +9,7 @@ import SmallLoading from '@/lotties/loading/smallLoading';
 import { AllApplication, ClearFormat } from '@icon-park/react';
 import { useMemoizedFn, useScroll, useUpdateEffect } from 'ahooks';
 import { useImmer } from 'use-immer';
+import GridPhoto from './GridPhoto';
 const Camera = ({
   fetchData,
   fetchCategoryData,
@@ -22,18 +23,22 @@ const Camera = ({
   const [messageApi, contextHolder] = message.useMessage();
   const [photos, setPhotos] = useImmer<CameraPageItem[]>([]);
   const [category, setCategory] = useImmer<string[]>([]);
+  const [isFinish, setIsFinish] = useState(false);
   const fetchNextCamera = async () => {
     page.current++;
     const res = await fetchData(page.current);
-    if (!res.length)
+    if (!res.length) {
+      setIsFinish(true);
       return messageApi.open({
         type: 'warning',
         content: 'has loaded all photos',
       });
+    }
     setPhotos((draft) => draft.push(...res));
   };
   const handleSearch = async (v: string) => {
     page.current = 1;
+    setIsFinish(false);
     setLoading(true);
     const res = await getPhotoByCategory(v, page.current);
     setLoading(false);
@@ -43,6 +48,7 @@ const Camera = ({
   const refresh = useMemoizedFn(async () => {
     page.current = 1;
     setLoading(true);
+    setIsFinish(false);
     const res = await fetchData(page.current);
     setLoading(false);
     setPhotos((draft) => {
@@ -71,9 +77,9 @@ const Camera = ({
   return (
     <>
       {!!photos.length && !!category.length ? (
-        <section ref={container} className="page-dropDown fix-h !overflow-auto">
+        <section ref={container} className="page-dropDown !px-0 fix-h !overflow-hidden">
           {contextHolder}
-          <header className="flex items-center">
+          <header className="flex items-center px-[5%] pb-5">
             <AllApplication theme="outline" size="24" fill="#333" className="inline-block pr-2" />
             <Select
               className="cursor-none"
@@ -94,11 +100,7 @@ const Camera = ({
               </div>
             )}
           </header>
-          <article className="flex flex-wrap gap-10 justify-around p-10">
-            {photos.map((p, i) => (
-              <ItemBox key={i} photo={p} />
-            ))}
-          </article>
+          <GridPhoto photos={photos} isFinish={isFinish} />
         </section>
       ) : (
         <Loading />

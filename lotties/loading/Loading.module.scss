@@ -1,6 +1,29 @@
+.cat > span {
+  --delay: 250ms;
+  animation: cat-bark 1s ease-in-out infinite;
+  animation-delay: calc(var(--delay));
+  overflow: hidden;
+}
+@for $i from 1 through 4 {
+  .cat > span:nth-child(#{$i}) {
+    --delay: #{($i - 1) * 250}ms;
+    margin-left: #{$i * 24}px;
+  }
+}
 .text {
   position: absolute;
-  left: calc(50% - 100px);
+  left: calc(50% - 150px);
   top: calc(50% - 120px);
   z-index: 100;
+}
+@keyframes cat-bark {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
