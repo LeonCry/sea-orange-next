@@ -9,7 +9,7 @@ export const SlidingSelector = ({
   defaultCom: React.ReactNode;
   categoryCom: React.ReactNode[];
 }) => {
-  const [isClassify, setIsClassify] = useState(true);
+  const [isClassify, setIsClassify] = useState(false);
   const selectorRef = useRef<HTMLDivElement>(null);
   useAsyncEffect(async () => {
     if (!selectorRef.current) return;
@@ -21,7 +21,7 @@ export const SlidingSelector = ({
   }, [isClassify]);
   return (
     <>
-      <div className="sticky top-0 -ml-[10%] w-48 h-10 bg-gray-100 rounded-md flex justify-between items-center">
+      <div className="sticky z-10 top-0 -ml-[10%] w-48 h-10 bg-gray-100 rounded-md flex justify-between items-center">
         <div
           ref={selectorRef}
           className="absolute w-[88px] h-8 m-1 rounded-md bg-purple-100 transition-all duration-300"
@@ -45,7 +45,7 @@ export const SlidingSelector = ({
           TIME
         </div>
       </div>
-      {isClassify ? defaultCom : categoryCom}
+      {isClassify ? categoryCom : defaultCom}
     </>
   );
 };

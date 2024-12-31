@@ -3,30 +3,33 @@
   height: calc(100% - 64px);
   position: absolute;
 }
+.borderLinear {
+  border-left: 1px solid;
+  border-image: linear-gradient(to bottom, #00000010, #ffffffd6, #00000010) 1;
+}
 .puffOut {
   animation: fade-out-bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 .puffIn {
   animation: slide-in-elliptic-bottom-fwd 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.5s;
 }
 .backdropBlurIn {
   animation: backdrop-blur-ani 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
 }
 .backdropBlurOut {
   animation: puff-out-center 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+  animation-delay: 0.3s;
 }
 
 @keyframes fade-out-bottom {
   0% {
-    transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: scale(1.1);
     opacity: 0;
   }
 }
-
 @keyframes slide-in-elliptic-bottom-fwd {
   0% {
     -webkit-transform: translateY(300px) rotateX(30deg) scale(0);

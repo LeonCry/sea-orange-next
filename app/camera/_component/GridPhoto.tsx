@@ -2,11 +2,11 @@
 import { useMyScroll } from '@/hooks/useMyScroll';
 import style from './Grid.module.scss';
 import { debounce, random, sum } from 'radash';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CameraPageItem } from '@prisma/client';
 import ItemBox from './ItemBox';
 import { useImmer } from 'use-immer';
-import { useAsyncEffect } from 'ahooks';
+import { useAsyncEffect, useUpdateEffect } from 'ahooks';
 import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
 interface blockType {
@@ -127,18 +127,21 @@ export default function GridPhoto({
     getGridTemplateAreaStyle();
   }, [photos, setAllGridAreaNames]);
   const { arrivedState } = useMyScroll(container);
-  useAsyncEffect(async () => {
-    if (!gridRef.current || !container.current) return;
-    if (!arrivedState.bottom) return;
+  const [baseWH, setBaseWH] = useState(90);
+  const handleFetchNextCameraWithAnimation = useCallback(async () => {
     const lastTop = gridAreaList.length * baseWH - 384;
     const res = await fetchNextCamera();
     if (res) return;
-    gridRef.current.style.opacity = '0';
+    gridRef.current!.style.opacity = '0';
     await new Promise((resolve) => setTimeout(resolve, 800));
-    container.current.scrollTo({ top: lastTop });
-    gridRef.current.style.opacity = '1';
+    container.current!.scrollTo({ top: lastTop });
+    gridRef.current!.style.opacity = '1';
+  }, [fetchNextCamera, baseWH]);
+  useUpdateEffect(() => {
+    if (!gridRef.current || !container.current) return;
+    if (!arrivedState.bottom) return;
+    handleFetchNextCameraWithAnimation();
   }, [arrivedState.bottom]);
-  const [baseWH, setBaseWH] = useState(90);
   useAsyncEffect(async () => {
     if (!gridRef.current) return;
     setBaseWH(document.documentElement.clientWidth / 18);
@@ -169,10 +172,8 @@ export default function GridPhoto({
         </div>
         <div className="h-96 w-full relative">
           <div
-            className=" transition-all hover:text-purple-500 hover:bg-purple-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
-            onClick={() => {
-              fetchNextCamera();
-            }}
+            className="transition-all select-none hover:text-purple-500 hover:bg-purple-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
+            onClick={handleFetchNextCameraWithAnimation}
           >
             LOADING NEXT PAGE PHOTOS
           </div>

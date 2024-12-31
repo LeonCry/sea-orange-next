@@ -10,9 +10,10 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 .exit {
-  background-color: white;
+  background-color: #f2f2f3;
   color: black;
-  border: 2px solid black;
+  border-radius: 100px;
+  border: 1px solid #f2f2f3;
   animation: exit-animation 1.5s ease-in-out;
 }
 .md {
@@ -53,10 +54,10 @@
     opacity: 1;
   }
   60% {
-    transform: translateX(-15px);
+    transform: translateX(-30px);
     opacity: 0;
   }
-  70% {
+  90% {
     transform: translateX(20px);
     opacity: 0;
   }

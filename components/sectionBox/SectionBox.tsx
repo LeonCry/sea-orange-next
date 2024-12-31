@@ -7,7 +7,7 @@ const SectionBox = memo(
     return (
       <>
         <h1 className={titleStyle}> {title} </h1>
-        <article className="flex flex-wrap justify-evenly pb-16 gap-20 enterFade ">
+        <article className="flex flex-wrap justify-evenly pb-16 gap-16 enterFade ">
           {children}
         </article>
       </>

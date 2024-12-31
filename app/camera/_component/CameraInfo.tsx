@@ -4,9 +4,10 @@ import { Acoustic, AppletClosed, Camera, DownloadFour, GamePs, Record } from '@i
 import { CameraPageItem } from '@prisma/client';
 import { Button } from 'antd';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { darkStore } from '@/store/darkStore';
 import { useSnapshot } from 'valtio';
+import clsx from 'clsx';
 const CameraInfo = ({
   local,
   handleSetId,
@@ -23,19 +24,37 @@ const CameraInfo = ({
     boxRef.current.classList.add(style.puffOut);
     backdropRef.current.classList.remove(style.backdropBlurIn);
     backdropRef.current.classList.add(style.backdropBlurOut);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1300));
     handleSetId('');
+  };
+  const [downloadText, setDownloadText] = useState('CLICK TO DOWNLOAD');
+  const handleDownload = async (src: string) => {
+    setDownloadText('DOWNLOADING...');
+    const res = await fetch(src);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${local.name}.jpg`;
+    a.click();
+    setDownloadText('DOWNLOADED');
+  };
+  const [isEnlarge, setIsEnlarge] = useState(false);
+  const handleResize = () => {
+    setIsEnlarge(!isEnlarge);
   };
   return (
     <section
       ref={backdropRef}
-      className={`w-full ${style.backdropBlurIn} z-[60] h-full fixed bottom-0 ${
+      className={`w-full text-[#233] ${
+        style.backdropBlurIn
+      } backdrop-blur-[84px] bg-[rgba(255,255,255,0.1)] z-[60] h-full fixed bottom-0 ${
         dark.isDark && 'invert bg-[rgba(0,0,0,0.8)]'
       }`}
     >
       <div
         ref={boxRef}
-        className={`relative w-[95%] h-[90%] mt-[4%] ml-[2.5%] rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffIn}`}
+        className={`relative w-[95%] h-[90%] mt-[4%] ml-[2.5%] rounded-3xl p-4 shadow-2xl opacity-1 ${style.puffIn}`}
       >
         <div className="absolute right-2 top-2 p-4 transition duration-300 hover:rotate-180">
           <AppletClosed
@@ -46,47 +65,93 @@ const CameraInfo = ({
             onClick={handleClose}
           />
         </div>
-        <div className="flex items-center justify-around w-full h-full">
-          <div className={'w-[1200px] h-[800px] relative rounded-xl cursor-none'}>
+        <div className="flex items-center justify-around shadow-2xl rounded-2xl w-full h-full">
+          <div
+            className={
+              'relative select-none shrink-0 aspect-[3/2] flex-1 rounded-xl ml-5 cursor-none'
+            }
+          >
             <Image
               src={local.photoSrc}
               fill
               alt="pic"
               sizes="100"
               priority
-              className="rounded-lg"
+              className="rounded-lg "
             />
           </div>
-          <article className="flex-1 flex flex-col h-full justify-center items-start px-10 border-l ml-10 gap-10">
+          <article
+            className={clsx([
+              ' !w-[25%] flex flex-col h-full items-start px-5 shadow-2xl rounded-e-2xl ml-10 gap-10',
+              style.borderLinear,
+            ])}
+          >
+            <div className=" h-2 w-full" />
             <span className="flex items-center gap-3">
               <Acoustic theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
               {local.name}
             </span>
-            <span className="flex items-center gap-3">
-              <Record theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
-              {local.category}
-            </span>
-            <span className="flex items-center gap-3">
-              <Camera theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
-              {local.device}
-            </span>
-            <span className="flex items-center gap-3">
-              <GamePs theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
-              {local.description}
-            </span>
-            <a
-              href={`${local.photoSrc}?response-content-type=application/octet-stream`}
-              download
-              className="self-center"
-              target="_blank"
+            {!isEnlarge && (
+              <>
+                <span
+                  className={clsx([
+                    'flex items-center gap-3',
+                    isEnlarge ? 'h-0 w-0' : 'w-auto h-auto',
+                  ])}
+                >
+                  <Record theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
+                  {local.category}
+                </span>
+                <span
+                  className={clsx([
+                    'flex items-center gap-3',
+                    isEnlarge ? 'h-0 w-0' : 'w-auto h-auto',
+                  ])}
+                >
+                  <Camera theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
+                  {local.device}
+                </span>
+              </>
+            )}
+            <div
+              className={clsx([
+                'flex relative items-start gap-3 w-full transition-all duration-300 ease-in-out',
+                isEnlarge ? 'min-h-[80%] max-h-[80%]' : 'min-h-[30%] max-h-[60%]',
+              ])}
             >
+              {!isEnlarge && (
+                <GamePs theme="outline" size="20" fill={dark.isDark ? '#ffffff' : '#000000'} />
+              )}
+              <p
+                onDoubleClick={handleResize}
+                className="overflow-auto transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#ffffff11]"
+              >
+                {local.description}
+              </p>
+            </div>
+            <div className=" absolute bottom-10 right-10">
               <Button
-                className="cursor-none border-none bg-blue-300 hover:!bg-blue-500 px-10"
+                onClick={() => handleDownload(local.photoSrc)}
+                className="cursor-none flex items-center gap-1 self-center px-10 overflow-hidden bg-[#ffffff11] hover:!bg-[rgba(0,0,0,0.05)]"
                 type="text"
               >
-                <DownloadFour theme="outline" size="24" fill="#333" />
+                <span
+                  className={clsx([
+                    'transition-all duration-300 ease-in-out',
+                    downloadText === 'DOWNLOADING...' && 'text-orange-600 animate-pulse',
+                    downloadText === 'DOWNLOADED' && 'text-green-600',
+                  ])}
+                >
+                  {downloadText}
+                </span>
+                <DownloadFour
+                  theme="outline"
+                  size="16"
+                  className=" absolute right-3 bottom-2"
+                  fill={dark.isDark ? '#ffffff' : '#000000'}
+                />
               </Button>
-            </a>
+            </div>
           </article>
         </div>
       </div>
