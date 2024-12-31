@@ -15,7 +15,7 @@ export const BlogOption = () => {
   return (
     <>
       <Link
-        className={`${style.exit} z-[9999] h-10 text-center absolute overflow-hidden top-[14px] left-4 cursor-none transition-all duration-500 py-1 w-16 rounded`}
+        className={`${style.exit} hover:animate-pulse hover:border-[#ff4f4f] hover:text-[#ff4f4f] z-[9999] hover:bg-[#ff4f4f13] h-10 text-center absolute overflow-hidden top-[14px] left-4 cursor-none transition-all duration-500 py-1 w-16 rounded`}
         href={'/blog'}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -33,7 +33,7 @@ export const BlogOption = () => {
           } absolute transition-all duration-500 px-8 text-center pt-[2px]  `}
         >
           <p className={isHover ? '' : style.left}>
-            <DoubleLeft theme="outline" size="24" fill="black" />
+            <DoubleLeft theme="outline" size="24" fill="#b1a8ffaa" />
           </p>
         </div>
       </Link>

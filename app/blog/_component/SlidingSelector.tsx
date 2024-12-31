@@ -21,10 +21,10 @@ export const SlidingSelector = ({
   }, [isClassify]);
   return (
     <>
-      <div className="sticky z-10 top-0 -ml-[10%] w-48 h-10 bg-gray-100 rounded-md flex justify-between items-center">
+      <div className="sticky z-10 top-0 -ml-[10%] w-48 h-10 bg-[#8636ff10] rounded-md flex justify-between items-center">
         <div
           ref={selectorRef}
-          className="absolute w-[88px] h-8 m-1 rounded-md bg-purple-100 transition-all duration-300"
+          className="absolute w-[88px] h-8 m-1 rounded-md bg-[#b236ff17] transition-all duration-300"
         />
         <div
           onClick={() => setIsClassify(true)}

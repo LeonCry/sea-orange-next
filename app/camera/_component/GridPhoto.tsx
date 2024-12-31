@@ -9,22 +9,23 @@ import { useImmer } from 'use-immer';
 import { useAsyncEffect, useUpdateEffect } from 'ahooks';
 import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
+import { useEffectOnce } from 'react-use';
 interface blockType {
   width: number;
   height: number;
 }
 // 单次请求数
-const count = 10;
+let count = 10;
 // block宽长比
-const ratio = 2 / 3;
+let ratio = 2 / 3;
 // gap
-const gap = 3;
+let gap = 3;
 // block类型数
-const bt = 3;
-const wTList = Array.from({ length: bt }, (_, i) => gap * (i + 1));
-const hTList = wTList.map((w) => w * ratio);
-const totalWidth = sum(wTList);
-const gridAreaList = [Array.from({ length: totalWidth }, () => '.')];
+let bt = 3;
+let wTList = Array.from({ length: bt }, (_, i) => gap * (i + 1));
+let hTList = wTList.map((w) => w * ratio);
+let totalWidth = sum(wTList);
+let gridAreaList = [Array.from({ length: totalWidth }, () => '.')];
 //获取一行中的连续空白长度 [startColumn, endColumn][];
 const getEmptyWidth = (row: number) => {
   if (row >= gridAreaList.length) {
@@ -81,6 +82,12 @@ const generateGridTemplateArea = (
     startCol += bk.width;
   });
 };
+const resetBaseData = () => {
+  wTList = Array.from({ length: bt }, (_, i) => gap * (i + 1));
+  hTList = wTList.map((w) => w * ratio);
+  totalWidth = sum(wTList);
+  gridAreaList = [Array.from({ length: totalWidth }, () => '.')];
+};
 export default function GridPhoto({
   photos,
   fetchNextCamera,
@@ -88,6 +95,7 @@ export default function GridPhoto({
   photos: CameraPageItem[];
   fetchNextCamera: () => Promise<boolean | undefined>;
 }) {
+  useEffectOnce(resetBaseData);
   const container = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const continueRow = useRef(0);
@@ -172,10 +180,10 @@ export default function GridPhoto({
         </div>
         <div className="h-96 w-full relative">
           <div
-            className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
+            className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-[650px] rounded-md text-center"
             onClick={handleFetchNextCameraWithAnimation}
           >
-            LOADING NEXT PAGE PHOTOS
+            CLICK OR SCROLL TO BOTTOM TO LOAD NEXT PAGE PHOTOS
           </div>
         </div>
       </article>
