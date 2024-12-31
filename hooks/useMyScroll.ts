@@ -16,7 +16,7 @@ export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>, o
       setIsScrolling(true);
       setArrivedState({
         top: currentContainer.scrollTop === 0,
-        bottom: currentContainer.scrollTop + currentContainer.clientHeight - (option?.mb || 0) === currentContainer.scrollHeight,
+        bottom: currentContainer.scrollTop + currentContainer.clientHeight + (option?.mb || 0) >= currentContainer.scrollHeight,
       });
     };
     currentContainer.addEventListener('scroll', handleScroll);

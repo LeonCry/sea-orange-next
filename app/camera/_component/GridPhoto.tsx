@@ -126,7 +126,7 @@ export default function GridPhoto({
     });
     getGridTemplateAreaStyle();
   }, [photos, setAllGridAreaNames]);
-  const { arrivedState } = useMyScroll(container);
+  const { arrivedState } = useMyScroll(container, { mb: 1 });
   const [baseWH, setBaseWH] = useState(90);
   const handleFetchNextCameraWithAnimation = useCallback(async () => {
     const lastTop = gridAreaList.length * baseWH - 384;
@@ -172,7 +172,7 @@ export default function GridPhoto({
         </div>
         <div className="h-96 w-full relative">
           <div
-            className="transition-all select-none hover:text-purple-500 hover:bg-purple-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
+            className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
             onClick={handleFetchNextCameraWithAnimation}
           >
             LOADING NEXT PAGE PHOTOS
