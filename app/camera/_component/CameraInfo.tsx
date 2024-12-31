@@ -4,29 +4,38 @@ import { Acoustic, AppletClosed, Camera, DownloadFour, GamePs, Record } from '@i
 import { CameraPageItem } from '@prisma/client';
 import { Button } from 'antd';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import { darkStore } from '@/store/darkStore';
 import { useSnapshot } from 'valtio';
-const CameraInfo = ({ local }: { local: CameraPageItem }) => {
+const CameraInfo = ({
+  local,
+  handleSetId,
+}: {
+  local: CameraPageItem;
+  handleSetId: (id: string) => void;
+}) => {
   const dark = useSnapshot(darkStore);
-  const router = useRouter();
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const backdropRef = useRef<HTMLDivElement | null>(null);
   const handleClose = async () => {
-    if (!boxRef.current) return;
-    boxRef.current.style.animationPlayState = 'running';
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    router.back();
+    if (!boxRef.current || !backdropRef.current) return;
+    boxRef.current.classList.remove(style.puffIn);
+    boxRef.current.classList.add(style.puffOut);
+    backdropRef.current.classList.remove(style.backdropBlurIn);
+    backdropRef.current.classList.add(style.backdropBlurOut);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    handleSetId('');
   };
   return (
     <section
-      className={`w-full backdrop-blur-[84px] z-[60] h-full fixed bottom-0 ${
+      ref={backdropRef}
+      className={`w-full ${style.backdropBlurIn} z-[60] h-full fixed bottom-0 ${
         dark.isDark && 'invert bg-[rgba(0,0,0,0.8)]'
       }`}
     >
       <div
         ref={boxRef}
-        className={`relative w-[95%] h-[90%] mt-[4%] ml-[2.5%] rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffOut}`}
+        className={`relative w-[95%] h-[90%] mt-[4%] ml-[2.5%] rounded-3xl p-4 border shadow-2xl shadow-indigo-100 ${style.puffIn}`}
       >
         <div className="absolute right-2 top-2 p-4 transition duration-300 hover:rotate-180">
           <AppletClosed

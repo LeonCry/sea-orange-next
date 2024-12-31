@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import { baseEN, baseZN } from '@/style/defineFont';
 import RootBar from '../components/rootBar/RootBar';
@@ -34,17 +35,19 @@ export default async function RootLayout({
   return (
     <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
       <body className="font-base bg-base-bg-color cursor-none h-svh overflow-hidden">
-        <main className="flex flex-col-reverse h-screen z-10 relative">
-          <div id="overflow-container" className="flex-1 overflow-auto">
-            {children}
-          </div>
-          <div className="min-h-16 !shrink-0">
-            <RootBar />
-            <Header />
-          </div>
-        </main>
-        <BackView />
-        <Cursor />
+        <NuqsAdapter>
+          <main className="flex flex-col-reverse h-screen z-10 relative">
+            <div id="overflow-container" className="flex-1 overflow-auto">
+              {children}
+            </div>
+            <div className="min-h-16 !shrink-0">
+              <RootBar />
+              <Header />
+            </div>
+          </main>
+          <BackView />
+          <Cursor />
+        </NuqsAdapter>
       </body>
     </html>
   );

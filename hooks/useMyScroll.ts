@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useEffectOnce } from 'react-use';
 
-export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>) => {
+export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>, option?: { mb?: number }) => {
   const [arrivedState, setArrivedState] = useState({
     top: false,
     bottom: false,
@@ -16,7 +16,7 @@ export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>) =
       setIsScrolling(true);
       setArrivedState({
         top: currentContainer.scrollTop === 0,
-        bottom: currentContainer.scrollTop + currentContainer.clientHeight === currentContainer.scrollHeight,
+        bottom: currentContainer.scrollTop + currentContainer.clientHeight - (option?.mb || 0) === currentContainer.scrollHeight,
       });
     };
     currentContainer.addEventListener('scroll', handleScroll);

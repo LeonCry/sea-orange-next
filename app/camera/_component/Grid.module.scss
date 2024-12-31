@@ -4,7 +4,7 @@
   padding: 20px;
   grid-template-rows: repeat(auto-fill, 1fr);
   grid-auto-flow: row dense;
-  transition: opacity 400ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
 }
 .edgeBlock {
   transition: background-color 0.55s;

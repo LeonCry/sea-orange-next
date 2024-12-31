@@ -1,16 +1,22 @@
+'use client';
 import { CameraPageItem } from '@prisma/client';
-import Link from 'next/link';
 import Image from 'next/image';
 import ImageLoading from '@/lotties/imageLoading/ImageLoading';
-import { useRef, useState } from 'react';
-const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
-  const itemRef = useRef<any>(null);
+import { useState } from 'react';
+const ItemBox = ({
+  photo,
+  handleSetId,
+}: {
+  photo: CameraPageItem;
+  handleSetId: (id: string) => void;
+}) => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   if (!photo) return null;
   return (
-    <Link
-      ref={itemRef}
-      href={`/camera/${photo.id}`}
+    <div
+      onClick={() => {
+        handleSetId(String(photo.id));
+      }}
       className={'w-full h-full rounded-xl cursor-none bg-[#c5c5c511]'}
     >
       <div className="flex justify-center items-center relative w-full h-full ">
@@ -29,7 +35,7 @@ const ItemBox = ({ photo }: { photo: CameraPageItem }) => {
           </div>
         )}
       </div>
-    </Link>
+    </div>
   );
 };
 

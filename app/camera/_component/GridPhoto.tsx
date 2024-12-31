@@ -6,14 +6,13 @@ import { useEffect, useRef, useState } from 'react';
 import { CameraPageItem } from '@prisma/client';
 import ItemBox from './ItemBox';
 import { useImmer } from 'use-immer';
-import { useAsyncEffect, useUpdateEffect } from 'ahooks';
-import { useEffectOnce } from 'react-use';
+import { useAsyncEffect } from 'ahooks';
+import { useQueryState } from 'nuqs';
+import CameraInfo from './CameraInfo';
 interface blockType {
   width: number;
   height: number;
 }
-// base-w-h
-const baseWH = 90;
 // 单次请求数
 const count = 10;
 // block宽长比
@@ -126,39 +125,62 @@ export default function GridPhoto({
       setGridTemplateAreas(handleGenerating(gridAreaNames));
     });
     getGridTemplateAreaStyle();
-  }, [photos]);
+  }, [photos, setAllGridAreaNames]);
   const { arrivedState } = useMyScroll(container);
   useAsyncEffect(async () => {
-    if (!gridRef.current) return;
+    if (!gridRef.current || !container.current) return;
     if (!arrivedState.bottom) return;
-    fetchNextCamera();
+    const lastTop = gridAreaList.length * baseWH - 384;
+    const res = await fetchNextCamera();
+    if (res) return;
     gridRef.current.style.opacity = '0';
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    container.current.scrollTo({ top: lastTop });
     gridRef.current.style.opacity = '1';
   }, [arrivedState.bottom]);
+  const [baseWH, setBaseWH] = useState(90);
   useAsyncEffect(async () => {
     if (!gridRef.current) return;
+    setBaseWH(document.documentElement.clientWidth / 18);
     gridRef.current.style.opacity = '0';
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     gridRef.current.style.opacity = '1';
   }, []);
+  const [id, setId] = useQueryState('id', {
+    defaultValue: '',
+  });
   return (
-    <article ref={container} className="relative z-10 h-full w-fit m-auto overflow-scroll">
-      <div
-        ref={gridRef}
-        className={style.edgeGrid}
-        style={{
-          gridTemplateAreas,
-          width: baseWH * sum(wTList) + 'px',
-          height: gridAreaList.length * baseWH + 'px',
-        }}
-      >
-        {allGridAreaNames.map((n, i) => (
-          <div key={n} style={{ gridArea: n }} className={style.edgeBlock}>
-            <ItemBox photo={photos[i]} />
+    <>
+      <article ref={container} className="relative z-10 h-full w-fit m-auto overflow-scroll">
+        <div
+          ref={gridRef}
+          className={style.edgeGrid}
+          style={{
+            gridTemplateAreas,
+            width: baseWH * sum(wTList) + 'px',
+            height: gridAreaList.length * baseWH + 'px',
+          }}
+        >
+          {allGridAreaNames.map((n, i) => (
+            <div key={n} style={{ gridArea: n }} className={style.edgeBlock}>
+              <ItemBox photo={photos[i]} handleSetId={setId} />
+            </div>
+          ))}
+        </div>
+        <div className="h-96 w-full relative">
+          <div
+            className=" transition-all hover:text-purple-500 hover:bg-purple-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-96 rounded-md text-center"
+            onClick={() => {
+              fetchNextCamera();
+            }}
+          >
+            LOADING NEXT PAGE PHOTOS
           </div>
-        ))}
-      </div>
-    </article>
+        </div>
+      </article>
+      {id.length && (
+        <CameraInfo local={photos.find((p) => p.id === Number(id))!} handleSetId={setId} />
+      )}
+    </>
   );
 }
