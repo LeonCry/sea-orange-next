@@ -15,10 +15,11 @@ const Camera = ({ fetchData }: { fetchData: (page: number) => Promise<CameraPage
     page.current++;
     const res = await fetchData(page.current);
     if (!res.length) {
-      return messageApi.open({
+      messageApi.open({
         type: 'warning',
         content: 'ALL PHOTOS HAS BEEN LOADED',
       });
+      return true;
     }
     setPhotos((draft) => {
       draft.push(...res);

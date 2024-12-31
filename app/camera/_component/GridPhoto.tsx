@@ -10,6 +10,7 @@ import { useAsyncEffect, useUpdateEffect } from 'ahooks';
 import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
 import { useEffectOnce } from 'react-use';
+import { message } from 'antd';
 interface blockType {
   width: number;
   height: number;
@@ -96,6 +97,7 @@ export default function GridPhoto({
   fetchNextCamera: () => Promise<boolean | undefined>;
 }) {
   useEffectOnce(resetBaseData);
+  const [messageApi, contextHolder] = message.useMessage();
   const container = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const continueRow = useRef(0);
@@ -138,13 +140,18 @@ export default function GridPhoto({
   const [baseWH, setBaseWH] = useState(90);
   const handleFetchNextCameraWithAnimation = useCallback(async () => {
     const lastTop = gridAreaList.length * baseWH - 384;
-    const res = await fetchNextCamera();
-    if (res) return;
     gridRef.current!.style.opacity = '0';
+    messageApi.open({
+      type: 'info',
+      content: 'THE NEXT PAGE IS LOADING...',
+      duration: 1,
+    });
+    const res = await fetchNextCamera();
     await new Promise((resolve) => setTimeout(resolve, 800));
-    container.current!.scrollTo({ top: lastTop });
     gridRef.current!.style.opacity = '1';
-  }, [fetchNextCamera, baseWH]);
+    if (res) return;
+    container.current!.scrollTo({ top: lastTop, behavior: 'smooth' });
+  }, [fetchNextCamera, baseWH, messageApi]);
   useUpdateEffect(() => {
     if (!gridRef.current || !container.current) return;
     if (!arrivedState.bottom) return;
@@ -162,6 +169,7 @@ export default function GridPhoto({
   });
   return (
     <>
+      {contextHolder}
       <article ref={container} className="relative z-10 h-full w-fit m-auto overflow-scroll">
         <div
           ref={gridRef}
