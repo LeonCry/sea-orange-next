@@ -138,9 +138,11 @@ export default function GridPhoto({
   }, [photos, setAllGridAreaNames]);
   const { arrivedState } = useMyScroll(container, { mb: 1 });
   const [baseWH, setBaseWH] = useState(90);
+  const isLoadAll = useRef(false);
   const handleFetchNextCameraWithAnimation = useCallback(async () => {
+    if (isLoadAll.current) return;
     const lastTop = gridAreaList.length * baseWH - 384;
-    gridRef.current!.style.opacity = '0';
+    gridRef.current!.style.opacity = '0.5';
     messageApi.open({
       type: 'info',
       content: 'THE NEXT PAGE IS LOADING...',
@@ -149,7 +151,7 @@ export default function GridPhoto({
     const res = await fetchNextCamera();
     await new Promise((resolve) => setTimeout(resolve, 800));
     gridRef.current!.style.opacity = '1';
-    if (res) return;
+    if (res) return (isLoadAll.current = true);
     container.current!.scrollTo({ top: lastTop, behavior: 'smooth' });
   }, [fetchNextCamera, baseWH, messageApi]);
   useUpdateEffect(() => {
@@ -196,7 +198,11 @@ export default function GridPhoto({
         </div>
       </article>
       {id.length && (
-        <CameraInfo local={photos.find((p) => p.id === Number(id))!} handleSetId={setId} />
+        <CameraInfo
+          local={photos.find((p) => p.id === Number(id))!}
+          handleSetId={setId}
+          photoId={id}
+        />
       )}
     </>
   );

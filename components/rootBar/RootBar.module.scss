@@ -15,10 +15,24 @@
   }
 }
 .icon {
-  @apply p-2 mx-1 rounded-full;
-  transition: all 150ms;
+  @apply h-10 w-10 mx-1 flex flex-col items-center justify-center;
+  transition: all 200ms ease-in-out;
+  & > [data-addtext] {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 100;
+    bottom: -4px;
+    color: #585b70a7;
+    transition: all 400ms ease-in-out;
+    transform: translateY(8px);
+    opacity: 0;
+  }
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    & > [data-addtext] {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
 .visAdd {

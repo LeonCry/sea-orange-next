@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  transition: all 520ms ease-in-out;
+}
 :root {
   /* --base-bg-color: #F8F9FF; */
   --base-bg-color: #ffffff;
