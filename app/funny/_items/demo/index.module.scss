@@ -1,22 +1,21 @@
-.box {
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  top: 500px;
-  left: 1200px;
-
-  background: linear-gradient(0deg, transparent 6px, #409eff 6px) repeat-y,
-    linear-gradient(0deg, transparent 50%, #409eff 0) repeat-y,
-    linear-gradient(90deg, transparent 50%, #409eff 0) repeat-x,
-    linear-gradient(90deg, transparent 50%, #409eff 0) repeat-x;
-  background-size: 3px 12px, 3px 12px, 12px 3px, 12px 3px;
-  background-position: 0 0, 100% 0, 0 0, 0 100%;
-  animation: moveCopyCellBorder 0.5s linear infinite;
+.bookTop {
+  width: calc(100% - 200px);
+  height: 100%;
+  border-radius: 4rem 10rem 0 0;
 }
-.container {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+.clip {
+  -webkit-clip-path: polygon(0 30%, 0% 100%, 20% 100%);
+  clip-path: polygon(0 30%, 0% 100%, 20% 100%);
+  margin-left: -18px;
+  pointer-events: none;
 }
-.linear {
-  scroll-snap-align: center;
+.boxContainer {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+}
+.boxLeft {
+  transform: rotateY(52deg) rotateX(0deg) skewY(-48deg);
+}
+.boxRight {
+  transform: rotateY(52deg) rotateX(0deg) skewY(-48deg);
 }
