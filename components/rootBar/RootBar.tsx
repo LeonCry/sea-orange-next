@@ -18,7 +18,7 @@ import style from './RootBar.module.scss';
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { alertInfo, tvUrl, gitUrl } from './Info';
 import { darkStore } from '@/store/darkStore';
-import { useEffectOnce } from 'react-use';
+import { useEffectOnce, useLocalStorage } from 'react-use';
 import { getCount } from '@/api/getSectionInfo';
 import NumberFlow from '@number-flow/react';
 import clsx from 'clsx';
@@ -27,7 +27,8 @@ const RootBar = () => {
   const secPath = '/' + pathName.split('/')[1];
   const [isLike, isLikeSet] = useState(false);
   const [isDark, isDarkSet] = useState(false);
-
+  const [storageDark, setStorageDark] = useLocalStorage('isDark', false);
+  const [storageLike, setStorageLike] = useLocalStorage('isLike', false);
   const memoizedLike = useMemo(
     () =>
       isLike ? (
@@ -54,26 +55,24 @@ const RootBar = () => {
 
   const handleLike = () => {
     isLikeSet(!isLike);
-    localStorage.setItem('isLike', String(!isLike));
+    setStorageLike(!isLike);
   };
-
   const handleDark = () => {
     isDarkSet(!isDark);
     darkStore.isDark = !isDark;
-    sessionStorage.setItem('isDark', String(!isDark));
+    setStorageDark(!isDark);
     if (!isDark) return document.documentElement.classList.add('blend-dark');
     return document.documentElement.classList.remove('blend-dark');
   };
 
   useEffect(() => {
-    if (localStorage.getItem('isLike') === 'true') {
-      isLikeSet(true);
-    }
-    if (sessionStorage.getItem('isDark') === 'true') {
-      isDarkSet(true);
+    isLikeSet(storageLike || false);
+  }, [storageLike]);
+  useEffect(() => {
+    if (storageDark) {
       document.documentElement.classList.add('blend-dark');
     }
-  }, []);
+  }, [storageDark]);
   const [visitCount, setVisitCount] = useState(0);
   const [isCount, setIsCount] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
