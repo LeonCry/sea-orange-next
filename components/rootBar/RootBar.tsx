@@ -69,6 +69,7 @@ const RootBar = () => {
     isLikeSet(storageLike || false);
   }, [storageLike]);
   useEffect(() => {
+    isDarkSet(storageDark || false);
     if (storageDark) {
       document.documentElement.classList.add('blend-dark');
     }
