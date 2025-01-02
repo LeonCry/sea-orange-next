@@ -27,3 +27,6 @@
     opacity: 0;
   }
 }
+.loadingDark {
+  filter: invert(1) hue-rotate(360deg) !important;
+}

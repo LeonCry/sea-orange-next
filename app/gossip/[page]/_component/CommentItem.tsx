@@ -39,7 +39,7 @@ const CommentItem = ({ comment }: { comment: GossipPageItem }) => {
               <Icon type={comment.headImg} size={26} className="p-1" />
               <span>- {comment.userName} -</span>
             </div>
-            <Rate defaultValue={comment.stars} disabled className="text-[#ff9a9a]" />
+            <Rate defaultValue={comment.stars} disabled className="text-[#555555]" />
           </div>
           <div
             className={`border-t text-base p-2 py-4 overflow-auto h-[133px] ${style.commentItem}`}

@@ -1,6 +1,7 @@
 'use client';
+import '../../globals.css';
 import style from '../../funny/_component/Modal.module.scss';
-import { Acoustic, AppletClosed, Camera, DownloadFour, GamePs, Record } from '@icon-park/react';
+import { Acoustic, AppletClosed, Camera, GamePs, Record } from '@icon-park/react';
 import { CameraPageItem } from '@prisma/client';
 import { Button } from 'antd';
 import Image from 'next/image';
@@ -27,17 +28,27 @@ const CameraInfo = ({
     await new Promise((resolve) => setTimeout(resolve, 1300));
     handleSetId('');
   };
-  const [downloadText, setDownloadText] = useState('CLICK TO DOWNLOAD');
-  const handleDownload = async (src: string) => {
+  const [downloadText, setDownloadText] = useState('CLICK TO DOWNLOAD THIS PHOTO');
+  const handleDownload = (imgsrc: string) => {
     setDownloadText('DOWNLOADING...');
-    const res = await fetch(src);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${local.name}.jpg`;
-    a.click();
-    setDownloadText('DOWNLOADED');
+    imgsrc = imgsrc + '?v=' + Math.random();
+    const image = document.createElement('img');
+    image.setAttribute('crossOrigin', 'anonymous');
+    image.onload = function () {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d');
+      context!.drawImage(image, 0, 0, image.width, image.height);
+      const url = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      const event = new MouseEvent('click');
+      a.download = `${local.name}.jpg`;
+      a.href = url;
+      a.dispatchEvent(event);
+      setDownloadText('DOWNLOADED');
+    };
+    image.src = imgsrc;
   };
   const [isEnlarge, setIsEnlarge] = useState(false);
   const handleResize = () => {
@@ -49,7 +60,7 @@ const CameraInfo = ({
       className={`w-full text-[#233] ${
         style.backdropBlurIn
       } backdrop-blur-[84px] bg-[rgba(255,255,255,0.1)] z-[60] h-full fixed bottom-0 ${
-        dark.isDark && 'invert bg-[rgba(0,0,0,0.8)]'
+        dark.isDark && 'blend-dark'
       }`}
     >
       <div
@@ -68,7 +79,7 @@ const CameraInfo = ({
         <div className="flex items-center justify-around shadow-2xl rounded-2xl w-full h-full">
           <div
             className={
-              'relative select-none shrink-0 aspect-[3/2] flex-1 rounded-xl ml-5 cursor-none'
+              'relative select-none shrink-0 aspect-[3/2] h-[85%] flex-1 rounded-xl ml-5 cursor-none'
             }
           >
             <Image
@@ -77,12 +88,12 @@ const CameraInfo = ({
               alt="pic"
               sizes="100"
               priority
-              className="rounded-lg "
+              className="rounded-lg h-full m-auto aspect-[3/2] !w-auto"
             />
           </div>
           <article
             className={clsx([
-              ' !w-[25%] flex flex-col h-full items-start px-5 shadow-2xl rounded-e-2xl ml-10 gap-10',
+              ' !w-[25%] flex flex-col relative h-full items-start px-5 shadow-2xl rounded-e-2xl ml-10 gap-10',
               style.borderLinear,
             ])}
           >
@@ -124,15 +135,15 @@ const CameraInfo = ({
               )}
               <p
                 onDoubleClick={handleResize}
-                className="overflow-auto transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#ffffff11]"
+                className="overflow-auto  leading-7 tracking-wide hover:bg-[#ffffff11] transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#c1c1c111]"
               >
                 {local.description}
               </p>
             </div>
-            <div className=" absolute bottom-10 right-10">
+            <div className="absolute bottom-10 left-0 px-10 w-full hover:animate-bounce">
               <Button
                 onClick={() => handleDownload(local.photoSrc)}
-                className="cursor-none flex items-center gap-1 self-center px-10 overflow-hidden bg-[#ffffff11] hover:!bg-[rgba(0,0,0,0.05)]"
+                className="cursor-none w-full flex items-center gap-1 self-center px-10 overflow-hidden bg-[#ffffff11] hover:!bg-[rgba(0,0,0,0.05)]"
                 type="text"
               >
                 <span
@@ -144,12 +155,6 @@ const CameraInfo = ({
                 >
                   {downloadText}
                 </span>
-                <DownloadFour
-                  theme="outline"
-                  size="16"
-                  className=" absolute right-3 bottom-2"
-                  fill={dark.isDark ? '#ffffff' : '#000000'}
-                />
               </Button>
             </div>
           </article>

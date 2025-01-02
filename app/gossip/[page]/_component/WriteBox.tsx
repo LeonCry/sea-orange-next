@@ -52,12 +52,12 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
     if (nextPage <= 0)
       return messageApi.open({
         type: 'warning',
-        content: 'It is on the first page.',
+        content: 'CURRENT PAGE IS FIRST',
       });
     if (nextPage > Math.ceil(allComments / 30))
       return messageApi.open({
         type: 'warning',
-        content: 'It is on the last page.',
+        content: 'CURRENT PAGE IS LAST',
       });
     router.push('/gossip/' + nextPage);
   };
@@ -102,7 +102,11 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
       </div>
       <section className={sectionClass} key={sectionClass}>
         {contextHolder}
-        <Rate onChange={(value) => handleInputChange('rate', value)} className={style.rate} />
+        <Rate
+          defaultValue={5}
+          onChange={(value) => handleInputChange('rate', value)}
+          className={style.rate}
+        />
         <div className="flex gap-5 px-5">
           <label htmlFor="it_2" className=" !text-gray-300">
             name:
