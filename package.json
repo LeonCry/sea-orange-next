@@ -17,6 +17,9 @@
     "////": "mongodb数据库更新",
     "mongodb:dev": "dotenv -e .env.dev -- npx prisma db push",
     "mongodb:prod": "dotenv -e .env.prod -- npx prisma db push",
+    "/////": "同步拉取数据库",
+    "pull:dev": "dotenv -e .env.dev -- npx prisma db pull",
+    "pull:prod": "dotenv -e .env.prod -- npx prisma db pull",
     "//": "已有数据库同步",
     "migrateDiff:dev": "npx dotenv -e .env.dev  prisma migrate dev --name change",
     "migrateDiff:prod": "npx dotenv -e .env.prod  prisma migrate dev --name change"
