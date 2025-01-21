@@ -1,10 +1,10 @@
 .bookTop {
-  width: calc(100% - 200px);
+  width: 83%;
   height: 100%;
   border-radius: 4rem 10rem 0 0;
 }
 .clip {
-  width: 200px;
+  width: 17%;
   height: 100%;
   -webkit-clip-path: polygon(0 30%, 0% 100%, 20% 100%);
   clip-path: polygon(0 30%, 0% 100%, 20% 100%);
@@ -34,8 +34,13 @@
 @for $i from 0 through 3 {
   .clipAni#{$i} {
     opacity: 0;
-    animation: clip-animation#{$i} 0.8s ease-in-out forwards;
+    transform: translateY(0);
+    animation: clip-animation#{$i} 0.8s cubic-bezier(0, 0.17, 0.75, 1.55) forwards;
+    transition: all 0.5s ease-in-out;
     animation-delay: 1s + $i * 0.4s;
+  }
+  .active#{$i} {
+    transform: translateY(-40 + $i * 12%);
   }
 }
 @for $i from 0 through 3 {
@@ -44,25 +49,15 @@
       top: 100%;
       opacity: 0;
     }
-    50% {
-      top: (40 - $i * 12) + '%';
-      transform: translateY(100px);
-      opacity: 1;
-    }
-    65% {
-      top: (40 - $i * 12) + '%';
-      transform: translateY(-100px);
-      opacity: 1;
-    }
-    80% {
-      top: (40 - $i * 12) + '%';
-      transform: translateY(50px);
-      opacity: 1;
-    }
     100% {
       top: (40 - $i * 12) + '%';
-      transform: translateY(0);
       opacity: 1;
     }
   }
+}
+.normal {
+  transform: translateY(0);
+}
+.noActive {
+  transform: translateY(100%);
 }
