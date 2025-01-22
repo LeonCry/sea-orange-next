@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import style from './index.module.scss';
 import '@/app/enter-fade.scss';
 import { BookType } from '@/app/project/page';
+import Md from '@/app/blog/[id]/_component/Md';
+import { useRouter } from 'next/navigation';
 const BookClip = ({
   index,
   bookInfo,
@@ -23,6 +25,10 @@ const BookClip = ({
       : activeIndex === index
       ? style[`active${index}`]
       : style.noActive;
+  const router = useRouter();
+  const routerGo = (url: string) => {
+    router.push(url);
+  };
   return (
     <aside
       onClick={(e) => handleBookClipClick(index, e)}
@@ -35,12 +41,12 @@ const BookClip = ({
       style={{
         left: `${12 + index * 3}%`,
         top: `${40 - index * 12}%`,
-        transform: isBookHidden ? 'translateY(100%)' : '',
+        transform: isBookHidden ? `translateY(${(index + 1) * 50}%)` : '',
         zIndex: 100 - index,
         color: rColor?.text,
       }}
     >
-      <div className="flex w-full h-[7%]" data-ignore>
+      <div className="flex w-full h-[7%]">
         <div
           className={clsx([
             style.bookTop,
@@ -52,10 +58,11 @@ const BookClip = ({
           <p className="h-full flex items-center gap-10 px-10">
             <span className="font-bold">PROJECT_NAME: {bookInfo.title}</span>
             <span className="font-bold">CATEGORY: {bookInfo.category}</span>
-            <span className="ml-auto font-light text-[16px]">RECORD_TIME: 2024-01-01</span>
+            <span className="ml-auto font-light text-[16px]">RECORD_TIME:{bookInfo.time}</span>
           </p>
         </div>
         <div
+          data-ignore
           className={clsx([
             style.clip,
             style.paperBg,
@@ -74,10 +81,26 @@ const BookClip = ({
       >
         <div
           className={clsx([
-            'w-full h-full relative',
+            'w-full h-full relative p-4 leading-[60px] text-[20px] font-[400]',
             activeIndex === index ? 'enterFade overflow-auto' : 'levelFade overflow-hidden',
           ])}
-        ></div>
+        >
+          <Md blogInfo={{ content: bookInfo.description }} />
+          {bookInfo.type === 'PROJECT' ? (
+            activeIndex === index && <iframe src={bookInfo.url} className="w-full aspect-video" />
+          ) : (
+            <button
+              onClick={() => routerGo('/funny/' + bookInfo.url)}
+              className="mt-10 ml-[40%] px-2 py-1 border cursor-none rounded-md box-trigger"
+              style={{
+                backgroundColor: rColor?.text,
+                color: rColor?.bg,
+              }}
+            >
+              跳转至该项目
+            </button>
+          )}
+        </div>
       </div>
     </aside>
   );

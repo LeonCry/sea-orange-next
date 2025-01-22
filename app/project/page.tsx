@@ -1,31 +1,49 @@
 import '../globals.css';
-import '@/app/enter-fade.scss';
-import { ProjectPageItem } from '@prisma/client';
-import { group, sort } from 'radash';
-import SectionBox from '@/components/sectionBox/SectionBox';
-import ItemBox from './_component/ItemBox';
+import { FunnyPageItem, ProjectPageItem } from '@prisma/client';
 import { getAllProjects } from '@/api/projectPageApi';
-import { projectOrders } from '@/lib/getCategoryOrder';
+import ProjectPage from './_component/index';
 import { Suspense } from 'react';
 import Loading from '@/lotties/loading/Loading';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
+import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
+export interface BookType {
+  id: string;
+  icon: string;
+  title: string;
+  category: string;
+  description: string;
+  type: 'PROJECT' | 'FUNNY';
+  url: string;
+  time: string;
+}
 const Project = async () => {
-  const res: ProjectPageItem[] = await getAllProjects();
-  const projectInfo = sort(res, (r) => projectOrders.indexOf(r.category));
-  const category = group(projectInfo, (p) => p.category);
+  const projects: ProjectPageItem[] = await getAllProjects();
+  const funnies: FunnyPageItem[] = await getAllProjectsFromFunny();
+  const pBooks: BookType[] = projects.map((p) => ({
+    id: 'p' + p.id,
+    icon: p.icon,
+    title: p.name,
+    category: p.category,
+    description: p.description,
+    type: 'PROJECT',
+    url: p.sourceUrl,
+    time: p.path,
+  }));
+  const fBooks: BookType[] = funnies.map((f) => ({
+    id: 'f' + f.id,
+    icon: f.icon,
+    title: f.name,
+    category: f.category,
+    description: f.description,
+    type: 'FUNNY',
+    url: f.path,
+    time: f.sourceUrl,
+  }));
+  const books: BookType[] = [...pBooks, ...fBooks];
   return (
     <Suspense fallback={<Loading />}>
-      <section className="page-dropDown enterFade">
-        {Object.keys(category).map((cty, i) => (
-          <SectionBox key={i} title={cty}>
-            {category[cty]!.map((p, i) => (
-              <ItemBox key={i} projectInfo={p} />
-            ))}
-          </SectionBox>
-        ))}
-        <div className="my-20" />
-        <RandomSpan />
-      </section>
+      <ProjectPage books={books} />
+      <RandomSpan />
     </Suspense>
   );
 };

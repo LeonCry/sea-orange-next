@@ -1,0 +1,91 @@
+.bookTop {
+  position: relative;
+  width: 83%;
+  height: 100%;
+  border-radius: 4rem 10rem 0 0;
+  font-size: 20px;
+}
+.clip {
+  width: 17%;
+  height: 100%;
+  -webkit-clip-path: polygon(0 30%, 0% 100%, 20% 100%);
+  clip-path: polygon(0 30%, 0% 100%, 20% 100%);
+  margin-left: -18px;
+}
+.paperBg {
+  background-image: url('./_assets/bg-filter.png');
+  background-size: auto;
+  background-repeat: repeat;
+  // background-position: center center;
+}
+.boxContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: box-animation 1s ease-in-out forwards;
+}
+.boxLeft {
+  transform: rotateY(52deg) rotateX(0deg) skewY(-48deg);
+}
+.boxRight {
+  transform: rotateY(52deg) rotateX(0deg) skewY(-48deg);
+}
+@keyframes box-animation {
+  0% {
+    margin-top: 200px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+@for $i from 0 through 3 {
+  .clipAni#{$i} {
+    opacity: 0;
+    transform: translateY(0);
+    animation: clip-animation#{$i} 0.8s cubic-bezier(0, 0.17, 0.75, 1.55) forwards;
+    transition: all 0.5s ease-in-out;
+    animation-delay: 1s + $i * 0.4s;
+  }
+  .active#{$i} {
+    transform: translateY(-40 + $i * 12%);
+  }
+}
+@for $i from 0 through 3 {
+  @keyframes clip-animation#{$i} {
+    0% {
+      top: 100%;
+      opacity: 0;
+    }
+    100% {
+      top: (40 - $i * 12) + '%';
+      opacity: 1;
+    }
+  }
+}
+.normal {
+  transform: translateY(0);
+}
+.noActive {
+  transform: translateY(100%);
+}
+.openDay {
+  background-image: url('./_assets/openday.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform: scale(0);
+  animation: openDay 1s ease-in-out forwards 1s;
+}
+@keyframes openDay {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.orangeBg {
+  background-image: url('./_assets/orange.svg');
+  background-repeat: repeat;
+  background-size: 70% auto;
+}

@@ -5,10 +5,10 @@
   animation-delay: calc(var(--stagger) * var(--delay));
 }
 .levelFade > * {
-  --stagger: 0;
-  --delay: 150ms;
+  --staggerLevel: 0;
+  --delayLevel: 150ms;
   animation: level-enter 0.8s both ease-in-out;
-  animation-delay: calc(var(--stagger) * var(--delay));
+  animation-delay: calc(var(--staggerLevel) * var(--delayLevel));
 }
 @keyframes slide-enter {
   0% {
@@ -35,6 +35,6 @@
     --stagger: #{$i};
   }
   .levelFade > *:nth-child(#{$i}) {
-    --stagger: #{$i};
+    --staggerLevel: #{$i};
   }
 }
