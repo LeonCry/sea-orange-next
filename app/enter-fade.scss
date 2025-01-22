@@ -4,6 +4,12 @@
   animation: slide-enter 0.8s both ease-in-out;
   animation-delay: calc(var(--stagger) * var(--delay));
 }
+.levelFade > * {
+  --stagger: 0;
+  --delay: 150ms;
+  animation: level-enter 0.8s both ease-in-out;
+  animation-delay: calc(var(--stagger) * var(--delay));
+}
 @keyframes slide-enter {
   0% {
     opacity: 0;
@@ -14,8 +20,21 @@
     margin-top: 0;
   }
 }
+@keyframes level-enter {
+  0% {
+    opacity: 1;
+    margin-top: 0;
+  }
+  to {
+    opacity: 0;
+    margin-top: 20px;
+  }
+}
 @for $i from 1 through 20 {
   .enterFade > *:nth-child(#{$i}) {
+    --stagger: #{$i};
+  }
+  .levelFade > *:nth-child(#{$i}) {
     --stagger: #{$i};
   }
 }

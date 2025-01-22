@@ -1,7 +1,9 @@
 .bookTop {
+  position: relative;
   width: 83%;
   height: 100%;
   border-radius: 4rem 10rem 0 0;
+  font-size: 20px;
 }
 .clip {
   width: 17%;
@@ -10,6 +12,12 @@
   clip-path: polygon(0 30%, 0% 100%, 20% 100%);
   margin-left: -18px;
   pointer-events: none;
+}
+.paperBg {
+  background-image: url('./_assets/bg-filter.png');
+  background-size: auto;
+  background-repeat: repeat;
+  // background-position: center center;
 }
 .boxContainer {
   position: absolute;
@@ -60,4 +68,25 @@
 }
 .noActive {
   transform: translateY(100%);
+}
+.openDay {
+  background-image: url('./_assets/openday.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform: scale(0);
+  animation: openDay 1s ease-in-out forwards 1s;
+}
+@keyframes openDay {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.orangeBg {
+  background-image: url('./_assets/orange.svg');
+  background-repeat: repeat;
+  background-size: 70% auto;
 }
