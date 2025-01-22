@@ -13,18 +13,23 @@ const BookBox = ({
   setPage,
   maxPage,
   currentPage,
+  setIsBookHidden,
 }: {
   innerClass: string;
   activeIndex: number | undefined;
   setPage: Dispatch<SetStateAction<number>>;
   maxPage: number;
   currentPage: number;
+  setIsBookHidden: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const handlePage = (page: number) => {
+  const handlePage = async (page: number) => {
+    setIsBookHidden(true);
+    await new Promise((resolve) => setTimeout(resolve, 500));
     setPage((n: number) => {
       const newPage = n + page;
       return newPage < 0 ? 0 : newPage > maxPage ? maxPage : newPage;
     });
+    setIsBookHidden(false);
   };
   return (
     <aside

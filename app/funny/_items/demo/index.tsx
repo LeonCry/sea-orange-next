@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import BookBox from './BookBox';
 import BookClip from './BookClip';
 import style from './index.module.scss';
@@ -30,68 +30,59 @@ const randomColor = [
   { bg: '#f7cdbc', text: '#fa5d19' },
 ];
 const getRandomColor = () => {
-  return randomColor[Math.floor(Math.random() * randomColor.length)];
+  const shuffledArray = randomColor.sort(() => Math.random() - 0.5);
+  return shuffledArray.slice(0, 4);
 };
 const books = [
   {
     id: 1,
     title: 'Book 1',
     author: 'Author 1',
-    ...getRandomColor(),
   },
   {
     id: 2,
     title: 'Book 2',
     author: 'Author 2',
-    ...getRandomColor(),
   },
   {
     id: 3,
     title: 'Book 3',
     author: 'Author 3',
-    ...getRandomColor(),
   },
   {
     id: 4,
     title: 'Book 4',
     author: 'Author 4',
-    ...getRandomColor(),
   },
   {
     id: 5,
     title: 'Book 5',
     author: 'Author 5',
-    ...getRandomColor(),
   },
   {
     id: 6,
     title: 'Book 6',
     author: 'Author 6',
-    ...getRandomColor(),
   },
   {
     id: 7,
     title: 'Book 7',
     author: 'Author 7',
-    ...getRandomColor(),
   },
   {
     id: 8,
     title: 'Book 8',
     author: 'Author 8',
-    ...getRandomColor(),
   },
   {
     id: 9,
     title: 'Book 9',
     author: 'Author 9',
-    ...getRandomColor(),
   },
   {
     id: 10,
     title: 'Book 10',
     author: 'Author 10',
-    ...getRandomColor(),
   },
 ];
 const Index = () => {
@@ -107,6 +98,7 @@ const Index = () => {
     }, [] as any[]);
   }, []);
   const [page, setPage] = useState(0);
+  const [isBookHidden, setIsBookHidden] = useState(false);
   const currentBooks: any[] = bookArr[page];
   const handleBookClipClick = (index: number, e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     let target = e.target as HTMLElement;
@@ -128,6 +120,10 @@ const Index = () => {
     }
     setActiveIndex(undefined);
   };
+  const [rColor, setRColor] = useState<{ bg: string; text: string }[]>([]);
+  useEffect(() => {
+    setRColor([...getRandomColor()]);
+  }, [page]);
   return (
     <section onClick={handleClickOutside} className="w-full h-full overflow-hidden backdrop-blur">
       {currentBooks.map((book, i) => (
@@ -137,6 +133,8 @@ const Index = () => {
           bookInfo={book}
           activeIndex={activeIndex}
           handleBookClipClick={handleBookClipClick}
+          isBookHidden={isBookHidden}
+          rColor={rColor[i]}
         />
       ))}
       <BookBox
@@ -145,6 +143,7 @@ const Index = () => {
         setPage={setPage}
         currentPage={page}
         maxPage={bookArr.length - 1}
+        setIsBookHidden={setIsBookHidden}
       />
     </section>
   );
