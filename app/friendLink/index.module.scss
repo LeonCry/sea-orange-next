@@ -1,0 +1,54 @@
+.name::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  background-image: url('./_assets/robot.svg');
+  background-size: cover;
+}
+.announce::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  background-image: url('./_assets/annoce.svg');
+  background-size: cover;
+}
+.github::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  background-image: url('./_assets/github.svg');
+  background-size: cover;
+}
+.home::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  background-image: url('./_assets/home.svg');
+  background-size: cover;
+}
+.main {
+  background: linear-gradient(to right, #365eff2a, #36ff8622, #365eff2a, #36ff8622);
+  background-size: 300% 300%;
+  background-position: 0 0;
+  animation: bg 6s linear infinite;
+}
+@keyframes bg {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}

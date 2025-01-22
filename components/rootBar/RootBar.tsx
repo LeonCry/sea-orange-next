@@ -24,7 +24,8 @@ import NumberFlow from '@number-flow/react';
 import clsx from 'clsx';
 const RootBar = () => {
   const pathName = usePathname();
-  const secPath = '/' + pathName.split('/')[1];
+  const secondPath = pathName.split('/')[1];
+  const secPath = '/' + secondPath;
   const [isLike, isLikeSet] = useState(false);
   const [isDark, isDarkSet] = useState(false);
   const [storageDark, setStorageDark] = useLocalStorage('isDark', false);
@@ -117,14 +118,21 @@ const RootBar = () => {
                 CAMERA
               </Link>
             </li>
-            <li className={`${style.rootBar} ${secPath === '/funny' && activeStyle}`}>
-              <Link className="cursor-none" href={'/funny'}>
-                FUNNY
-              </Link>
-            </li>
+            {secondPath === 'funny' && (
+              <li className={`${style.rootBar} ${secPath === '/funny' && activeStyle}`}>
+                <Link className="cursor-none" href={'/funny'}>
+                  FUNNY
+                </Link>
+              </li>
+            )}
             <li className={`${style.rootBar} ${secPath === '/gossip' && activeStyle}`}>
               <Link className="cursor-none" href={'/gossip'}>
                 GOSSIP
+              </Link>
+            </li>
+            <li className={`${style.rootBar} ${secPath === '/friendLink' && activeStyle}`}>
+              <Link className="cursor-none" href={'/friendLink'}>
+                FRIEND-LINK
               </Link>
             </li>
             <li className={`${style.rootBar} ${secPath === '/about' && activeStyle}`}>
