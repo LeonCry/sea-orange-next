@@ -102,11 +102,7 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
       </div>
       <section className={sectionClass} key={sectionClass}>
         {contextHolder}
-        <Rate
-          defaultValue={5}
-          onChange={(value) => handleInputChange('rate', value)}
-          className={style.rate}
-        />
+        <Rate onChange={(value) => handleInputChange('rate', value)} className={style.rate} />
         <div className="flex gap-5 px-5">
           <label htmlFor="it_2" className=" !text-gray-300">
             name:

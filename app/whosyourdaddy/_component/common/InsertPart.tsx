@@ -120,6 +120,7 @@ const InsertPart = memo(
           if (props.type === 'create') {
             serverRevalidatePath(props.revaPath);
           } else {
+            serverRevalidatePath(props.revaPath);
             serverRevalidateTag(props.revaPath + props.defaultValue?.id);
           }
           fileInputRef?.current && (fileInputRef.current.value = '');
