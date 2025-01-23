@@ -12,6 +12,7 @@ export interface CommonEditorService {
   spare?: Record<string, any>;
   readonly?: boolean;
   hasPage?: boolean;
+  markdownEdit?: string;
   getAllReq: (page?: number) => Promise<any>;
   updateReq: (id: number, data: Record<string, any>) => Promise<any>;
   deleteReq: (id: number) => Promise<any>;
@@ -120,6 +121,7 @@ const CommonEditor = (props: CommonEditorService) => {
             getCategoryReq={props.getCategoryReq}
             insertReq={props.insertReq}
             updateReq={props.updateReq}
+            markdownEdit={props.markdownEdit}
             spare={props.spare}
           />
         </div>
@@ -135,6 +137,7 @@ const CommonEditor = (props: CommonEditorService) => {
           insertReq={props.insertReq}
           updateReq={props.updateReq}
           spare={props.spare}
+          markdownEdit={props.markdownEdit}
           closeSelfFn={() => setOpen(false)}
         />
       </Drawer>

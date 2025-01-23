@@ -13,9 +13,10 @@ const ProjectEditor = () => {
     { causal: 'description', label: '描述' },
     { causal: 'icon', label: '站图src' },
     { causal: 'category', label: '分类' },
-    { causal: 'sourceUrl', label: '源码地址' },
+    { causal: 'sourceUrl', label: '预览地址' },
+    { causal: 'path', label: '发布时间' },
   ];
-  const spare = { path: 'null', sorted: 1, isShow: true };
+  const spare = { sorted: 1, isShow: true };
   return (
     <section>
       <CommonEditor
@@ -28,6 +29,7 @@ const ProjectEditor = () => {
         insertReq={insertProject}
         getCategoryReq={getProjectCategory}
         spare={spare}
+        markdownEdit="description"
       />
     </section>
   );

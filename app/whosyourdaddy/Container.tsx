@@ -8,7 +8,6 @@ import GossipEditor from './_component/GossipEditor';
 import VisitEditor from './_component/VisitEditor';
 import { useCallback, useMemo, useState } from 'react';
 import { useEffectOnce } from 'react-use';
-import RandomSpan from '@/components/randomSpan/RandomSpan';
 import Link from 'next/link';
 import { Home } from '@icon-park/react';
 const tabs = [

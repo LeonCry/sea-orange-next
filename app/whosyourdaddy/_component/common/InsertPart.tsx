@@ -4,6 +4,10 @@ import { Button, Divider, Input, InputRef, Select, Space, Spin, Tag } from 'antd
 import { isEmpty, throttle } from 'radash';
 import { useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
+import MarkPlus from 'react-markplus';
+import 'katex/dist/katex.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'react-markplus/src/css/index.scss';
 import { serverRevalidatePath, serverRevalidateTag } from './revalidate';
 const InsertPart = memo(
   (props: {
@@ -17,9 +21,11 @@ const InsertPart = memo(
     updateReq: (id: number, data: Record<string, any>) => Promise<any>;
     spare?: Record<string, any>;
     closeSelfFn?: () => void;
+    markdownEdit?: string;
   }) => {
     const inputRef = useRef<InputRef>(null);
     const [loading, setLoading] = useState(false);
+    const [markdownOpen, setMarkdownOpen] = useState(false);
     const [name, setName] = useState('');
     const initInfo: Record<string, any> = {};
     const labels: Record<string, string> = {};
@@ -105,7 +111,7 @@ const InsertPart = memo(
           } else {
             serverRevalidateTag(props.revaPath + props.defaultValue?.id);
           }
-          fileInputRef.current!.value = '';
+          fileInputRef?.current && (fileInputRef.current.value = '');
           return props.closeSelfFn ? props.closeSelfFn() : setInsertInfo(initInfo);
         }
       })
@@ -117,7 +123,8 @@ const InsertPart = memo(
       <div className="flex flex-col gap-6 w-[500px]">
         {loading && <Spin />}
         {props.property.map((v) => {
-          if (v.causal === 'category' || v.causal === 'content') return null;
+          if (v.causal === 'category' || v.causal === 'content' || v.causal === props.markdownEdit)
+            return null;
           return (
             <Input
               key={v.causal}
@@ -128,6 +135,9 @@ const InsertPart = memo(
             />
           );
         })}
+        {props.markdownEdit && props.property.find((v) => v.causal === props.markdownEdit) && (
+          <Button onClick={() => setMarkdownOpen(true)}>描述: Click to Markdown it</Button>
+        )}
         {props.property.find((v) => v.causal === 'category') && (
           <Select
             style={{ width: 500 }}
@@ -194,6 +204,20 @@ const InsertPart = memo(
         <Button type="dashed" onClick={submit}>
           提交
         </Button>
+        {markdownOpen && (
+          <div className="h-full w-full fixed top-0 left-0 bg-white z-[9999]">
+            <Button onClick={() => setMarkdownOpen(false)}>保存并关闭</Button>
+            <MarkPlus
+              onChange={(markdown) => {
+                setInsertInfo((draft) => {
+                  draft[props.markdownEdit!] = markdown;
+                });
+              }}
+              toolbar="show"
+              markdown={insertInfo?.[props.markdownEdit || '']}
+            />
+          </div>
+        )}
       </div>
     );
   },

@@ -13,9 +13,10 @@ const FunnyEditor = () => {
     { causal: 'description', label: '描述' },
     { causal: 'icon', label: '图标' },
     { causal: 'category', label: '分类' },
-    { causal: 'path', label: '路径 no /' },
+    { causal: 'path', label: '路径(无需添加“/”)' },
+    { causal: 'sourceUrl', label: '时间' },
   ];
-  const spare = { sourceUrl: 'null', sorted: 1, isShow: true };
+  const spare = { sorted: 1, isShow: true };
   return (
     <section>
       <CommonEditor
@@ -27,6 +28,7 @@ const FunnyEditor = () => {
         deleteReq={deleteFunnyById}
         insertReq={insertFunny}
         getCategoryReq={getFunnyCategory}
+        markdownEdit={'description'}
         spare={spare}
       />
     </section>
