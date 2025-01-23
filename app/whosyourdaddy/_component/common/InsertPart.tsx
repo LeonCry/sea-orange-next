@@ -77,6 +77,17 @@ const InsertPart = memo(
       };
       reader.readAsText(file);
     });
+    const description = useRef('');
+    const handleMarkdownOpen = useMemoizedFn(() => {
+      setMarkdownOpen(true);
+      description.current = insertInfo?.[props.markdownEdit || ''];
+    });
+    const handleMarkdownClose = useMemoizedFn(() => {
+      setMarkdownOpen(false);
+      setInsertInfo((draft) => {
+        draft[props.markdownEdit!] = description.current;
+      });
+    });
     const submit = useMemoizedFn(
       throttle({ interval: 2000 }, async () => {
         const data = {
@@ -136,7 +147,7 @@ const InsertPart = memo(
           );
         })}
         {props.markdownEdit && props.property.find((v) => v.causal === props.markdownEdit) && (
-          <Button onClick={() => setMarkdownOpen(true)}>描述: Click to Markdown it</Button>
+          <Button onClick={handleMarkdownOpen}>描述: Click to Markdown it</Button>
         )}
         {props.property.find((v) => v.causal === 'category') && (
           <Select
@@ -206,12 +217,10 @@ const InsertPart = memo(
         </Button>
         {markdownOpen && (
           <div className="h-full w-full fixed top-0 left-0 bg-white z-[9999]">
-            <Button onClick={() => setMarkdownOpen(false)}>保存并关闭</Button>
+            <Button onClick={handleMarkdownClose}>保存并关闭</Button>
             <MarkPlus
               onChange={(markdown) => {
-                setInsertInfo((draft) => {
-                  draft[props.markdownEdit!] = markdown;
-                });
+                description.current = markdown;
               }}
               toolbar="show"
               markdown={insertInfo?.[props.markdownEdit || '']}
