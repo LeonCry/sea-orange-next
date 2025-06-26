@@ -11,7 +11,7 @@ export const friendLink: FriendLink[] = [
     icon: 'https://avatars.githubusercontent.com/u/73209933?v=4',
     announce: 'Let it go.',
     github: 'https://github.com/seaci',
-    home: 'https://www.seaci.me',
+    home: 'https://www.voidis.me',
   },
   {
     name: 'fisschl',

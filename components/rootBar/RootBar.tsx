@@ -22,6 +22,8 @@ import { useEffectOnce, useLocalStorage } from 'react-use';
 import { getCount } from '@/api/getSectionInfo';
 import NumberFlow from '@number-flow/react';
 import clsx from 'clsx';
+import { gsap } from 'gsap';
+
 const RootBar = () => {
   const pathName = usePathname();
   const secondPath = pathName.split('/')[1];
@@ -30,6 +32,142 @@ const RootBar = () => {
   const [isDark, isDarkSet] = useState(false);
   const [storageDark, setStorageDark] = useLocalStorage('isDark', false);
   const [storageLike, setStorageLike] = useLocalStorage('isLike', false);
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  // GSAP 动画初始化
+  useEffect(() => {
+    if (titleRef.current) {
+      const letters = titleRef.current.querySelectorAll('.letter');
+
+      // 设置初始状态
+      gsap.set(letters, {
+        skewX: 0,
+        rotation: 0,
+        y: 0,
+        opacity: 1
+      });
+
+      gsap.set(titleRef.current, {
+        letterSpacing: '0.2em'
+      });
+
+      // 创建动画时间线，设置无限重复，间隔1.5秒
+      const tl = gsap.timeline({
+        repeat: -1, // 无限重复
+        repeatDelay: 1.5 // 重复间隔1.5秒
+      });
+
+      // 步骤1: 为每个字母添加倾斜动画，延时0.05秒
+      letters.forEach((letter, index) => {
+        tl.to(letter, {
+          skewX: 15,
+          rotation: 0,
+          duration: 0.6,
+          ease: 'back.out(1.7)',
+        }, index * 0.05);
+      });
+
+      // 步骤2: 扩大字母间距
+      tl.to(titleRef.current, {
+        letterSpacing: '0.3em',
+        duration: 0.8,
+        ease: 'power2.out'
+      }, '-=0.3');
+
+      // 步骤3: 倾斜角度返回正常
+      tl.to(letters, {
+        skewX: 0,
+        rotation: 0,
+        duration: 0.5,
+        ease: 'power2.inOut'
+      });
+
+      // 步骤4: 每个字母右旋转15度
+      tl.to(letters, {
+        skewX: 0,
+        rotation: 15,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+        stagger: 0.1
+      });
+
+      // 步骤5: 每个字母之间上下间距大一点
+      // V(0)向上, O(1)向上但比V低, I(2)保持不变, D(3)向下, I(4)保持不变, S(5)向下, .(6)向下且比I低, M(7)向上, E(8)向下
+      const verticalOffsets1 = [-15, -10, -8, -4, 0, 10, 15, -20, 10]; // VOIDIS.ME
+      letters.forEach((letter, index) => {
+        tl.to(letter, {
+          y: verticalOffsets1[index],
+          duration: 0.8,
+          ease: 'elastic.out(1, 0.8)'
+        }, '-=0.8');
+      });
+
+      // 步骤6: 字母左旋转15度
+      tl.to(letters, {
+        skewX: 0,
+        rotation: -15,
+        duration: 0.6,
+        ease: 'power2.inOut',
+        stagger: 0.08
+      });
+
+      // 步骤7: 每个字母之间的间距对调
+      // V(0)向下, O(1)向下但比V高, I(2)保持不变, D(3)向上, I(4)保持不变, S(5)向上, .(6)向上且比E高, M(7)向下, E(8)向上
+      const verticalOffsets2 = [17, 15, 0, -10, 0, -10, -18, 17, -15]; // VOIDIS.ME 对调
+      letters.forEach((letter, index) => {
+        tl.to(letter, {
+          y: verticalOffsets2[index],
+          duration: 0.8,
+          ease: 'elastic.out(1, 0.8)'
+        }, '-=0.6');
+      });
+
+      // 步骤8: 所有字母旋转一圈
+      tl.to(letters, {
+        rotation: 360,
+        duration: 1.0,
+        ease: 'power2.inOut',
+        stagger: 0.05
+      });
+
+      // 步骤9: 全部返回正常状态
+      tl.to(letters, {
+        rotation: 0,
+        skewX: 0,
+        y: 0,
+        duration: 1.5,
+        ease: 'elastic.out(1, 0.5)',
+        stagger: 0.03
+      });
+
+      tl.to(titleRef.current, {
+        letterSpacing: '0.2em',
+        duration: 1.5,
+        ease: 'elastic.out(1, 0.5)'
+      }, '-=1.5');
+
+      // 添加一个小的延迟，让最终状态保持一会儿再重复
+      tl.to({}, { duration: 0.5 });
+    }
+  }, []);
+
+  // 渲染标题字母
+  const renderTitle = () => {
+    const text = 'VOIDIS.ME';
+    return text.split('').map((char, index) => (
+      <span
+        key={index}
+        className="letter inline-block"
+        style={{
+          transformOrigin: 'center center',
+          display: 'inline-block'
+        }}
+      >
+        {char}
+      </span>
+    ));
+  };
+
   const memoizedLike = useMemo(
     () =>
       isLike ? (
@@ -97,6 +235,12 @@ const RootBar = () => {
   const activeStyle = '!text-[#585b70] bg-[#ffffffea] shadow rounded-xl animate-play';
   return (
     <>
+      <div
+        ref={titleRef}
+        className="text-3xl tracking-widest font-bold absolute top-4 left-10"
+      >
+        {renderTitle()}
+      </div>
       <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
       <header className="mb-10 fixed top-0 right-0 z-[60] w-full">
         <ol

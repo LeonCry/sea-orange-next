@@ -1,9 +1,12 @@
 'use client';
-import ErrorMark from '@/lotties/error/errorMark';
-import SearchFolder from '@/lotties/error/searchFolder';
+import dynamic from 'next/dynamic';
 import {Power, Refresh} from '@icon-park/react';
 import './globals.css';
 import Link from 'next/link';
+
+const ErrorMark = dynamic(() => import('@/lotties/error/errorMark'));
+const SearchFolder = dynamic(() => import('@/lotties/error/searchFolder'));
+
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html>

@@ -7,7 +7,7 @@ export interface SectionType {
 export const getSectionDescription: SectionType = {
   '/': {
     title: 'home',
-    description: 'seaci.me'
+    description: 'voidis.me'
   },
   '/blog': {
     title: 'bLoG',
@@ -31,6 +31,6 @@ export const getSectionDescription: SectionType = {
   },
   '/about': {
     title: 'AbOuT',
-    description: 'seaci with me.'
+    description: 'void is me.'
   },
 };

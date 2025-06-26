@@ -35,6 +35,9 @@ dependencies:
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
+  gsap:
+    specifier: ^3.12.2
+    version: 3.12.2
   lottie-react:
     specifier: ^2.4.0
     version: 2.4.0(react-dom@19.0.0)(react@19.0.0)
@@ -4561,6 +4564,10 @@ packages:
       kind-of: 6.0.3
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
+    dev: false
+
+  /gsap@3.12.2:
+    resolution: {integrity: sha512-EkYnpG8qHgYBFAwsgsGEqvT1WUidX0tt/ijepx7z8EUJHElykg91RvW1XbkT59T0gZzzszOpjQv7SE41XuIXyQ==}
     dev: false
 
   /has-bigints@1.0.2:

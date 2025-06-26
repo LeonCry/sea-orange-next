@@ -1,6 +1,6 @@
-# = wel come to seaci.me =
+# = wel come to voidis.me =
 
-Welcome to my blog website, [seaci.me](<(https://seaci.me)>)! This is where I record and share my life’s little moments, and I hope you find resonance and joy here.
+Welcome to my blog website, [voidis.me](<(https://voidis.me)>)! This is where I record and share my life’s little moments, and I hope you find resonance and joy here.
 
 In **blog**, you will see the articles I write, which are my thoughts and insights on life, technology, and design. I hope to share my perspectives and experiences with you through these words, and I also look forward to your feedback and exchanges.
 
