@@ -15,7 +15,7 @@ export const BlogOption = () => {
   return (
     <>
       <Link
-        className={`${style.exit} hover:animate-pulse hover:border-[#ff4f4f] hover:text-[#ff4f4f] z-[9999] hover:bg-[#ff4f4f13] h-10 text-center absolute overflow-hidden top-[14px] left-4 cursor-none transition-all duration-500 py-1 w-16 rounded`}
+        className={`${style.exit} hover:animate-pulse hover:border-[#ff4f4f] hover:text-[#ff4f4f] z-[9999] hover:bg-[#ff4f4f13] bg-gray-100 h-10 text-center absolute overflow-hidden top-16 left-4 cursor-none transition-all duration-500 py-1 w-16 rounded`}
         href={'/blog'}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
