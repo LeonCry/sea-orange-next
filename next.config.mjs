@@ -34,6 +34,11 @@ const nextConfig = {
         hostname: 's2.loli.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
     ],
     formats: ['image/webp'],
   },

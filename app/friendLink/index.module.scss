@@ -39,10 +39,20 @@
   background-size: cover;
 }
 .main {
-  background: linear-gradient(to right, #365eff2a, #36ff8622, #365eff2a, #36ff8622);
+  background-image: linear-gradient(to right, black,#d8d8d8,black,#d8d8d8);
   background-size: 300% 300%;
   background-position: 0 0;
-  animation: bg 6s linear infinite;
+  animation: bg 10s  cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+.textRev {
+  background: linear-gradient(to right, white,black,white,black);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 300% 300%;
+  background-position: 0 0;
+  animation: bg 6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 @keyframes bg {
   0% {

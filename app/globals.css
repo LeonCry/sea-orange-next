@@ -34,6 +34,7 @@ html {
 .blend-dark {
   filter: invert(0.9) hue-rotate(360deg);
   img {
+    transition: 1s;
     filter: invert(1) hue-rotate(360deg);
   }
 }
