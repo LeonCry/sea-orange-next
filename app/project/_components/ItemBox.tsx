@@ -3,7 +3,8 @@ import Image from 'next/image';
 const ItemBox = ({ projectInfo }: { projectInfo: ProjectPageItem }) => {
   return (
     <a
-      className="outline-none border block w-[500px] h-[300px] relative cursor-none rounded-2xl box-trigger"
+    data-hover
+      className="outline-none border block w-[500px] h-[300px] relative cursor-none rounded-2xl "
       target="_blank"
       href={projectInfo.sourceUrl}
     >

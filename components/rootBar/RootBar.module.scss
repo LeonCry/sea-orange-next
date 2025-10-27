@@ -5,12 +5,12 @@
   -webkit-backdrop-filter: saturate(50%) blur(4px);
 }
 .rootBar {
-  @apply px-4 py-1 mx-1;
+  @apply px-4 py-1 mx-1 rounded-xl;
   color: #585b70a7;
   transition: all 0.2s;
   &:hover {
-    background: rgba(255, 255, 255, 0.5);
-    color: #585b70d2;
+    background: rgba(255, 255, 255, 1);
+    color: #000000d2;
     border-radius: 10px;
   }
 }

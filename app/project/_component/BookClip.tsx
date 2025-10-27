@@ -90,8 +90,9 @@ const BookClip = ({
             activeIndex === index && <iframe src={bookInfo.url} className="w-full aspect-video" />
           ) : (
             <button
+            data-hover
               onClick={() => routerGo('/funny/' + bookInfo.url)}
-              className="mt-10 ml-[40%] px-2 py-1 border cursor-none rounded-md box-trigger"
+              className="mt-10 ml-[40%] px-2 py-1 border cursor-none rounded-md"
               style={{
                 backgroundColor: rColor?.text,
                 color: rColor?.bg,

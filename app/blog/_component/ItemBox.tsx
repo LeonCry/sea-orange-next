@@ -6,7 +6,7 @@ import { memo } from 'react';
 const IconPark = dynamic(() => import('@/components/dynamicComponents/IconPark'));
 const ItemBox = memo(({ projectInfo }: { projectInfo: BlogPageItem }) => {
   return (
-    <Link href={`/blog/${projectInfo.id}`} className={`${style.itemBox} box-trigger`}>
+    <Link data-hover href={`/blog/${projectInfo.id}`} className={`${style.itemBox}`}>
       <div className="flex relative">
         <IconPark icon={projectInfo.icon} size={36} className="p-4 py-7" />
         <div className="flex-1 ml-4 flex flex-col py-2">

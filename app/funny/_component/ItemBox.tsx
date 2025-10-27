@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 const IconPark = dynamic(() => import('@/components/dynamicComponents/IconPark'));
 const ItemBox = ({ projectInfo }: { projectInfo: FunnyPageItem }) => {
   return (
-    <Link href={`/funny/${projectInfo.path}`} className={`${style.itemBox} box-trigger`}>
+    <Link data-hover href={`/funny/${projectInfo.path}`} className={`${style.itemBox}`}>
       <div className="flex">
         <IconPark icon={projectInfo.icon} size={36} className="ml-4 self-center" />
         <div className="flex-1 ml-4 flex flex-col py-2">
