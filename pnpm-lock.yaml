@@ -36,8 +36,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       cursorwith-ts:
-        specifier: ^1.1.2
-        version: 1.1.2
+        specifier: ^1.1.3
+        version: 1.1.3
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -2037,8 +2037,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cursorwith-ts@1.1.2:
-    resolution: {integrity: sha512-L+5gABnTAYTWytQQxCMK+0HSZO62KM1NFI4zvTxsQjxcJJsFGjMcqp7rsfoU4H05D+VVTQQHtudiFu42aUgu9g==}
+  cursorwith-ts@1.1.3:
+    resolution: {integrity: sha512-Qf/rYXR+ehXHzI96Cnrh05xpdYUd+Cv7BXoLSx5UkF4mgw6nR0J+/WFydATYfGKWFAerZXWpyic5Z+ClKg04xQ==}
 
   cz-git@1.12.0:
     resolution: {integrity: sha512-LaZ+8whPPUOo6Y0Zy4nIbf6JOleV3ejp41sT6N4RPKiKKA+ICWf4ueeIlxIO8b6JtdlDxRzHH/EcRji07nDxcg==}
@@ -6831,7 +6831,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cursorwith-ts@1.1.2: {}
+  cursorwith-ts@1.1.3: {}
 
   cz-git@1.12.0: {}
 
