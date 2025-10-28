@@ -8,8 +8,8 @@ interface Points {
 }
 const BASE_FPS = 60;
 const BRANCH_NUM = 2;
-const FULL_GENERATE_BRANCH_NUM = 8;
-const MAX_LEN = 5;
+const FULL_GENERATE_BRANCH_NUM = 100;
+const MAX_LEN = 15;
 const MIN_LEN = 5;
 const SPEED_SCALE = 0.5; 
 //以上一个点作为圆点,当前半径作为半径作圆,获得垂直于上一个点的线的0~180度的点的坐标
@@ -43,7 +43,7 @@ function loop(ctx:CanvasRenderingContext2D,ratio:number,points:Array<Points>) {
         ctx.moveTo(...item.from);
         ctx.lineTo(...item.to);
         for(let i = 0;i<BRANCH_NUM;i++){
-            if(!fullGenerate && Math.random() >= 0.5) continue;
+            if(!fullGenerate && Math.random() >= 0.1) continue;
             nextPoints.push({from:item.to,to:getEndPointByVertical(item.from,item.to,(Math.random() * MAX_LEN + MIN_LEN) * ratio)});
         }
     });
@@ -66,14 +66,13 @@ const GrowTrees = () => {
     if (!canvasRef.current) return;
     if (frameIdRef.current) return;
     if (!hasFps) return; 
-    console.log('runner');
     const ctx = canvasRef.current.getContext('2d')!;
     const width = document.documentElement.clientWidth;
     const height = document.documentElement.clientHeight;
     canvasRef.current.width = width;
     canvasRef.current.height = height;
-    ctx.lineWidth = 0.3;
-    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
     const points:Array<Points> = [
         {from:[width / 2, height/2],to:[width / 2 - 1, height/2]},
         {from:[width / 2, height/2],to:[width / 2 + 1, height/2]},
