@@ -11,7 +11,7 @@ const BRANCH_NUM = 2;
 const FULL_GENERATE_BRANCH_NUM = 8;
 const MAX_LEN = 5;
 const MIN_LEN = 5;
-const SPEED_SCALE = 0.2; 
+const SPEED_SCALE = 0.5; 
 //以上一个点作为圆点,当前半径作为半径作圆,获得垂直于上一个点的线的0~180度的点的坐标
 function getEndPointByVertical(
     lastOriginPoint: [number, number],
@@ -77,6 +77,8 @@ const GrowTrees = () => {
     const points:Array<Points> = [
         {from:[width / 2, height/2],to:[width / 2 - 1, height/2]},
         {from:[width / 2, height/2],to:[width / 2 + 1, height/2]},
+        {from:[width / 2, height/2],to:[width / 2, height/2 + 1]},
+        {from:[width / 2, height/2],to:[width / 2, height/2 - 1]},
     ];
     frameIdRef.current = requestAnimationFrame(() =>
       loop(ctx, (fps / BASE_FPS) * SPEED_SCALE, points)
