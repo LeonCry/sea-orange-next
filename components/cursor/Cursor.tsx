@@ -16,7 +16,7 @@ const Cursor = () => {
       }
     });
     cw.use(follow({
-      type:'time',
+      type:'spring',
     }));
     cw.use(inverse());
     cw.use(clickEffect());
