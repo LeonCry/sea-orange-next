@@ -1,0 +1,97 @@
+
+'use client';
+import { useFps } from '@/hooks/useFps';
+import { useEffect, useRef, useState } from 'react';
+interface Points {
+    from: [number, number];
+    to: [number, number];
+}
+const BASE_FPS = 60;
+const BRANCH_NUM = 2;
+const FULL_GENERATE_BRANCH_NUM = 2;
+const MAX_LEN = 5;
+const MIN_LEN = 5;
+const SPEED_SCALE = 0.5; 
+//以上一个点作为圆点,当前半径作为半径作圆,获得垂直于上一个点的线的0~180度的点的坐标
+function getEndPointByVertical(
+    lastOriginPoint: [number, number],
+    lastEndPoint: [number, number],
+    curLen: number
+  ) {
+    const r = Math.random();
+    const arc = r > 0.5 ? 280 : 260;
+    const vecX = lastEndPoint[0] - lastOriginPoint[0];
+    const vecY = lastEndPoint[1] - lastOriginPoint[1];
+    const vecLen = Math.hypot(vecX, vecY);
+    const vecXUnit = -vecY / vecLen;
+    const vecYUnit = vecX / vecLen;
+    const angleInRadians = (Math.PI / 180) * arc;
+    const rotatedUnitX = vecXUnit * Math.cos(angleInRadians) - vecYUnit * Math.sin(angleInRadians);
+    const rotatedUnitY = vecXUnit * Math.sin(angleInRadians) + vecYUnit * Math.cos(angleInRadians);
+    const nextPoint = [
+      lastEndPoint[0] + rotatedUnitX * curLen,
+      lastEndPoint[1] + rotatedUnitY * curLen,
+    ];
+    return nextPoint as [number, number];
+  };
+function loop(ctx:CanvasRenderingContext2D,ratio:number,points:Array<Points>) {
+    if(points.length === 0) return;
+    ctx.beginPath();
+    const fullGenerate = points.length <= FULL_GENERATE_BRANCH_NUM;
+    let nextPoints:Array<Points> = [];
+    points.forEach((item) => {
+        ctx.moveTo(...item.from);
+        ctx.lineTo(...item.to);
+        for(let i = 0;i<BRANCH_NUM;i++){
+            if(!fullGenerate && Math.random() >= 0.5) continue;
+            nextPoints.push({from:item.to,to:getEndPointByVertical(item.from,item.to,(Math.random() * MAX_LEN + MIN_LEN) * ratio)});
+        }
+    });
+    ctx.stroke();
+    ctx.closePath();
+    return requestAnimationFrame(()=>loop(ctx,ratio,[...nextPoints]));
+}
+
+
+const GrowTrees = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const fps = useFps();
+  const [hasFps,setHasFps] = useState(false);
+  const frameIdRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setHasFps(Boolean(fps));
+  }, [fps]);
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    if (frameIdRef.current) return;
+    if (!hasFps) return; 
+    console.log('runner');
+    const ctx = canvasRef.current.getContext('2d')!;
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    canvasRef.current.width = width;
+    canvasRef.current.height = height;
+    ctx.lineWidth = 0.3;
+    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+    const points:Array<Points> = [
+        {from:[width / 2, height],to:[width / 2, height - 50]},
+    ];
+    frameIdRef.current = requestAnimationFrame(() =>
+      loop(ctx, (fps / BASE_FPS) * SPEED_SCALE, points)
+    );
+
+    return () => {
+      ctx.clearRect(0, 0, width, height);
+      if (frameIdRef.current) cancelAnimationFrame(frameIdRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[hasFps]);
+  return (
+    <div>
+    <canvas ref={canvasRef}></canvas>
+  </div>
+  );
+};
+
+export default GrowTrees;

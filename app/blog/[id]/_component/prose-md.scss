@@ -42,10 +42,12 @@ section > code {
   color: #fa5d19;
   padding: 0 4px;
   display: inline-block;
+  border-radius: 6px;
   transition: all 0.2s ease-in-out;
   &:hover {
-    color: #bf00ff;
+    color: #0066ff;
     transform: scale(1.05);
+    text-decoration: underline;
   }
 }
 .prose :where(.prose > :first-child):not(:where([class~='not-prose'], [class~='not-prose'] *)) {

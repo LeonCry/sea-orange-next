@@ -1,7 +1,6 @@
 {
   "name": "voidis.me",
-  "version": "0.0.3",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "prod": "dotenv -e .env.prod next dev",
     "build:prod": "dotenv -e .env.prod next build",
