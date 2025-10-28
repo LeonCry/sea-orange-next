@@ -8,7 +8,7 @@ interface Points {
 }
 const BASE_FPS = 60;
 const BRANCH_NUM = 2;
-const FULL_GENERATE_BRANCH_NUM = 2;
+const FULL_GENERATE_BRANCH_NUM = 8;
 const MAX_LEN = 5;
 const MIN_LEN = 5;
 const SPEED_SCALE = 0.5; 
@@ -75,7 +75,10 @@ const GrowTrees = () => {
     ctx.lineWidth = 0.3;
     ctx.strokeStyle = 'rgba(0,0,0,0.3)';
     const points:Array<Points> = [
-        {from:[width / 2, height],to:[width / 2, height - 50]},
+        {from:[width / 2, height/2],to:[width / 2, height/2 - 1]},
+        {from:[width / 2, height/2],to:[width / 2, height/2 + 1]},
+        {from:[width / 2, height/2],to:[width / 2 - 1, height/2]},
+        {from:[width / 2, height/2],to:[width / 2 + 1, height/2]},
     ];
     frameIdRef.current = requestAnimationFrame(() =>
       loop(ctx, (fps / BASE_FPS) * SPEED_SCALE, points)
