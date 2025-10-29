@@ -5,9 +5,13 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
 import { CodeBlock } from '../blog/[id]/_component/CodeBlock';
-const AboutMe = async () => {
+
+type Props = { lang?: 'en' | 'zh' };
+
+const AboutMe = async ({ lang = 'en' }: Props) => {
   const fs = require('fs').promises;
-  const content = await fs.readFile('app/about/about.md', 'utf8');
+  const filePath = lang === 'zh' ? 'app/about/about.md' : 'app/about/about.en.md';
+  const content = await fs.readFile(filePath, 'utf8');
   return (
     <section className="h-full w-[70%] ml-[15%]">
       <article className="p-10 pt-2">

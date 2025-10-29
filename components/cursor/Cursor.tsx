@@ -7,10 +7,10 @@ const Cursor = () => {
   useEffectOnce(()=>{
     const cw = new CreateCursorWith({
       style:{
-        radius:16,
+        radius:8,
         color:'white',
         borderColor:'black',
-        borderWidth:6,
+        borderWidth:4,
         shadowColor:'white',
         shadowBlur:16,
       }
@@ -22,10 +22,10 @@ const Cursor = () => {
     cw.use(clickEffect());
     cw.use(tail({
       length:6,
-      color:'rgba(255,255,255,0.5)',
+      color:'rgba(255,255,255,0.2)',
     }));
     cw.use(nativeCursor({
-      radius:4,
+      radius:2,
       color:'black',
       borderColor:'white',
       borderWidth:2,

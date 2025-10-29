@@ -1,7 +1,8 @@
 import GrowTrees from './GrowTrees';
+import style from './BackView.module.scss';
 const BackView = () => {
   return (
-    <main className="fixed top-0 w-full h-full overflow-hidden bg-base-bg-color -z-10 blur-[0.5px]">
+    <main className={style.default}>
       <GrowTrees />
     </main>
   );

@@ -32,7 +32,8 @@ const CommentItem = ({ comment }: { comment: GossipPageItem }) => {
     <div ref={contentRef} style={{ opacity: isShow ? 1 : 0 }} className="w-96 h-[240px]">
       {isShow && (
         <div
-          className={` h-fit flex flex-col max-w-[400px] gap-3 rounded-xl p-3 transition-all duration-300 hover:bg-slate-50 border ${randomColor}`}
+        data-hover
+          className={` h-fit flex flex-col max-w-[400px] gap-3 rounded-xl p-3  hover:bg-slate-50 border ${randomColor}`}
         >
           <div className="flex items-center gap-6">
             <div className="flex-1 flex items-center gap-2 text-base">
