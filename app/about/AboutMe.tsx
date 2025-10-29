@@ -6,12 +6,10 @@ import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
 import { CodeBlock } from '../blog/[id]/_component/CodeBlock';
 
-type Props = { lang?: 'en' | 'zh' };
 
-const AboutMe = async ({ lang = 'en' }: Props) => {
+const AboutMe = async () => {
   const fs = require('fs').promises;
-  const filePath = lang === 'zh' ? 'app/about/about.md' : 'app/about/about.en.md';
-  const content = await fs.readFile(filePath, 'utf8');
+  const content = await fs.readFile('app/about/about.en.md', 'utf8');
   return (
     <section className="h-full w-[70%] ml-[15%]">
       <article className="p-10 pt-2">
