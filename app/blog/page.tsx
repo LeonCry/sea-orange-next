@@ -7,6 +7,7 @@ import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
 import { SlidingSelector } from './_component/SlidingSelector';
+
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
   const projectInfo = sort(res, (r) => blogOrders.indexOf(r.category));

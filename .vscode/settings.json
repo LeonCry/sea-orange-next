@@ -31,5 +31,11 @@
   "prettier.singleQuote": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   } // 或者其他适合你的长度值，这个数值表示每行最大字符数
 }
