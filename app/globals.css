@@ -24,6 +24,9 @@ html {
   padding-left: 10%;
   padding-right: 10%;
 }
+.blog-main-box {
+  height: calc(100vh - 192px);
+}
 .fix-h {
   height: calc(100vh - 233px);
 }

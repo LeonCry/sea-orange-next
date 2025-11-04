@@ -1,6 +1,6 @@
 import { CreateCursorWith } from 'cursorwith-ts/core';
 import { clickEffect, follow, hoverEffect, inverse, nativeCursor, tail } from 'cursorwith-ts/use';
-let cw: InstanceType<typeof CreateCursorWith> | null = null;
+let cw: CreateCursorWith | null = null;
 export function createCursorWith() {
     if (cw) return cw;
     cw = new CreateCursorWith({
@@ -44,7 +44,7 @@ export function createCursorWith() {
     }));
     return cw;
 }
-export function setHoverContainer(container: HTMLElement) {
+export function setHoverContainer(container?: HTMLElement) {
     if (!cw) createCursorWith();
     cw!.use(hoverEffect({
         scope: {

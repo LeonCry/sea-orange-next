@@ -21,16 +21,14 @@ export const BlogOption = () => {
         onMouseLeave={handleMouseLeave}
       >
         <div
-          className={`${
-            isHover ? 'translate-x-0 translate-y-0' : 'translate-x-full translate-y-[10px]'
-          } absolute transition-all duration-500 text-sm w-full pt-[6px] text-center delay-100`}
+          className={`${isHover ? 'translate-x-0 translate-y-0' : 'translate-x-full translate-y-[10px]'
+            } absolute transition-all duration-500 text-sm w-full pt-[6px] text-center delay-100`}
         >
           EXIT
         </div>
         <div
-          className={`${
-            isHover ? '-translate-x-full translate-y-[10px]' : 'translate-x-0 translate-y-0'
-          } absolute transition-all duration-500 px-8 text-center pt-[2px]  `}
+          className={`${isHover ? '-translate-x-full translate-y-[10px]' : 'translate-x-0 translate-y-0'
+            } absolute transition-all duration-500 px-8 text-center pt-[2px]  `}
         >
           <p className={isHover ? '' : style.left}>
             <DoubleLeft theme="outline" size="24" fill="#b1a8ffaa" />

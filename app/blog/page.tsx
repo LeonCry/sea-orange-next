@@ -7,6 +7,7 @@ import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
 import { SlidingSelector } from './_component/SlidingSelector';
+import CursorScope from '@/components/cursor/CursorScope';
 
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
@@ -27,11 +28,13 @@ const Blog = async () => {
     </SectionBox>
   );
   return (
-    <section className="page-dropDown relative">
-      <SlidingSelector defaultCom={defaultCom} categoryCom={categoryCom} />
-      <div className="my-20" />
-      <RandomSpan />
-    </section>
+    <CursorScope className='overflow-auto blog-main-box'>
+      <section className="page-dropDown relative">
+        <SlidingSelector defaultCom={defaultCom} categoryCom={categoryCom} />
+        <div className="my-20" />
+        <RandomSpan />
+      </section>
+    </CursorScope>
   );
 };
 
