@@ -22,7 +22,6 @@ import { useEffectOnce, useLocalStorage } from 'react-use';
 import { getCount } from '@/api/getSectionInfo';
 import NumberFlow from '@number-flow/react';
 import clsx from 'clsx';
-import { gsap } from 'gsap';
 
 const RootBar = () => {
   const pathName = usePathname();
@@ -32,108 +31,6 @@ const RootBar = () => {
   const [isDark, isDarkSet] = useState(false);
   const [storageDark, setStorageDark] = useLocalStorage('isDark', false);
   const [storageLike, setStorageLike] = useLocalStorage('isLike', false);
-  const titleRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (titleRef.current) {
-      const letters = titleRef.current.querySelectorAll('.letter');
-      gsap.set(letters, {
-        skewX: 0,
-        rotation: 0,
-        y: 0,
-        opacity: 1
-      });
-
-      gsap.set(titleRef.current, {
-        letterSpacing: '0.2em'
-      });
-
-      const tl = gsap.timeline({
-        repeat: -1, 
-        repeatDelay: 1.5 
-      });
-
-      letters.forEach((letter, index) => {
-        tl.to(letter, {
-          skewX: 15,
-          rotation: 0,
-          duration: 0.6,
-          ease: 'back.out(1.7)',
-        }, index * 0.05);
-      });
-
-      tl.to(titleRef.current, {
-        letterSpacing: '0.3em',
-        duration: 0.8,
-        ease: 'power2.out'
-      }, '-=0.3');
-
-      tl.to(letters, {
-        skewX: 0,
-        rotation: 0,
-        duration: 0.5,
-        ease: 'power2.inOut'
-      });
-
-      tl.to(letters, {
-        skewX: 0,
-        rotation: 15,
-        duration: 0.6,
-        ease: 'back.out(1.7)',
-        stagger: 0.1
-      });
-
-      const verticalOffsets1 = [-15, -10, -8, -4, 0, 10, 15, -20, 10]; 
-      letters.forEach((letter, index) => {
-        tl.to(letter, {
-          y: verticalOffsets1[index],
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.8)'
-        }, '-=0.8');
-      });
-
-      tl.to(letters, {
-        skewX: 0,
-        rotation: -15,
-        duration: 0.6,
-        ease: 'power2.inOut',
-        stagger: 0.08
-      });
-
-      const verticalOffsets2 = [17, 15, 0, -10, 0, -10, -18, 17, -15]; 
-      letters.forEach((letter, index) => {
-        tl.to(letter, {
-          y: verticalOffsets2[index],
-          duration: 0.8,
-          ease: 'elastic.out(1, 0.8)'
-        }, '-=0.6');
-      });
-
-      tl.to(letters, {
-        rotation: 360,
-        duration: 1.0,
-        ease: 'power2.inOut',
-        stagger: 0.05
-      });
-
-      tl.to(letters, {
-        rotation: 0,
-        skewX: 0,
-        y: 0,
-        duration: 1.5,
-        ease: 'elastic.out(1, 0.5)',
-        stagger: 0.03
-      });
-
-      tl.to(titleRef.current, {
-        letterSpacing: '0.2em',
-        duration: 1.5,
-        ease: 'elastic.out(1, 0.5)'
-      }, '-=1.5');
-
-      tl.to({}, { duration: 0.5 });
-    }
-  }, []);
 
   const renderTitle = () => {
     const text = 'VOIDIS.ME';
@@ -219,7 +116,6 @@ const RootBar = () => {
   return (
     <>
       <div
-        ref={titleRef}
         className="text-3xl tracking-widest font-bold absolute top-4 left-10"
       >
         {renderTitle()}

@@ -21,6 +21,10 @@
   position: relative;
 }
 .left {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #b6b6ff;
   animation: left-animation 4s ease-in-out infinite;
 }
 @keyframes exit-animation {
@@ -52,7 +56,7 @@
     opacity: 1;
   }
   60% {
-    transform: translateX(-30px);
+    transform: translateX(-50px);
     opacity: 0;
   }
   90% {
