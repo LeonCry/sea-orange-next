@@ -40,7 +40,7 @@ export default async function RootLayout({
             <div id="overflow-container" className="flex-1 overflow-auto">
               {children}
             </div>
-            <div className="h-48 !shrink-0">
+            <div className="min-h-16 !shrink-0">
               <RootBar />
               <Header />
             </div>
