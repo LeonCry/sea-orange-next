@@ -11,3 +11,7 @@
   border-radius: 6px;
   overflow: hidden !important;
 }
+.smooth-shadow-stroke {
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px 0 #fff,
+    -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}

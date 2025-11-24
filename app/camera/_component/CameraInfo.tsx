@@ -143,7 +143,10 @@ const CameraInfo = ({
               {!isEnlarge && <GamePs theme="outline" size="20" fill="#000000" />}
               <p
                 onDoubleClick={handleResize}
-                className="overflow-auto  leading-7 tracking-wide hover:bg-[#ffffff11] transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#c1c1c111]"
+                data-hover
+                className=
+                {clsx(style['smooth-shadow-stroke'], 'overflow-y-auto whitespace-pre-wrap leading-7 tracking-wide hover:bg-[#ffffff11] transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#c1c1c111]')}
+
               >
                 {photoInfo?.description}
               </p>
