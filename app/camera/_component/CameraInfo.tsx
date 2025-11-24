@@ -87,7 +87,7 @@ const CameraInfo = ({
         <div className="flex items-center justify-around shadow-2xl rounded-2xl w-full h-full">
           <div
             className={
-              'relative select-none shrink-0 aspect-[3/2] h-[85%] flex-1 rounded-xl ml-5 cursor-none'
+              'relative select-none shrink-0 h-[85%] flex-1 rounded-xl ml-5 cursor-none'
             }
           >
             {photoInfo && (
@@ -97,7 +97,7 @@ const CameraInfo = ({
                 alt="pic"
                 sizes="100"
                 priority
-                className="rounded-lg h-full m-auto aspect-[3/2] !w-auto"
+                className="rounded-lg h-full m-auto !w-auto"
               />
             )}
           </div>

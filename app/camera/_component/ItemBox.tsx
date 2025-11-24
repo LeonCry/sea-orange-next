@@ -27,6 +27,7 @@ const ItemBox = ({
           fill
           sizes="200px"
           priority
+          style={{ objectFit: 'cover' }}
           className={`rounded-xl ${isLoadingComplete || 'opacity-0'}`}
         />
         {isLoadingComplete || (
