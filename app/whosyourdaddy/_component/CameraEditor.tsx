@@ -1,6 +1,6 @@
 'use client';
 import {
-  getPhotoByPage,
+  getPhotoByPageInBackGround,
   getPossibleCategory,
   deleteCameraById,
   insertCamera,
@@ -23,7 +23,7 @@ const CameraEditor = () => {
         title="Camera"
         revaPath={'/camera'}
         property={property}
-        getAllReq={getPhotoByPage}
+        getAllReq={getPhotoByPageInBackGround}
         updateReq={updateCameraById}
         deleteReq={deleteCameraById}
         insertReq={insertCamera}

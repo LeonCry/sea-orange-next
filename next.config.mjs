@@ -18,6 +18,7 @@ const nextConfig = {
   },
   images: {
     minimumCacheTTL: 60,
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -43,7 +44,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.jsdelivr.net',
         port: '',
-      }
+      },
     ],
     formats: ['image/webp'],
   },

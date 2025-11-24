@@ -17,15 +17,15 @@ const ItemBox = ({
       onClick={() => {
         handleSetId(String(photo.id));
       }}
-      className="w-full h-full rounded-xl cursor-none bg-[#c5c5c511] transition-all duration-500 hover:scale-125"
+      className="w-full h-full border rounded-xl cursor-none bg-[#c5c5c511] transition-all duration-500 hover:scale-125"
     >
-      <div className="flex justify-center items-center relative w-full h-full ">
+      <div className="flex justify-center items-center relative w-full h-full">
         <Image
           alt="pic"
           onLoad={() => setIsLoadingComplete(true)}
           src={photo.photoSrc}
           fill
-          sizes="100"
+          sizes="200px"
           priority
           className={`rounded-xl ${isLoadingComplete || 'opacity-0'}`}
         />

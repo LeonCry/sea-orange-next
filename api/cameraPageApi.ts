@@ -10,6 +10,13 @@ const getPhotoByPage = async (page: number | undefined) => {
     take: 10,
   }));
 };
+const getPhotoByPageInBackGround = async (page: number | undefined) => {
+  if (page === undefined) page = 1;
+  return executeWithDb(() => prisma.cameraPageItem.findMany({
+    skip: (page! - 1) * 30,
+    take: 30,
+  }));
+};
 //查找所有的类别
 const getPossibleCategory = async () => {
   return executeWithDb(() => prisma.cameraPageItem.findMany({
@@ -59,4 +66,4 @@ const updateCameraById = (id: number, newData: Record<string, any>) => {
 const getCount = async () => {
   return executeWithDb(() => prisma.cameraPageItem.count());
 };
-export { getCount, updateCameraById, getPhotoByPage, getPossibleCategory, getPhotoByCategory, getPhotoById, deleteCameraById, insertCamera };
+export { getCount, updateCameraById, getPhotoByPage, getPhotoByPageInBackGround, getPossibleCategory, getPhotoByCategory, getPhotoById, deleteCameraById, insertCamera };
