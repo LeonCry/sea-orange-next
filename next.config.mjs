@@ -39,6 +39,11 @@ const nextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.jsdelivr.net',
+        port: '',
+      }
     ],
     formats: ['image/webp'],
   },
