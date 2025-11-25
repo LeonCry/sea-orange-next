@@ -33,8 +33,7 @@ const ItemBox = ({
           src={photo.photoSrc}
           fill
           sizes="100px,100px"
-          // loading='lazy'
-          quality={50}
+          quality={75}
           style={{ objectFit: 'cover' }}
           className='transition-all duration-500 hover:scale-125'
         />
