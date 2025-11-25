@@ -2,7 +2,6 @@
 import style from '../../funny/_component/Modal.module.scss';
 import { Acoustic, AppletClosed, Camera, GamePs, Record } from '@icon-park/react';
 import { CameraPageItem } from '@prisma/client';
-import { Button } from 'antd';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -27,29 +26,6 @@ const CameraInfo = ({
     backdropRef.current.classList.add(style.backdropBlurOut);
     await new Promise((resolve) => setTimeout(resolve, 1300));
     handleSetId('');
-  };
-  const [downloadText, setDownloadText] = useState('CLICK TO DOWNLOAD THIS PHOTO');
-  const handleDownload = (imgsrc?: string) => {
-    if (!imgsrc) return;
-    setDownloadText('DOWNLOADING...');
-    imgsrc = imgsrc + '?v=' + Math.random();
-    const image = document.createElement('img');
-    image.setAttribute('crossOrigin', 'anonymous');
-    image.onload = function () {
-      const canvas = document.createElement('canvas');
-      canvas.width = image.width;
-      canvas.height = image.height;
-      const context = canvas.getContext('2d');
-      context!.drawImage(image, 0, 0, image.width, image.height);
-      const url = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      const event = new MouseEvent('click');
-      a.download = `${photoInfo?.name}.jpg`;
-      a.href = url;
-      a.dispatchEvent(event);
-      setDownloadText('DOWNLOADED');
-    };
-    image.src = imgsrc;
   };
   const [isEnlarge, setIsEnlarge] = useState(false);
   const handleResize = () => {
@@ -143,30 +119,12 @@ const CameraInfo = ({
               {!isEnlarge && <GamePs theme="outline" size="20" fill="#000000" />}
               <p
                 onDoubleClick={handleResize}
-                data-hover
                 className=
                 {clsx(style['smooth-shadow-stroke'], 'overflow-y-auto whitespace-pre-wrap leading-7 tracking-wide hover:bg-[#ffffff11] transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#c1c1c111]')}
 
               >
                 {photoInfo?.description}
               </p>
-            </div>
-            <div className="absolute bottom-10 left-0 px-10 w-full hover:animate-bounce">
-              <Button
-                onClick={() => handleDownload(photoInfo?.photoSrc)}
-                className="cursor-none w-full flex items-center gap-1 self-center px-10 overflow-hidden bg-[#ffffff11] hover:!bg-[rgba(0,0,0,0.05)]"
-                type="text"
-              >
-                <span
-                  className={clsx([
-                    'transition-all duration-300 ease-in-out',
-                    downloadText === 'DOWNLOADING...' && 'text-orange-600 animate-pulse',
-                    downloadText === 'DOWNLOADED' && 'text-green-600',
-                  ])}
-                >
-                  {downloadText}
-                </span>
-              </Button>
             </div>
           </article>
         </div>
