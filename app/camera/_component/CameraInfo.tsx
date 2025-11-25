@@ -63,23 +63,23 @@ const CameraInfo = ({
         <div className="flex items-center justify-around shadow-2xl rounded-2xl w-full h-full">
           <div
             className={
-              'relative select-none shrink-0 h-[85%] flex-1 rounded-xl ml-5 cursor-none'
+              'relative select-none shrink-0 h-[90%] w-full flex-1 ml-5 cursor-none flex items-center justify-center'
             }
           >
             {photoInfo && (
               <Image
                 src={photoInfo.photoSrc}
-                fill
                 alt="pic"
-                sizes="100"
+                fill
+                sizes="100px 100px"
                 priority
-                className="rounded-lg h-full m-auto !w-auto"
+                style={{ objectFit: 'contain' }}
               />
             )}
           </div>
           <article
             className={clsx([
-              ' !w-[25%] flex flex-col relative h-full items-start px-5 shadow-2xl rounded-e-2xl ml-10 gap-10',
+              ' !w-[380px] flex flex-col relative h-full items-start px-5 shadow-2xl rounded-e-2xl ml-10 gap-10',
               style.borderLinear,
             ])}
           >
@@ -116,12 +116,10 @@ const CameraInfo = ({
                 isEnlarge ? 'min-h-[80%] max-h-[80%]' : 'min-h-[30%] max-h-[60%]',
               ])}
             >
-              {!isEnlarge && <GamePs theme="outline" size="20" fill="#000000" />}
               <p
                 onDoubleClick={handleResize}
-                className=
-                {clsx(style['smooth-shadow-stroke'], 'overflow-y-auto whitespace-pre-wrap leading-7 tracking-wide hover:bg-[#ffffff11] transition-all duration-300 ease-in-out h-full w-full -mt-2 py-1 px-2 text-base rounded bg-[#c1c1c111]')}
-
+                className="
+                overflow-y-auto whitespace-pre-wrap leading-8 tracking-wide h-full w-full -mt-2 p-4 text-base rounded bg-[#ffffff50]"
               >
                 {photoInfo?.description}
               </p>
