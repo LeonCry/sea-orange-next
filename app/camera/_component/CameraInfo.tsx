@@ -1,6 +1,7 @@
 'use client';
 import style from '../../funny/_component/Modal.module.scss';
-import { Acoustic, AppletClosed, Camera, GamePs, Record } from '@icon-park/react';
+import gridStyle from './Grid.module.scss';
+import { Acoustic, AppletClosed, Camera, Record } from '@icon-park/react';
 import { CameraPageItem } from '@prisma/client';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
@@ -39,6 +40,7 @@ const CameraInfo = ({
     };
     if (!local) handleGetPhotoById();
   });
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
   return (
     <section
       ref={backdropRef}
@@ -66,8 +68,14 @@ const CameraInfo = ({
               'relative select-none shrink-0 h-[90%] w-full flex-1 ml-5 cursor-none flex items-center justify-center'
             }
           >
+            {!isLoadingComplete && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <figure className={gridStyle.loading} />
+              </div>
+            )}
             {photoInfo && (
               <Image
+                onLoad={() => setIsLoadingComplete(true)}
                 src={photoInfo.photoSrc}
                 alt="pic"
                 fill
@@ -117,6 +125,7 @@ const CameraInfo = ({
               ])}
             >
               <p
+                data-hover
                 onDoubleClick={handleResize}
                 className="
                 overflow-y-auto whitespace-pre-wrap leading-8 tracking-wide h-full w-full -mt-2 p-4 text-base rounded bg-[#ffffff50]"
