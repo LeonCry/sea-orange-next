@@ -34,7 +34,7 @@ const ItemBox = ({
           fill
           sizes="100px,100px"
           // loading='lazy'
-          quality={10}
+          quality={50}
           style={{ objectFit: 'cover' }}
           className='transition-all duration-500 hover:scale-125'
         />
