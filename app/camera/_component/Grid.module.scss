@@ -25,16 +25,18 @@
   height: 20px;
   content: '';
   animation: jumping 0.5s infinite alternate;
+  perspective: 200px;
   background: rgba(0, 0, 0, 0);
 }
 
 .loading:before {
-  left: 0;
+  left: 0px;
+  animation-delay: 0.05s;
 }
 
 .loading:after {
-  right: 0;
-  animation-delay: 0.2s;
+  right: 0px;
+  animation-delay: 0.15s;
 }
 
 @keyframes jumping {

@@ -63,3 +63,7 @@ export function setHoverContainer(container?: HTMLElement) {
     }));
     return cw;
 }
+export function updateBound() {
+    if (!cw) createCursorWith();
+    cw!.updateBound();
+}

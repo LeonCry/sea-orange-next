@@ -8,6 +8,7 @@ import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useEffectOnce } from 'react-use';
 import { getPhotoById } from '@/api/cameraPageApi';
+import { updateTargetInHover } from 'cursorwith-ts/use';
 const CameraInfo = ({
   local,
   handleSetId,
@@ -29,8 +30,10 @@ const CameraInfo = ({
     handleSetId('');
   };
   const [isEnlarge, setIsEnlarge] = useState(false);
-  const handleResize = () => {
+  const handleResize = async () => {
     setIsEnlarge(!isEnlarge);
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    updateTargetInHover();
   };
   const [photoInfo, setPhotoInfo] = useState<CameraPageItem | undefined>(local);
   useEffectOnce(() => {
@@ -119,13 +122,13 @@ const CameraInfo = ({
               </>
             )}
             <div
+              data-hover
               className={clsx([
-                'flex relative items-start gap-3 w-full transition-all duration-300 ease-in-out',
+                'flex relative items-start gap-3 w-full transition-all duration-300 ease-in-out rounded',
                 isEnlarge ? 'min-h-[80%] max-h-[80%]' : 'min-h-[30%] max-h-[60%]',
               ])}
             >
               <p
-                data-hover
                 onDoubleClick={handleResize}
                 className="
                 overflow-y-auto whitespace-pre-wrap leading-8 tracking-wide h-full w-full -mt-2 p-4 text-base rounded bg-[#ffffff50]"
