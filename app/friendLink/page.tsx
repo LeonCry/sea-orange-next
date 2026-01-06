@@ -69,7 +69,7 @@ const About = () => {
           5.create a pull request
         </div>
         <br /><br />
-        OR just email me: leoncry@outlook.com
+        OR just email me: lbh_ldu@outlook.com
       </div>
     </section>
   );
