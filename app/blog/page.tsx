@@ -7,19 +7,26 @@ import SectionBox from '@/components/sectionBox/SectionBox';
 import ItemBox from './_component/ItemBox';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
 import { SlidingSelector } from './_component/SlidingSelector';
+import HiddenBox from './_component/HiddenBox';
 import CursorScope from '@/components/cursor/CursorScope';
-
 const Blog = async () => {
   const res: BlogPageItem[] = await getAllBlogInfo();
   const projectInfo = sort(res, (r) => blogOrders.indexOf(r.category));
   const category = group(projectInfo, (p) => p.category);
-  const categoryCom = Object.keys(category).map((cty, i) => (
-    <SectionBox key={i} title={cty}>
-      {category[cty]!.map((p, i) => (
-        <ItemBox key={i} projectInfo={p} />
-      ))}
-    </SectionBox>
-  ));
+  const categoryCom = Object.keys(category).map((cty, i) => {
+    if (cty === '2020~2024旧文归档') {
+      return (
+        <HiddenBox key={i} cty={cty} category={category[cty]!} />
+      );
+    }
+    return (
+      <SectionBox key={i} title={cty}>
+        {category[cty]!.map((p, i) => (
+          <ItemBox key={i} projectInfo={p} />
+        ))}
+      </SectionBox>
+    );
+  });
   const defaultCom = (
     <SectionBox title="">
       {res.reverse().map((p, i) => (

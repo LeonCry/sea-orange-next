@@ -9,7 +9,7 @@ export const SlidingSelector = ({
   defaultCom: React.ReactNode;
   categoryCom: React.ReactNode[];
 }) => {
-  const [isClassify, setIsClassify] = useState(false);
+  const [isClassify, setIsClassify] = useState(true);
   const selectorRef = useRef<HTMLDivElement>(null);
   useAsyncEffect(async () => {
     if (!selectorRef.current) return;
@@ -45,7 +45,11 @@ export const SlidingSelector = ({
           TIME
         </div>
       </div>
-      {isClassify ? categoryCom : defaultCom}
+      {isClassify ?
+        <section className='flex flex-col-reverse'>
+          {categoryCom}
+        </section>
+        : defaultCom}
     </>
   );
 };

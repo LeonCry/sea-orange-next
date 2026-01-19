@@ -20,13 +20,13 @@
   }
   > div > div > h6 {
     width: calc(100% - 82px);
-    left: 82px;
+    left: 66px;
     top: 32px;
   }
-  > div > div > span {
+  > div > div > ul {
+    list-style-type: square;
     font-weight: 400;
-    color: #8c8d97;
-    overflow: hidden;
+    color: #717386;
     text-overflow: inherit;
     white-space: wrap;
     display: inline-block;
@@ -36,19 +36,16 @@
     // padding: 10px;
     padding: 0 10px;
     height: 320px;
-    line-height: 28px;
+    line-height: 30px;
     background-image: repeating-linear-gradient(
       to bottom,
-      lightgray,
-      lightgray 1px,
-      transparent 1px,
-      transparent 28px
+      #001eff09,
+      #001eff09 2px,
+      transparent 2px,
+      transparent 30px
     );
-    background-size: 1px 100%;
+    background-size: 2px 100%;
     background-clip: content-box;
     background-repeat: repeat-x;
-    &:hover {
-      color: #585b70;
-    }
   }
 }

@@ -8,12 +8,14 @@ const ItemBox = memo(({ projectInfo }: { projectInfo: BlogPageItem }) => {
   return (
     <Link data-hover href={`/blog/${projectInfo.id}`} className={`${style.itemBox}`}>
       <div className="flex relative">
-        <IconPark icon={projectInfo.icon} size={36} className="p-4 py-7" />
-        <div className="flex-1 ml-4 flex flex-col py-2">
-          <h6 className="transition-all duration-500 absolute left-20 top-2">{projectInfo.name}</h6>
-          <span className="absolute transition-all duration-500 leading-4 mt-1 hyphens-auto text-sm">
-            {projectInfo.description}
-          </span>
+        <IconPark icon={projectInfo.icon} size={36} className="pl-4 py-7" />
+        <div className="flex-1 flex flex-col py-2">
+          <h6 className="transition-all duration-500 absolute top-2 font-bold">{projectInfo.name}</h6>
+          <ul className="absolute transition-all duration-500 mt-1 hyphens-auto text-sm">
+            {projectInfo.description.split('#').map((item, index) => (
+              <li className='ml-4' key={index}>{item}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </Link>
