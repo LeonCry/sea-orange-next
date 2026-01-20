@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import Loading from '@/lotties/loading/Loading';
 import RandomSpan from '@/components/randomSpan/RandomSpan';
 import { getAllProjectsFromFunny } from '@/api/funnyPageApi';
+import SuitForMobile from '@/components/SuitForMobile';
 export interface BookType {
   id: string;
   icon: string;
@@ -42,7 +43,9 @@ const Project = async () => {
   const books: BookType[] = [...pBooks, ...fBooks];
   return (
     <Suspense fallback={<Loading />}>
-      <ProjectPage books={books} />
+      <SuitForMobile>
+        <ProjectPage books={books} />
+      </SuitForMobile>
       <RandomSpan />
     </Suspense>
   );

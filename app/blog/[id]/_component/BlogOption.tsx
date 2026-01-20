@@ -13,7 +13,7 @@ export const BlogOption = () => {
     setIsHover(false);
   };
   return (
-    <>
+    <section className={style.read}>
       <Link
         className={`${style.exit} hover:animate-pulse hover:border-r-[10px] hover:w-24 hover:border-[#ff4f4f] hover:text-[#ff4f4f] z-[9999] hover:bg-[#ff4f4f13] bg-gray-100 h-10 text-center absolute overflow-hidden top-24 left-4 cursor-none transition-all duration-500 py-1 w-16 rounded`}
         href={'/blog'}
@@ -37,6 +37,6 @@ export const BlogOption = () => {
         </div>
       </Link>
       <ReadTime />
-    </>
+    </section>
   );
 };

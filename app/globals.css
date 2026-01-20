@@ -41,6 +41,14 @@ html {
     filter: invert(1) hue-rotate(360deg);
   }
 }
+@media screen and (width < 992px) and (orientation: portrait) {
+  .page-dropDown {
+    width: 100%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 @keyframes show-move {
   0% {
     opacity: 0;

@@ -19,15 +19,15 @@ export const getSectionDescription: SectionType = {
   },
   '/camera': {
     title: 'CamErA',
-    description: 'Stunning photographs I\'ve captured.'
+    description: 'Stunning photographs.'
   },
   '/funny': {
     title: 'FuNnY',
-    description: 'Interesting demos that I have implemented.'
+    description: 'Interesting demos.'
   },
   '/gossip': {
     title: 'GoSsiP',
-    description: 'Speak out freely, all in the pursuit of supervised democracy!'
+    description: 'Speak out freely!'
   },
   '/about': {
     title: 'AbOuT',

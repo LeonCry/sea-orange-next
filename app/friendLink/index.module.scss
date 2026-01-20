@@ -39,13 +39,14 @@
   background-size: cover;
 }
 .main {
-  background-image: linear-gradient(to right, black,#d8d8d8,black,#d8d8d8);
+  @apply shrink-0 min-w-[400px] max-w-[600px] h-48 rounded-md bg-[#365eff1e] p-2 flex gap-2;
+  background-image: linear-gradient(to right, black, #d8d8d8, black, #d8d8d8);
   background-size: 300% 300%;
   background-position: 0 0;
-  animation: bg 10s  cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  animation: bg 10s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
 .textRev {
-  background: linear-gradient(to right, white,black,white,black);
+  background: linear-gradient(to right, white, black, white, black);
   -webkit-background-clip: text;
   background-clip: text;
   background-size: 300% 300%;
@@ -60,5 +61,22 @@
   }
   100% {
     background-position: 100% 100%;
+  }
+}
+
+.beInvited {
+  @apply absolute top-10 right-10 text-[14px] font-light text-gray-50 rounded-md bg-gray-600 overflow-hidden p-1 px-4 w-[190px] h-[30px] transition-all duration-300 hover:w-[550px] hover:h-[50vh] hover:overflow-auto;
+}
+
+@media screen and (width < 992px) and (orientation: portrait) {
+  .beInvited {
+    display: none;
+  }
+  .main {
+    @apply shrink-0 w-[100%] min-w-[0] h-48 rounded-md bg-[#365eff1e] p-2 flex gap-2;
+    background-image: linear-gradient(to right, black, #d8d8d8, black, #d8d8d8);
+    background-size: 300% 300%;
+    background-position: 0 0;
+    animation: bg 10s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   }
 }

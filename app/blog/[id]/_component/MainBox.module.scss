@@ -1,6 +1,6 @@
 .main {
   width: 100%;
-  padding: 10px 20%;
+  padding: 10px 0;
   position: relative;
   height: calc(100vh - 64px);
   overflow: hidden;
@@ -27,6 +27,31 @@
   color: #b6b6ff;
   animation: left-animation 4s ease-in-out infinite;
 }
+
+@media screen and (width < 992px) and (orientation: portrait) {
+  .md {
+    overflow: auto;
+    padding: 16px;
+    padding-top: 40px;
+    position: relative;
+  }
+  .read {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    top: 0;
+    z-index: 5;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .read > div {
+    width: 170px;
+    left: calc(100% - 186px);
+  }
+}
+
 @keyframes exit-animation {
   0% {
     transform: translateY(-50%);

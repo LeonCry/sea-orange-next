@@ -26,13 +26,16 @@ If you enjoy my projects or articles, feel free to share them or discuss improve
 
 If you're interested in the site’s content or implementation, feel free to find me via `Friend Link` or leave a message in `Gossip`. Thanks for visiting and reading!
 
-
 <br>
----
 <br><br>
 
-*Contact Me*
+_Contact Me_
 
 - Email: lbh_ldu@outlook.com
 - GitHub: [https://github.com/LeonCry](https://github.com/LeonCry)
 - Blog: [voidis.me](https://voidis.me)
+
+<br>
+<span style="font-size: 0.8em; color: lightgray;">
+    &nbsp;&nbsp;2024-PRESENT copyright voidis
+</span>

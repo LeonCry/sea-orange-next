@@ -1,13 +1,19 @@
 .default {
-    @apply fixed top-0 w-full h-full overflow-hidden bg-base-bg-color -z-10;
-    animation: blur 3s ease-in-out forwards 3s;
+  @apply fixed top-0 w-full h-full overflow-hidden bg-base-bg-color -z-10;
+  animation: blur 3s ease-in-out forwards 3s;
+}
+
+@media screen and (width < 992px) and (orientation: portrait) {
+  .default {
+    animation: none;
+  }
 }
 
 @keyframes blur {
-    0% {
-        filter: blur(0);
-    }
-    100% {
-        filter: blur(20px);
-    }
+  0% {
+    filter: blur(0);
+  }
+  100% {
+    filter: blur(20px);
+  }
 }

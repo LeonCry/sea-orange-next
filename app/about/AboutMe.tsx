@@ -11,8 +11,8 @@ const AboutMe = async () => {
   const fs = require('fs').promises;
   const content = await fs.readFile('app/about/about.en.md', 'utf8');
   return (
-    <section className="h-full w-[70%] ml-[15%]">
-      <article className="p-10 pt-2">
+    <section className="h-full w-[100%]">
+      <article className="pt-2">
         <ReactMarkdown
           className=" prose prose-pre:bg-white prose-pre:p-0 !max-w-full enterFade"
           rehypePlugins={[rehypeRaw]}

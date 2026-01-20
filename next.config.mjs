@@ -47,6 +47,7 @@ const nextConfig = {
       },
     ],
     formats: ['image/webp'],
+    unoptimized: true, // ⚠️ 生产环境记得关掉这个
   },
 };
 

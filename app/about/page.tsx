@@ -4,7 +4,7 @@ import RandomSpan from '@/components/randomSpan/RandomSpan';
 
 const About = () => {
   return (
-    <section className="page-dropDown fix-h">
+    <section className="page-dropDown fix-h !px-4">
       <AboutMe />
       <RandomSpan />
     </section>

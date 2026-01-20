@@ -190,10 +190,10 @@ export default function GridPhoto({
         </div>
         <div className="h-96 w-full relative">
           <div
-            className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-[650px] rounded-md text-center"
+            className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-[80%] rounded-md text-center"
             onClick={handleFetchNextCameraWithAnimation}
           >
-            CLICK OR SCROLL TO BOTTOM TO LOAD NEXT PAGE PHOTOS
+            LOAD NEXT PAGE PHOTOS
           </div>
         </div>
       </article>
