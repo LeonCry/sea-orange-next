@@ -29,6 +29,10 @@ export const getSectionDescription: SectionType = {
     title: 'GoSsiP',
     description: 'Speak out freely!'
   },
+  '/friendLink': {
+    title: 'FriEnD-LinK',
+    description: 'My friends and their websites.'
+  },
   '/about': {
     title: 'AbOuT',
     description: 'void is me.'

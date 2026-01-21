@@ -1,0 +1,8 @@
+.headerTitle {
+  text-align: center;
+}
+@media screen and (width < 992px) and (orientation: portrait) {
+  .headerTitle {
+    text-align: left;
+  }
+}

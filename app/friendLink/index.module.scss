@@ -65,7 +65,7 @@
 }
 
 .beInvited {
-  @apply absolute top-10 right-10 text-[14px] font-light text-gray-50 rounded-md bg-gray-600 overflow-hidden p-1 px-4 w-[190px] h-[30px] transition-all duration-300 hover:w-[550px] hover:h-[50vh] hover:overflow-auto;
+  @apply absolute top-[136px] text-[14px] font-light text-gray-500 rounded-md bg-gray-100 overflow-hidden p-1 px-4 w-[190px] h-[30px] transition-all duration-300 hover:w-[550px] hover:h-[600px] hover:overflow-auto;
 }
 
 @media screen and (width < 992px) and (orientation: portrait) {

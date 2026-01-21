@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 const About = () => {
   return (
-    <section className="page-dropDown flex flex-wrap items-center gap-10 py-10 pt-24 relative">
+    <section className="page-dropDown flex flex-wrap items-center gap-10 py-10 pt-4">
       {friendLink.map((item, index) => (
         <div
           key={index}
