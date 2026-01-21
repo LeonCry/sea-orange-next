@@ -128,7 +128,7 @@ const HeaderMobile = ({
                     </div>
                 )}
             </aside>
-            <div className='absolute w-full z-10 backdrop-blur-[10px] top-0 left-0 transition-all duration-300'
+            <div className='absolute w-full z-10 backdrop-blur-[10px] top-0 left-0 transition-all duration-1000'
                 style={{
                     height: showMenu ? '100%' : '0%',
                 }}

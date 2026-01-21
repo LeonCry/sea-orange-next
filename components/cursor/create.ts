@@ -67,3 +67,8 @@ export function updateBound() {
     if (!cw) createCursorWith();
     cw!.updateBound();
 }
+export function destroyCursorWith() {
+    if (!cw) return;
+    cw.destroy();
+    cw = null;
+}

@@ -28,12 +28,12 @@ const HeaderPC = ({
     const activeStyle = '!text-[#585b70] bg-[#ffffffea] shadow animate-play';
     return (
         <>
+            <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
             <div
                 className="text-3xl tracking-widest font-bold absolute top-4 left-10"
             >
                 {renderTitle()}
             </div>
-            <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
             <header className="mb-10 fixed top-0 right-0 z-[60] w-full">
                 <ol
                     className={`${style.main} w-full h-16 flex items-center enterFade justify-end ${chakraEN.className}`}

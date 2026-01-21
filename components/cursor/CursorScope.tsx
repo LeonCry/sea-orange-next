@@ -25,6 +25,7 @@ export default function CursorScope({ children, className }: { children: React.R
         return () => {
             el.removeEventListener('mouseenter', handlerEl);
             el.removeEventListener('mouseleave', handlerUf);
+            el.removeEventListener('mousemove', handlerMove);
         };
     }, [isMobile]);
 

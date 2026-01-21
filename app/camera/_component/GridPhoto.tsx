@@ -109,10 +109,6 @@ export default function GridPhoto({
   fetchNextCamera: () => Promise<boolean | undefined>;
 }) {
   const isMobile = useCheckMobile();
-  useEffectOnce(() => {
-    initGridParams({ g: isMobile ? 6 : 3, b: isMobile ? 2 : 3 });
-    resetBaseData();
-  });
   const [messageApi, contextHolder] = message.useMessage();
   const container = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -142,6 +138,10 @@ export default function GridPhoto({
   // 附加参数
   const t = useRef(0);
   const [gridTemplateAreas, setGridTemplateAreas] = useState('');
+  useEffect(() => {
+    initGridParams({ g: isMobile ? 6 : 3, b: isMobile ? 2 : 3 });
+    resetBaseData();
+  }, [isMobile]);
   useEffect(() => {
     const getGridTemplateAreaStyle = debounce({ delay: 300 }, async () => {
       t.current++;
@@ -210,7 +210,7 @@ export default function GridPhoto({
             className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-[80%] rounded-md text-center"
             onClick={handleFetchNextCameraWithAnimation}
           >
-            LOAD NEXT PAGE PHOTOS
+            LOAD NEXT PAGE
           </div>
         </div>
       </article>

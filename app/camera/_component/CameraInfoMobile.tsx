@@ -53,6 +53,20 @@ const CameraInfoMobile = ({
                     onClick={handleClose}
                 />
             </div>
+            <div className='absolute w-full top-0 left-0 blur-[36px] scale-y-125' style={{ height: 'calc(30vh + 48px)' }}>
+                {photoInfo && (
+                    <Image
+                        onLoad={() => setIsLoadingComplete(true)}
+                        src={photoInfo.photoSrc}
+                        alt="pic"
+                        fill
+                        quality={80}
+                        sizes="100px 100px"
+                        priority
+                        style={{ objectFit: 'contain' }}
+                    />
+                )}
+            </div>
             <div className='flex flex-col overflow-hidden gap-3 h-full'>
                 <div className='border-y border-[#333] border-dashed p-3'>
                     <div className='w-full relative h-[30vh] overflow-hidden'>
@@ -68,8 +82,9 @@ const CameraInfoMobile = ({
                                 alt="pic"
                                 fill
                                 sizes="100px 100px"
+                                className='!border-2 !border-[#ffffff5e] !rounded-md'
                                 priority
-                                style={{ objectFit: 'contain' }}
+                                style={{ objectFit: 'cover' }}
                             />
                         )}
                     </div>

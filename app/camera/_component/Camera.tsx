@@ -6,12 +6,13 @@ import Loading from '@/lotties/loading/Loading';
 import { useImmer } from 'use-immer';
 import GridPhoto from './GridPhoto';
 import { useEffectOnce } from 'react-use';
+import { useDebounceFn } from 'ahooks';
 const Camera = ({ fetchData }: { fetchData: (page: number) => Promise<CameraPageItem[]> }) => {
   let page = useRef(0);
   const container = useRef<HTMLDivElement | null>(null);
   const [messageApi, contextHolder] = message.useMessage();
   const [photos, setPhotos] = useImmer<CameraPageItem[]>([]);
-  const fetchNextCamera = async () => {
+  const { run: fetchNextCamera } = useDebounceFn(async () => {
     page.current++;
     const res = await fetchData(page.current);
     if (!res.length) {
@@ -24,7 +25,7 @@ const Camera = ({ fetchData }: { fetchData: (page: number) => Promise<CameraPage
     setPhotos((draft) => {
       draft.push(...res);
     });
-  };
+  }, { wait: 100 });
   useEffectOnce(() => {
     fetchNextCamera();
   });
