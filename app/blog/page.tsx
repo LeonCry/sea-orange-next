@@ -36,7 +36,7 @@ const Blog = async () => {
   );
   return (
     <CursorScope className='overflow-auto blog-main-box'>
-      <section className="page-dropDown relative ">
+      <section className="page-dropDown relative">
         <SlidingSelector defaultCom={defaultCom} categoryCom={categoryCom} />
         <div className="my-20" />
         <RandomSpan />

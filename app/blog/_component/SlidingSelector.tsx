@@ -2,6 +2,7 @@
 import { useAsyncEffect } from 'ahooks';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
+import style from './ItemBox.module.scss';
 export const SlidingSelector = ({
   defaultCom,
   categoryCom,
@@ -13,15 +14,15 @@ export const SlidingSelector = ({
   const selectorRef = useRef<HTMLDivElement>(null);
   useAsyncEffect(async () => {
     if (!selectorRef.current) return;
-    selectorRef.current.style.width = '184px';
+    selectorRef.current.style.width = 'calc(100% - 8px)';
     selectorRef.current.style.left = '0';
     await new Promise((resolve) => setTimeout(resolve, 300));
     selectorRef.current.style.width = '88px';
-    selectorRef.current.style.left = isClassify ? '0px' : '96px';
+    selectorRef.current.style.left = isClassify ? '0' : 'calc(100% - 98px)';
   }, [isClassify]);
   return (
     <>
-      <div className="sticky z-10 top-0 -ml-[10%] w-48 h-10 bg-[#8636ff10] rounded-md flex justify-between items-center">
+      <div className={style.slider}>
         <div
           ref={selectorRef}
           className="absolute w-[88px] h-8 m-1 rounded-md bg-[#b236ff17] transition-all duration-300"

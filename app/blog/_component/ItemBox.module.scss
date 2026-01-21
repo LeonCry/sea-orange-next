@@ -49,3 +49,11 @@
     background-repeat: repeat-x;
   }
 }
+.slider {
+  @apply sticky z-10 top-0 -ml-[10%] w-48 h-10 bg-[#8636ff10] rounded-md flex justify-between items-center;
+}
+@media screen and (width < 992px) and (orientation: portrait) {
+  .slider {
+    @apply sticky z-10 w-full top-0 ml-0 border left-0 h-10 bg-[#ffffff] rounded-md flex justify-between items-center;
+  }
+}
