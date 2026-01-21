@@ -19,8 +19,10 @@ export const useMyScroll = (container: React.RefObject<HTMLDivElement | null>, o
         bottom: currentContainer.scrollTop + currentContainer.clientHeight + (option?.mb || 0) >= currentContainer.scrollHeight,
       });
     };
+    currentContainer.addEventListener('touchmove', handleScroll);
     currentContainer.addEventListener('scroll', handleScroll);
     return () => {
+      currentContainer.removeEventListener('touchmove', handleScroll);
       currentContainer.removeEventListener('scroll', handleScroll);
     };
   });

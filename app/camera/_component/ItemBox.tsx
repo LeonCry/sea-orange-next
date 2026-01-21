@@ -17,9 +17,7 @@ const ItemBox = ({
       onClick={() => {
         handleSetId(String(photo.id));
       }}
-      className="w-full h-full
-      border-4 border-stone-900 overflow-hidden rounded-xl
-       cursor-none bg-[#c5c5c511]"
+      className="w-full h-full overflow-hidden rounded cursor-none bg-[#c5c5c53d]"
     >
       <div className="flex justify-center items-center relative w-full h-full">
         {!isLoadingComplete && (

@@ -1,5 +1,4 @@
 'use client';
-import { useMyScroll } from '@/hooks/useMyScroll';
 import style from './Grid.module.scss';
 import { debounce, random, sum } from 'radash';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -11,22 +10,34 @@ import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
 import { useEffectOnce } from 'react-use';
 import { message } from 'antd';
+import { useCheckMobile } from '@/hooks/useCheckMobile';
+import { useInViewport } from 'ahooks';
 interface blockType {
   width: number;
   height: number;
 }
 // 单次请求数
-let count = 10;
+let count: number = 0;
 // block宽长比
-let ratio = 2 / 3;
+let ratio: number = 0;
 // gap
-let gap = 3;
+let gap: number = 0;
 // block类型数
-let bt = 3;
-let wTList = Array.from({ length: bt }, (_, i) => gap * (i + 1));
-let hTList = wTList.map((w) => w * ratio);
-let totalWidth = sum(wTList);
-let gridAreaList = [Array.from({ length: totalWidth }, () => '.')];
+let bt: number = 0;
+let wTList: number[] = [];
+let hTList: number[] = [];
+let totalWidth = 0;
+let gridAreaList: string[][] = [];
+
+function initGridParams({
+  c = 10, r = 2 / 3, g = 3, b = 3,
+}) {
+  count = c;
+  ratio = r;
+  gap = g;
+  bt = b;
+}
+
 //获取一行中的连续空白长度 [startColumn, endColumn][];
 const getEmptyWidth = (row: number) => {
   if (row >= gridAreaList.length) {
@@ -96,7 +107,11 @@ export default function GridPhoto({
   photos: CameraPageItem[];
   fetchNextCamera: () => Promise<boolean | undefined>;
 }) {
-  useEffectOnce(resetBaseData);
+  const isMobile = useCheckMobile();
+  useEffectOnce(() => {
+    initGridParams({ g: isMobile ? 6 : 3, b: isMobile ? 2 : 3 });
+    resetBaseData();
+  });
   const [messageApi, contextHolder] = message.useMessage();
   const container = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -122,6 +137,7 @@ export default function GridPhoto({
       .map((r) => '\'' + r + '\'')
       .join(' ');
   };
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   // 附加参数
   const t = useRef(0);
   const [gridTemplateAreas, setGridTemplateAreas] = useState('');
@@ -136,7 +152,7 @@ export default function GridPhoto({
     });
     getGridTemplateAreaStyle();
   }, [photos, setAllGridAreaNames]);
-  const { arrivedState } = useMyScroll(container, { mb: 1 });
+  const [inViewport] = useInViewport(loadMoreRef);
   const [baseWH, setBaseWH] = useState(90);
   const isLoadAll = useRef(false);
   const handleFetchNextCameraWithAnimation = useCallback(async () => {
@@ -156,9 +172,9 @@ export default function GridPhoto({
   }, [fetchNextCamera, baseWH, messageApi]);
   useUpdateEffect(() => {
     if (!gridRef.current || !container.current) return;
-    if (!arrivedState.bottom) return;
+    if (!inViewport) return;
     handleFetchNextCameraWithAnimation();
-  }, [arrivedState.bottom]);
+  }, [inViewport]);
   useAsyncEffect(async () => {
     if (!gridRef.current) return;
     setBaseWH(document.documentElement.clientWidth / 18);
@@ -188,7 +204,7 @@ export default function GridPhoto({
             </div>
           ))}
         </div>
-        <div className="h-96 w-full relative">
+        <div ref={loadMoreRef} className="h-96 w-full relative">
           <div
             className="transition-all duration-700 absolute select-none hover:text-purple-500 hover:bg-[#7700ff2b] hover:w-full hover:animate-pulse left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5 w-[80%] rounded-md text-center"
             onClick={handleFetchNextCameraWithAnimation}
@@ -197,13 +213,13 @@ export default function GridPhoto({
           </div>
         </div>
       </article>
-      {id.length && (
+      {id.length ? (
         <CameraInfo
           local={photos.find((p) => p.id === Number(id))!}
           handleSetId={setId}
           photoId={id}
         />
-      )}
+      ) : ''}
     </>
   );
 }
