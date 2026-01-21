@@ -1,10 +1,12 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { setHoverContainer } from '@/components/cursor/create';
+import { useCheckMobile } from '@/hooks/useCheckMobile';
 export default function CursorScope({ children, className }: { children: React.ReactNode; className?: string }) {
     const scopeRef = useRef<HTMLDivElement | null>(null);
-
+    const isMobile = useCheckMobile();
     useEffect(() => {
+        if (isMobile) return;
         const el = scopeRef.current;
         if (!el) return;
         function handlerEl() {
@@ -24,7 +26,7 @@ export default function CursorScope({ children, className }: { children: React.R
             el.removeEventListener('mouseenter', handlerEl);
             el.removeEventListener('mouseleave', handlerUf);
         };
-    }, []);
+    }, [isMobile]);
 
     return (
         <article ref={scopeRef} className={className}>

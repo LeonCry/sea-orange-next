@@ -8,6 +8,7 @@ import { useImmer } from 'use-immer';
 import { useAsyncEffect, useUpdateEffect } from 'ahooks';
 import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
+import CameraInfoMobile from './CameraInfoMobile';
 import { useEffectOnce } from 'react-use';
 import { message } from 'antd';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
@@ -214,11 +215,18 @@ export default function GridPhoto({
         </div>
       </article>
       {id.length ? (
-        <CameraInfo
-          local={photos.find((p) => p.id === Number(id))!}
-          handleSetId={setId}
-          photoId={id}
-        />
+        isMobile ?
+          <CameraInfoMobile
+            local={photos.find((p) => p.id === Number(id))!}
+            handleSetId={setId}
+            photoId={id}
+          />
+          :
+          <CameraInfo
+            local={photos.find((p) => p.id === Number(id))!}
+            handleSetId={setId}
+            photoId={id}
+          />
       ) : ''}
     </>
   );
