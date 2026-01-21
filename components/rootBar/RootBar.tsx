@@ -1,13 +1,14 @@
 'use client';
 import '@/app/enter-fade.scss';
 import { usePathname } from 'next/navigation';
+import { AppProgressBar } from 'next-nprogress-bar';
 import {
   Like,
   DarkMode,
   SunOne,
 } from '@icon-park/react';
 import HeaderPC from './HeaderPC';
-import { useEffect, useState, useMemo, useCallback, useRef, ReactNode } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef, ReactNode, Suspense } from 'react';
 import { darkStore } from '@/store/darkStore';
 import { useEffectOnce, useLocalStorage } from 'react-use';
 import { getCount } from '@/api/getSectionInfo';
@@ -121,37 +122,42 @@ const RootBar = () => {
   });
   const isMobile = useCheckMobile();
   return (
-    isMobile ? (
-      <HeaderMobile
-        renderTitle={renderTitle}
-        secPath={secPath}
-        secondPath={secondPath}
-        handleLike={handleLike}
-        memoizedLike={memoizedLike}
-        isLike={isLike}
-        handleDark={handleDark}
-        isDark={isDark}
-        memoizedDarkMode={memoizedDarkMode}
-        visitCount={visitCount}
-        isCount={isCount}
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-      />
-    ) : (
-      <HeaderPC
-        renderTitle={renderTitle}
-        secPath={secPath}
-        secondPath={secondPath}
-        handleLike={handleLike}
-        memoizedLike={memoizedLike}
-        isLike={isLike}
-        handleDark={handleDark}
-        isDark={isDark}
-        memoizedDarkMode={memoizedDarkMode}
-        visitCount={visitCount}
-        isCount={isCount}
-      />
-    )
+    <>
+      <Suspense fallback={null}>
+        <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
+      </Suspense>
+      {isMobile ?
+        <HeaderMobile
+          renderTitle={renderTitle}
+          secPath={secPath}
+          secondPath={secondPath}
+          handleLike={handleLike}
+          memoizedLike={memoizedLike}
+          isLike={isLike}
+          handleDark={handleDark}
+          isDark={isDark}
+          memoizedDarkMode={memoizedDarkMode}
+          visitCount={visitCount}
+          isCount={isCount}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+        />
+        :
+        <HeaderPC
+          renderTitle={renderTitle}
+          secPath={secPath}
+          secondPath={secondPath}
+          handleLike={handleLike}
+          memoizedLike={memoizedLike}
+          isLike={isLike}
+          handleDark={handleDark}
+          isDark={isDark}
+          memoizedDarkMode={memoizedDarkMode}
+          visitCount={visitCount}
+          isCount={isCount}
+        />
+      }
+    </>
   );
 };
 

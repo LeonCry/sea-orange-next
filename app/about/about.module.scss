@@ -1,0 +1,9 @@
+.about {
+  padding: 8px 100px;
+}
+
+@media screen and (width < 992px) and (orientation: portrait) {
+  .about {
+    padding: 8px 2px;
+  }
+}

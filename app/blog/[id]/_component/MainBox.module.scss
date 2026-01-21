@@ -1,6 +1,6 @@
 .main {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 200px;
   position: relative;
   height: calc(100vh - 64px);
   overflow: hidden;
@@ -29,6 +29,9 @@
 }
 
 @media screen and (width < 992px) and (orientation: portrait) {
+  .main {
+    padding: 10px 0;
+  }
   .md {
     overflow: auto;
     padding: 16px;

@@ -1,5 +1,4 @@
 import { Tv, GithubOne, UserPositioning, HamburgerButton } from '@icon-park/react';
-import { AppProgressBar } from 'next-nprogress-bar';
 import NumberFlow from '@number-flow/react';
 import { RootBarProps } from './RootBar';
 import style from './RootBar.module.scss';
@@ -28,7 +27,6 @@ const HeaderMobile = ({
     }
     return (
         <>
-            <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
             <div className="absolute top-0 left-0 px-2 w-full flex items-center justify-end z-30">
                 <div className={clsx('h-12 flex items-center enterFade w-full justify-end px-2 mt-4 rounded-2xl transition-all duration-500',
                     showMenu ? 'bg-[#ffffff80]' : 'bg-[#00000005]'

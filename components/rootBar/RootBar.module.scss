@@ -1,8 +1,6 @@
 .main {
-  background-image: radial-gradient(transparent 2px, white 2px);
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
-  -webkit-backdrop-filter: saturate(50%) blur(4px);
+  backdrop-filter: saturate(50%) blur(1px);
+  -webkit-backdrop-filter: saturate(50%) blur(1px);
 }
 .rootBar {
   @apply px-4 py-1 mx-1 rounded-xl;

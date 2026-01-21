@@ -64,7 +64,7 @@ export const ReadTime = () => {
     return <ReadBook className="mr-1" theme="outline" size="20" fill="#4c4f69" />;
   }, []);
   return (
-    <div className="absolute z-[9999] top-24 left-32 text-black bg-[#eaeaeb99] rounded-xl px-5 py-2 flex items-center gap-1">
+    <div className="absolute z-[9999] right-4 top-20 text-black bg-[#eaeaeb99] rounded-xl px-5 py-2 flex items-center gap-1">
       {readBookComponent}
       {hourNumberFlow}
       <span>:</span>

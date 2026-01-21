@@ -1,6 +1,7 @@
 'use server';
 import '@/app/enter-fade.scss';
 import '@/app/blog/[id]/_component/prose-md.scss';
+import style from './about.module.scss';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import gfm from 'remark-gfm';
@@ -12,7 +13,7 @@ const AboutMe = async () => {
   const content = await fs.readFile('app/about/about.en.md', 'utf8');
   return (
     <section className="h-full w-[100%]">
-      <article className="pt-2">
+      <article className={style.about}>
         <ReactMarkdown
           className=" prose prose-pre:bg-white prose-pre:p-0 !max-w-full enterFade"
           rehypePlugins={[rehypeRaw]}

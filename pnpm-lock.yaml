@@ -59,6 +59,9 @@ importers:
       next-nprogress-bar:
         specifier: ^2.3.9
         version: 2.4.7
+      nprogress:
+        specifier: ^0.2.0
+        version: 0.2.0
       nuqs:
         specifier: ^2.2.3
         version: 2.4.3(next@15.1.11(@babel/core@7.26.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.90.0))(react@19.0.0)
@@ -3673,6 +3676,9 @@ packages:
 
   nprogress-v2@1.1.10:
     resolution: {integrity: sha512-MypWLNIPIM07SS0bAc/oac0vhVFz9vAHm7d1sj//Pnf3J03LQ3CuWrlDteIu6exq0fIvkDJ6tUDRWLaifsIt5w==}
+
+  nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
 
   number-flow@0.4.2:
     resolution: {integrity: sha512-YLN73/m8BUU4r/6mq9zqLdpFKt3LSPPRectOECheA9jtNWF4PP8EIz0+Z1giqu/x9nS86KnKwwouLXXiqnjhQQ==}
@@ -8928,6 +8934,8 @@ snapshots:
       path-key: 4.0.0
 
   nprogress-v2@1.1.10: {}
+
+  nprogress@0.2.0: {}
 
   number-flow@0.4.2:
     dependencies:

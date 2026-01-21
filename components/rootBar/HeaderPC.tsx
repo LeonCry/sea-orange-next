@@ -5,7 +5,6 @@ import {
     GithubOne,
     UserPositioning,
 } from '@icon-park/react';
-import { AppProgressBar } from 'next-nprogress-bar';
 import NumberFlow from '@number-flow/react';
 import { RootBarProps } from './RootBar';
 import style from './RootBar.module.scss';
@@ -28,7 +27,6 @@ const HeaderPC = ({
     const activeStyle = '!text-[#585b70] bg-[#ffffffea] shadow animate-play';
     return (
         <>
-            <AppProgressBar height="2px" color="#ff9103" options={{ showSpinner: false }} />
             <div
                 className="text-3xl tracking-widest font-bold absolute top-4 left-10"
             >

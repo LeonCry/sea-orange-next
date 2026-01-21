@@ -81,3 +81,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #999aa378; /* 鼠标悬停在滚动滑块时的颜色 */
 }
+
+#nprogress .bar {
+  z-index: 99999 !important;
+}
