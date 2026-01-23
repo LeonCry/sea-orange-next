@@ -54,4 +54,22 @@ const deleteMdById = async (id: number) => {
     }
   }));
 };
-export { getAllBlogInfo, getBlogInfoById, insertMd, getBlogCategory, deleteMdById, updateBlogById };
+const getRSSData = async () => {
+  return executeWithDb(() => prisma.blogPageItem.findMany({
+    where: {
+      isShow: true,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      path: true,
+      updateTime: true,
+      category: true,
+    },
+    orderBy: {
+      updateTime: 'desc',
+    },
+  }));
+};
+export { getAllBlogInfo, getBlogInfoById, insertMd, getBlogCategory, deleteMdById, updateBlogById, getRSSData };

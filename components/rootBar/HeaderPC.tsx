@@ -98,7 +98,9 @@ const HeaderPC = ({
                             <span data-addtext>Github</span>
                         </li>
                         <li className={style.icon}>
-                            <CastScreen theme="outline" size="20" fill="#181926" />
+                            <a className="cursor-none" href="/feed.xml" target="_blank">
+                                <CastScreen theme="outline" size="20" fill="#181926" />
+                            </a>
                             <span data-addtext>RSS</span>
                         </li>
                         <li className={`${style.icon} mr-10`} onClick={handleDark}>

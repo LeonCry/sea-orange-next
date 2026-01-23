@@ -1,4 +1,4 @@
-import { Tv, GithubOne, UserPositioning, HamburgerButton } from '@icon-park/react';
+import { Tv, GithubOne, UserPositioning, HamburgerButton, CastScreen } from '@icon-park/react';
 import NumberFlow from '@number-flow/react';
 import { RootBarProps } from './RootBar';
 import style from './RootBar.module.scss';
@@ -69,6 +69,12 @@ const HeaderMobile = ({
                             <GithubOne theme="outline" size="20" fill="#181926" />
                         </a>
                         <span data-addtext>Github</span>
+                    </li>
+                    <li className={style.icon}>
+                        <a className="cursor-none" href="/feed.xml" target="_blank">
+                            <CastScreen theme="outline" size="20" fill="#181926" />
+                        </a>
+                        <span data-addtext>RSS</span>
                     </li>
                     <li className={`${style.icon} mr-10`} onClick={handleDark}>
                         {memoizedDarkMode}
