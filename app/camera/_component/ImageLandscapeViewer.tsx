@@ -6,11 +6,12 @@ import { createPortal } from 'react-dom';
 
 interface ImageLandscapeViewerProps {
     src: string;
+    cachedSrc?: string;
     alt?: string;
     onClose: () => void;
 }
 
-const ViewerInner = ({ src, alt = 'photo', onClose }: ImageLandscapeViewerProps) => {
+const ViewerInner = ({ src, cachedSrc, alt = 'photo', onClose }: ImageLandscapeViewerProps) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -31,21 +32,34 @@ const ViewerInner = ({ src, alt = 'photo', onClose }: ImageLandscapeViewerProps)
                 opacity: visible ? 1 : 0,
             }}
         >
-            {/* 模糊背景 */}
             <div className="absolute inset-0 overflow-hidden">
-                <Image
-                    src={src}
-                    alt="bg"
-                    fill
-                    quality={20}
-                    sizes="100vw"
-                    priority
-                    style={{
-                        objectFit: 'cover',
-                        filter: 'blur(48px)',
-                        transform: 'scale(1.15)',
-                    }}
-                />
+                {cachedSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={cachedSrc}
+                        alt="bg"
+                        className="absolute inset-0 w-full h-full"
+                        style={{
+                            objectFit: 'cover',
+                            filter: 'blur(48px)',
+                            transform: 'scale(1.15)',
+                        }}
+                    />
+                ) : (
+                    <Image
+                        src={src}
+                        alt="bg"
+                        fill
+                        quality={20}
+                        sizes="100vw"
+                        priority
+                        style={{
+                            objectFit: 'cover',
+                            filter: 'blur(48px)',
+                            transform: 'scale(1.15)',
+                        }}
+                    />
+                )}
                 <div className="absolute inset-0 bg-black/60" />
             </div>
 
@@ -62,15 +76,25 @@ const ViewerInner = ({ src, alt = 'photo', onClose }: ImageLandscapeViewerProps)
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="relative w-full h-full">
-                    <Image
-                        src={src}
-                        alt={alt}
-                        fill
-                        quality={95}
-                        sizes="100vh"
-                        priority
-                        style={{ objectFit: 'contain' }}
-                    />
+                    {cachedSrc ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            src={cachedSrc}
+                            alt={alt}
+                            className="absolute inset-0 w-full h-full"
+                            style={{ objectFit: 'contain' }}
+                        />
+                    ) : (
+                        <Image
+                            src={src}
+                            alt={alt}
+                            fill
+                            quality={95}
+                            sizes="100vh"
+                            priority
+                            style={{ objectFit: 'contain' }}
+                        />
+                    )}
                 </div>
 
                 <button

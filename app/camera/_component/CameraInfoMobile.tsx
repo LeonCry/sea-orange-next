@@ -4,11 +4,10 @@ import gridStyle from './Grid.module.scss';
 import { Acoustic, AppletClosed, Camera, Record } from '@icon-park/react';
 import { CameraPageItem } from '@prisma/client';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import clsx from 'clsx';
 import { useEffectOnce } from 'react-use';
 import { getPhotoById } from '@/api/cameraPageApi';
-import { updateTargetInHover } from 'cursorwith-ts/use';
 import ImageLandscapeViewer from './ImageLandscapeViewer';
 const CameraInfoMobile = ({
     local,
@@ -23,8 +22,8 @@ const CameraInfoMobile = ({
     const handleClose = async () => {
         if (!backdropRef.current) return;
         backdropRef.current.classList.remove(style.backdropBlurIn);
-        backdropRef.current.classList.add(style.backdropBlurOut);
-        await new Promise((resolve) => setTimeout(resolve, 1300));
+        backdropRef.current.classList.add(style.backdropBlurOutMobile);
+        await new Promise((resolve) => setTimeout(resolve, 500));
         handleSetId('');
     };
     const [photoInfo, setPhotoInfo] = useState<CameraPageItem | undefined>(local);
@@ -37,6 +36,11 @@ const CameraInfoMobile = ({
     });
     const [isLoadingComplete, setIsLoadingComplete] = useState(false);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const cachedSrcRef = useRef<string>('');
+    const handleMainImageLoad = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+        setIsLoadingComplete(true);
+        cachedSrcRef.current = e.currentTarget.currentSrc;
+    }, []);
     return (
         <>
             <section
@@ -82,7 +86,7 @@ const CameraInfoMobile = ({
                             )}
                             {photoInfo && (
                                 <Image
-                                    onLoad={() => setIsLoadingComplete(true)}
+                                    onLoad={handleMainImageLoad}
                                     src={photoInfo.photoSrc}
                                     alt="pic"
                                     fill
@@ -116,6 +120,7 @@ const CameraInfoMobile = ({
             {isViewerOpen && photoInfo && (
                 <ImageLandscapeViewer
                     src={photoInfo.photoSrc}
+                    cachedSrc={cachedSrcRef.current || undefined}
                     alt={photoInfo.name}
                     onClose={() => setIsViewerOpen(false)}
                 />
