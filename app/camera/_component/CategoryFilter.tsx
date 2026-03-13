@@ -48,7 +48,7 @@ const CategoryFilter = ({ categories, selectedCategory, onApply }: CategoryFilte
         <>
             <button
                 onClick={handleOpen}
-                className="fixed top-[175px] left-5 z-[51] flex items-center gap-1.5 px-8 py-1.5  bg-[#F1F1F1] rounded text-[#8B8D9B] text-xs border-[#8890ff] border select-none"
+                className="fixed top-[155px] left-5 z-[51] flex items-center gap-1.5 px-8 py-1.5 bg-white rounded text-[#8B8D9B] text-xs border-[#E5E7EB] border-dotted border-2 select-none"
             >
                 <Bloom theme="outline" size="16" fill="#8B8D9B" />
                 <span>CATE:</span>
