@@ -9,7 +9,6 @@ import { useAsyncEffect, useUpdateEffect } from 'ahooks';
 import { useQueryState } from 'nuqs';
 import CameraInfo from './CameraInfo';
 import CameraInfoMobile from './CameraInfoMobile';
-import { useEffectOnce } from 'react-use';
 import { message } from 'antd';
 import { useCheckMobile } from '@/hooks/useCheckMobile';
 import { useInViewport } from 'ahooks';
