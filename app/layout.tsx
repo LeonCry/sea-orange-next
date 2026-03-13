@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import { baseEN, baseZN } from '@/style/defineFont';
@@ -6,11 +6,21 @@ import RootBar from '../components/rootBar/RootBar';
 import Cursor from '@/components/cursor/Cursor';
 import Header from '../components/header/Header';
 import BackView from '../components/backgroundView/BackView';
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 export const metadata: Metadata = {
   title: 'voidis.me',
   keywords: ['voidis', 'blog', 'voidis.me', 'funny', 'camera', 'gossip', 'project'],
   description:
     'welcome to visit voidis.me, a collection of several small features, some front-end demos and learning notes on a personal website! ',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'voidis.me',
+  },
   openGraph: {
     title: 'voidis.me',
     description:
@@ -34,9 +44,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en-US" className={`${baseEN.variable} ${baseZN.variable}`}>
-      <body className="font-base bg-base-bg-color cursor-none h-screen overflow-hidden">
+      <body className="font-base bg-base-bg-color cursor-none h-dvh overflow-hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <NuqsAdapter>
-          <main className="flex flex-col-reverse h-screen z-10 relative">
+          <main className="flex flex-col-reverse h-dvh z-10 relative">
             <div id="overflow-container" className="flex-1 overflow-auto">
               {children}
             </div>

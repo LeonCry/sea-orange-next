@@ -25,10 +25,10 @@ html {
   padding-right: 10%;
 }
 .blog-main-box {
-  height: calc(100vh - 192px);
+  height: calc(100dvh - 192px);
 }
 .fix-h {
-  height: calc(100vh - 233px);
+  height: calc(100dvh - 233px);
 }
 .show-move-animation {
   animation: show-move 0.8s ease-in-out alternate;
