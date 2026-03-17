@@ -1,4 +1,4 @@
-const getUserAgentData = () => {
+const getUserAgentData = async () => {
   const userAgent = window.navigator.userAgent;
 
   let osInfo, browserInfo;
@@ -27,6 +27,14 @@ const getUserAgentData = () => {
   } else {
     browserInfo = 'Unknown Browser';
   }
-  return { machine: osInfo, browser: browserInfo };
+  let ip = 'unknown';
+  try {
+    const res = await fetch('/api/ip');
+    const data = await res.json();
+    ip = data.ip ?? 'unknown';
+  } catch {
+    // ignore
+  }
+  return { machine: `${osInfo} | ${ip}`, browser: browserInfo };
 };
 export default getUserAgentData;
