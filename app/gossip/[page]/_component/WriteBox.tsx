@@ -35,7 +35,7 @@ const WriteBox = ({ curPage, allComments }: { curPage: string; allComments: numb
         content: 'something is empty, please don`t let it',
       });
     }
-    const { machine, browser } = getUserAgentData();
+    const { machine, browser } = await getUserAgentData();
     setLoadings(true);
     await insertComment(comment, machine, browser);
     setLoadings(false);
