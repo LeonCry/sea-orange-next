@@ -45,6 +45,11 @@ const nextConfig = {
         hostname: 'cdn.jsdelivr.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'voidis-pic.oss-cn-shanghai.aliyuncs.com',
+        port: '',
+      },
     ],
     formats: ['image/webp'],
   },
